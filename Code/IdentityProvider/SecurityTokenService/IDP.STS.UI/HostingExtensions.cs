@@ -45,6 +45,24 @@ internal static class HostingExtensions
                 // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                 options.EmitStaticAudienceClaim = true;
             })
+            .AddConfigurationStore(options =>
+            {
+                options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(configurationStoreOptions.ConnectionString,
+                        sql => sql.MigrationsAssembly(configurationStoreOptions.MigrationsAssembly)
+                            .MigrationsHistoryTable(configurationStoreOptions.MigrationsHistoryTable, configurationStoreOptions.Schema));
+            })
+            .AddOperationalStore(options =>
+            {
+                options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(operationalStoreOptions.ConnectionString,
+                        sql => sql.MigrationsAssembly(operationalStoreOptions.MigrationsAssembly)
+                            .MigrationsHistoryTable(operationalStoreOptions.MigrationsHistoryTable,
+                                operationalStoreOptions.Schema));
+
+                options.EnableTokenCleanup = true;
+                options.TokenCleanupInterval = 3600;
+            })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)

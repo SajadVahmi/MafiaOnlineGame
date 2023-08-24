@@ -1,6 +1,6 @@
-﻿namespace IDP.Administration.Services.Models.UserServices
+﻿namespace IDP.Administration.Services.Users.Dtos
 {
-    public class CreateUserModel
+    public class CreateUserDto
     {
         public string? UserName { get; set; }
         public string? Email { get; set; }

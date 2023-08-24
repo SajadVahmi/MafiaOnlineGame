@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Duende.IdentityServer.EntityFramework.DbContexts;
 using IdentityModel;
 using IDP.Shared.IdentityStore.DbContexts;
 using IDP.Shared.IdentityStore.Models;
@@ -10,7 +11,7 @@ namespace IDP.STS.UI;
 
 public class SeedData
 {
-    public static void EnsureSeedData(WebApplication app)
+    public static void EnsureSeedIdentitySeedData(WebApplication app)
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
@@ -23,6 +24,7 @@ public class SeedData
             {
                 alice = new IdpUser
                 {
+                    Id = DateTime.Now.Ticks.ToString(),
                     UserName = "alice",
                     Email = "AliceSmith@email.com",
                     EmailConfirmed = true,
@@ -55,6 +57,7 @@ public class SeedData
             {
                 bob = new IdpUser
                 {
+                    Id = DateTime.Now.Ticks.ToString(),
                     UserName = "bob",
                     Email = "BobSmith@email.com",
                     EmailConfirmed = true
@@ -82,6 +85,24 @@ public class SeedData
             {
                 Log.Debug("bob already exists");
             }
+        }
+    }
+    public static void EnsureSeedConfigurationSeedData(WebApplication app)
+    {
+        using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            var context = scope.ServiceProvider.GetService<ConfigurationDbContext>();
+            context.Database.Migrate();
+
+        }
+    }
+    public static void EnsureSeedOperationalSeedData(WebApplication app)
+    {
+        using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            var context = scope.ServiceProvider.GetService<PersistedGrantDbContext>();
+            context.Database.Migrate();
+
         }
     }
 }

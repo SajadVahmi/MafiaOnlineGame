@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IDP.STS.ConfigurationStore.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20230824073535_init")]
-    partial class init
+    [Migration("20230824180019_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

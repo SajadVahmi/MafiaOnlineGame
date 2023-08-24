@@ -23,7 +23,9 @@ try
 
 
     Log.Information("Seeding database...");
-    SeedData.EnsureSeedData(app);
+    SeedData.EnsureSeedIdentitySeedData(app);
+    SeedData.EnsureSeedConfigurationSeedData(app);
+    SeedData.EnsureSeedOperationalSeedData(app);
     Log.Information("Done seeding database. Exiting.");
 
 
