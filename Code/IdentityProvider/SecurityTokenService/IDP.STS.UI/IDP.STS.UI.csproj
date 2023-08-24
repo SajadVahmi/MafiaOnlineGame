@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Duende.IdentityServer" Version="6.3.3" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Shared\IDP.Shared.IdentityStore\IDP.Shared.IdentityStore.csproj" />
+	  <ProjectReference Include="..\IDP.STS.ConfigurationStore\IDP.STS.ConfigurationStore.csproj" />
+	  <ProjectReference Include="..\IDP.STS.OperationalStore\IDP.STS.OperationalStore.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,2 @@
+﻿add-migration init -Context ConfigurationDbContext -o Migrations
+update-database -Context ConfigurationDbContext
