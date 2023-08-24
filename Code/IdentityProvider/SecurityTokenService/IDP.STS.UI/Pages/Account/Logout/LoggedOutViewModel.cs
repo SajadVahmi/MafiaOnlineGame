@@ -3,7 +3,7 @@
 // See LICENSE in the project root for license information.
 
 
-namespace IDP.STS.UI.Pages.Account.Logout;
+namespace IDP.STS.UI.Pages.Logout;
 
 public class LoggedOutViewModel
 {

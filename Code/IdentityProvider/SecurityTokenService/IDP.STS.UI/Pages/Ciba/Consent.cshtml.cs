@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace IDP.STS.UI.Pages.Ciba;
 
 [Authorize]
-[SecurityHeaders]
+[SecurityHeadersAttribute]
 public class Consent : PageModel
 {
     private readonly IBackchannelAuthenticationInteractionService _interaction;

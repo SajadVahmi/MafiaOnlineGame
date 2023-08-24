@@ -2,7 +2,7 @@ using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace IDP.STS.UI.Pages.Account.Logout;
+namespace IDP.STS.UI.Pages.Logout;
 
 [SecurityHeaders]
 [AllowAnonymous]

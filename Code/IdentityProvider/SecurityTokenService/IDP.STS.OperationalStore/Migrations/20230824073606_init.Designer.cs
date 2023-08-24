@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace SecurityTokenService.Persistence.OperationalStore.Migrations
+namespace IDP.STS.OperationalStore.Migrations
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20230820112514_init")]
+    [Migration("20230824073606_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SecurityTokenService.Persistence.OperationalStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

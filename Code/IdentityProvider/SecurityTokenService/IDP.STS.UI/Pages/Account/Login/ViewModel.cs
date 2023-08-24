@@ -1,7 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-namespace IDP.STS.UI.Pages.Account.Login;
+namespace IDP.STS.UI.Pages.Login;
 
 public class ViewModel
 {

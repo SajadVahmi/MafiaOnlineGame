@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SecurityTokenService.Persistence.OperationalStore.Migrations
+namespace IDP.STS.OperationalStore.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

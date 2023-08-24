@@ -1,4 +1,4 @@
-namespace IDP.STS.UI.Pages.Account.Login;
+namespace IDP.STS.UI.Pages.Login;
 
 public class LoginOptions
 {

@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IDP.STS.UI.Pages.Account.Login;
+namespace IDP.STS.UI.Pages.Login;
 
 public class InputModel
 {

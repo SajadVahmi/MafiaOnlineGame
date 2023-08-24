@@ -1,5 +1,5 @@
 
-namespace IDP.STS.UI.Pages.Account.Logout;
+namespace IDP.STS.UI.Pages.Logout;
 
 public class LogoutOptions
 {

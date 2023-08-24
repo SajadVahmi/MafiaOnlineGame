@@ -19,10 +19,18 @@ try
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
-    
+
+
+
+    Log.Information("Seeding database...");
+    SeedData.EnsureSeedData(app);
+    Log.Information("Done seeding database. Exiting.");
+
+
+
     app.Run();
 }
-catch (Exception ex)
+catch (Exception ex) 
 {
     Log.Fatal(ex, "Unhandled exception");
 }

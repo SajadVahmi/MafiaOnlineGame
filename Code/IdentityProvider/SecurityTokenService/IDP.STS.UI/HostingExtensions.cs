@@ -13,6 +13,8 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddRazorPages();
+
         var configurationStoreOptions = builder.Configuration.GetSection("ConfigurationStore").Get<ConfiguratonStoreOptions>();
 
         var operationalStoreOptions = builder.Configuration.GetSection("OperationalStore").Get<OperationalStoreOptions>();
@@ -32,33 +34,22 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<IdpDbContext>()
             .AddDefaultTokenProviders();
 
-        builder.Services.AddIdentityServer()
-            .AddAspNetIdentity<IdpUser>()
-            .AddConfigurationStore(options =>
+        builder.Services
+            .AddIdentityServer(options =>
             {
-                options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(configurationStoreOptions.ConnectionString,
-                        sql => sql.MigrationsAssembly(configurationStoreOptions.MigrationsAssembly)
-                            .MigrationsHistoryTable(configurationStoreOptions.MigrationsHistoryTable, configurationStoreOptions.Schema));
-            })
-            .AddOperationalStore(options =>
-            {
-                options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(operationalStoreOptions.ConnectionString,
-                        sql => sql.MigrationsAssembly(operationalStoreOptions.MigrationsAssembly)
-                            .MigrationsHistoryTable(operationalStoreOptions.MigrationsHistoryTable,
-                                operationalStoreOptions.Schema));
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
 
-                options.EnableTokenCleanup = true;
-                options.TokenCleanupInterval = 3600;
+                // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
+                options.EmitStaticAudienceClaim = true;
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients);
+            .AddInMemoryClients(Config.Clients)
+            .AddAspNetIdentity<IdpUser>();
 
-        builder.Services.AddRazorPages();
-
-        builder.Services.AddAuthentication();
 
         return builder.Build();
     }
