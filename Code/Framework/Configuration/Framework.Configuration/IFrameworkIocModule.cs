@@ -1,7 +1,6 @@
-﻿namespace Framework.Configuration
+﻿namespace Framework.Configuration;
+
+public interface IFrameworkIocModule : IFrameworkModule
 {
-    public interface IFrameworkIocModule : IFrameworkModule
-    {
-        IDependencyRegister CreateServiceRegistry();
-    }
+    IDependencyRegister CreateServiceRegistry();
 }

@@ -1,8 +1,7 @@
-﻿namespace Framework.Configuration.Loaders
+﻿namespace Framework.Configuration.Loaders;
+
+public interface IModuleBuilder
 {
-    public interface IModuleBuilder
-    {
-        IModuleBuilder WithModule(IFrameworkModule module);
-        IModuleBuilder WithModule<T>() where T : IFrameworkModule, new();
-    }
+    IModuleBuilder WithModule(IFrameworkModule module);
+    IModuleBuilder WithModule<T>() where T : IFrameworkModule, new();
 }

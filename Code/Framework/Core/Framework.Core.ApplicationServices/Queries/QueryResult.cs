@@ -1,10 +1,8 @@
 ﻿
-using Framework.Core.ApplicationServices.Services;
 
 namespace Framework.Core.ApplicationServices.Queries;
 
-
-public sealed class QueryResult<TData> : ApplicationServiceResult
+public sealed class QueryResult<TData> 
 {
     public TData? Data { get; set; }
 }

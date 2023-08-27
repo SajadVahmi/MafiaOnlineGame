@@ -1,7 +1,6 @@
-﻿namespace Framework.Configuration
+﻿namespace Framework.Configuration;
+
+public interface IFrameworkModule
 {
-    public interface IFrameworkModule
-    {
-        void Register(IDependencyRegister dependencyRegister);
-    }
+    void Register(IDependencyRegister dependencyRegister);
 }

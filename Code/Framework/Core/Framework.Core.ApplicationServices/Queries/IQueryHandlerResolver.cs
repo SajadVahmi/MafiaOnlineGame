@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Framework.Core.ApplicationServices.Queries;
 
-namespace Framework.Core.ApplicationServices.Queries
+public interface IQueryHandlerResolver
 {
-    public interface IQueryHandlerResolver
-    {
-        IQueryHandler<TRequest, TResponse> ResolveHandlers<TRequest, TResponse>(TRequest request) where TRequest : class, IQuery<TResponse>;
-    }
+    IQueryHandler<TQuery, TResponse> ResolveHandlers<TQuery, TResponse>(TQuery request) where TQuery : class, IQuery<TResponse>;
 }
-
