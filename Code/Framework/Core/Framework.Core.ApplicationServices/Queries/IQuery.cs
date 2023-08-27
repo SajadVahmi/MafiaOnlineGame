@@ -1,6 +1,8 @@
 ﻿namespace Framework.Core.ApplicationServices.Queries;
 
-public interface IQuery<TData>
+public interface IQuery<TResponse>
 {
 }
+
+
 

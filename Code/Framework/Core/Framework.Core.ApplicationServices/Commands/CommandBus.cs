@@ -11,33 +11,21 @@ public class CommandBus : ICommandBus
         _resolver = resolver;
     }
 
-    public async Task<CommandResult> SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, IAsyncCommand
+    public async Task<CommandResult> SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, ICommand
     {
-        var handler = _resolver.ResolveAsyncHandlers(command);
+        var handler = _resolver.ResolveHandlers(command);
 
         return await handler.HandleAsync(command, cancellationToken);
     }
 
 
-    public async Task<CommandResult<TData>> SendAsync<TCommand, TData>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, IAsyncCommand<TData>
+    public async Task<CommandResult<TData>> SendAsync<TCommand, TData>(TCommand command, CancellationToken cancellationToken = default) where TCommand : class, ICommand<TData>
     {
-        var handler = _resolver.ResolveAsyncHandlers<TCommand, TData>(command);
+        var handler = _resolver.ResolveHandlers<TCommand, TData>(command);
 
         return await handler.HandleAsync(command,cancellationToken);
 
     }
 
-    public CommandResult Send<TCommand>(TCommand command) where TCommand : class, ICommand
-    {
-        var handler = _resolver.ResolveHandlers(command);
-
-        return handler.Handle(command);
-    }
-
-   public CommandResult<TData> Send<TCommand, TData>(TCommand command) where TCommand : class, ICommand<TData>
-    {
-        var handler = _resolver.ResolveHandlers<TCommand, TData>(command);
-
-        return handler.Handle(command);
-    }
+    
 }

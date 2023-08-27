@@ -18,4 +18,3 @@ public class PageQuery<TData> : IPageQuery<TData>
 
 
 
-
