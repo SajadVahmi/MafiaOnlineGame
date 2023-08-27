@@ -1,6 +1,6 @@
 ﻿namespace Framework.Core.ApplicationServices.Queries;
 
-public interface IPageQuery<TData> : IQuery<TData>
+public interface IPageQuery<TResponse> : IQuery<TResponse>
 {
     public int PageNumber { get; set; }
 
@@ -14,3 +14,5 @@ public interface IPageQuery<TData> : IQuery<TData>
 
     public bool SortDescending { get; set; }
 }
+
+

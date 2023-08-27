@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Framework.Core.Domian.Aggregates;
 
 public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId : notnull
-          
+
 {
 
     private readonly List<IDomainEvent> _events = new();
