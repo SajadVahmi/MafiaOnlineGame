@@ -4,6 +4,8 @@ namespace Framework.Configuration;
 
 public interface IDependencyRegister
 {
+    void RegisterDomainServices(Assembly assembly);
+    void RegisterApplicationServices(Assembly assembly);
     void RegisterCommandHandlers(Assembly assembly);
     void RegisterQueryHandlers(Assembly assembly);
     void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService;

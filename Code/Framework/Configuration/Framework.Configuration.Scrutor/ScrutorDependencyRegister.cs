@@ -2,6 +2,8 @@
 using Framework.Core.ApplicationServices.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Framework.Core.ApplicationServices.ApplicationServices;
+using Framework.Core.Domian.DomainServices;
 
 namespace Framework.Configuration.Scrutor;
 
@@ -13,6 +15,23 @@ public class ScrutorDependencyRegister : IDependencyRegister
     {
         _services = services;
     }
+
+    public void RegisterDomainServices(Assembly assembly)
+    {
+        _services.Scan(s => s.FromAssemblies(assembly)
+            .AddClasses(c => c.AssignableToAny(typeof(IDomainService)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+    }
+
+    public void RegisterApplicationServices(Assembly assembly)
+    {
+        _services.Scan(s => s.FromAssemblies(assembly)
+            .AddClasses(c => c.AssignableToAny(typeof(IApplicationService)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+    }
+
     public void RegisterCommandHandlers(Assembly assembly)
     {
         _services.Scan(s => s.FromAssemblies(assembly)
