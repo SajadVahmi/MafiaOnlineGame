@@ -2,6 +2,9 @@
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
 using System.Reflection;
+using Framework.Core.ApplicationServices.ApplicationServices;
+using Framework.Core.Domian.DomainServices;
+using Framework.Core.Domian.Events;
 
 namespace Framework.Configuration.Autofac;
 
@@ -14,6 +17,22 @@ public class AutofacDependencyRegister : IDependencyRegister
         _container = container;
     }
 
+    public void RegisterDomainServices(Assembly assembly)
+    {
+        _container.RegisterAssemblyTypes(assembly)
+            .As(type => type.GetInterfaces()
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IDomainService))))
+            .InstancePerLifetimeScope();
+    }
+
+    public void RegisterApplicationServices(Assembly assembly)
+    {
+        _container.RegisterAssemblyTypes(assembly)
+            .As(type => type.GetInterfaces()
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IApplicationService))))
+            .InstancePerLifetimeScope();
+    }
+
     public void RegisterCommandHandlers(Assembly assembly)
     {
         _container.RegisterAssemblyTypes(assembly)
@@ -21,6 +40,8 @@ public class AutofacDependencyRegister : IDependencyRegister
                 .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(ICommandHandler<>))))
             .InstancePerLifetimeScope();
     }
+
+    
 
     public void RegisterQueryHandlers(Assembly assembly)
     {
