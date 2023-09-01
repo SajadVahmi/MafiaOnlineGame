@@ -2,6 +2,9 @@
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
 using System.Reflection;
+using Framework.Core.ApplicationServices.ApplicationServices;
+using Framework.Core.Domian.DomainServices;
+using Framework.Core.Domian.Events;
 
 namespace Framework.Configuration.Autofac;
 
@@ -12,6 +15,22 @@ public class AutofacDependencyRegister : IDependencyRegister
     public AutofacDependencyRegister(ContainerBuilder container)
     {
         _container = container;
+    }
+
+    public void RegisterDomainServices(Assembly assembly)
+    {
+        _container.RegisterAssemblyTypes(assembly)
+            .As(type => type.GetInterfaces()
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IDomainService))))
+            .InstancePerLifetimeScope();
+    }
+
+    public void RegisterApplicationServices(Assembly assembly)
+    {
+        _container.RegisterAssemblyTypes(assembly)
+            .As(type => type.GetInterfaces()
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IApplicationService))))
+            .InstancePerLifetimeScope();
     }
 
     public void RegisterCommandHandlers(Assembly assembly)
@@ -36,7 +55,6 @@ public class AutofacDependencyRegister : IDependencyRegister
         _container.RegisterType<TImplementation>().As<TService>().InstancePerLifetimeScope();
     }
 
-      
     public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
     {
         _container.RegisterType<TImplementation>().As<TService>().SingleInstance();
@@ -52,5 +70,15 @@ public class AutofacDependencyRegister : IDependencyRegister
     public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
     {
         _container.RegisterType<TImplementation>().As<TService>().InstancePerDependency();
+    }
+
+    public void RegisterDecorator<TService, TDecorator>() where TDecorator : TService
+    {
+        _container.RegisterDecorator<TDecorator, TService>();
+    }
+
+    public void RegisterDecorator(Type service, Type decorator)
+    {
+        _container.RegisterGenericDecorator(decorator, service);
     }
 }
