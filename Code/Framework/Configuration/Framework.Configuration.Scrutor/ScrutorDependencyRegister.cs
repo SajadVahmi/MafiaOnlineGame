@@ -68,4 +68,14 @@ public class ScrutorDependencyRegister : IDependencyRegister
     {
         _services.AddTransient(typeof(TService), typeof(TImplementation));
     }
+
+    public void RegisterDecorator<TService, TDecorator>() where TDecorator : TService
+    {
+        _services.Decorate<TService, TDecorator>();
+    }
+
+    public void RegisterDecorator(Type service, Type decorator)
+    {
+        _services.Decorate(service,decorator);
+    }
 }

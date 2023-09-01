@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ServiceContracts;
+﻿namespace Framework.Core.Contracts;
 
 public interface IAuthenticatedUser
 {

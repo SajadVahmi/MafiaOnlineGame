@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Framework.Infra.EF.Commands
+namespace Framework.EntityFramework.Commands
 {
     public class OutBoxEventItemConfiguration:IEntityTypeConfiguration<OutBoxEventItem>
     {

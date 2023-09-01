@@ -1,10 +1,10 @@
-﻿using Framework.Core.ServiceContracts;
+﻿using Framework.Core.Contracts;
 using Framework.Infra.OutBox.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Framework.Infra.EF.Commands
+namespace Framework.EntityFramework.Commands
 {
     public class CommandDbContext : DbContext
     {

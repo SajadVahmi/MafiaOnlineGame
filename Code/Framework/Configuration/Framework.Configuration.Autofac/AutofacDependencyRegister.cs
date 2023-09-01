@@ -41,8 +41,6 @@ public class AutofacDependencyRegister : IDependencyRegister
             .InstancePerLifetimeScope();
     }
 
-    
-
     public void RegisterQueryHandlers(Assembly assembly)
     {
         _container
@@ -57,7 +55,6 @@ public class AutofacDependencyRegister : IDependencyRegister
         _container.RegisterType<TImplementation>().As<TService>().InstancePerLifetimeScope();
     }
 
-      
     public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
     {
         _container.RegisterType<TImplementation>().As<TService>().SingleInstance();
@@ -73,5 +70,15 @@ public class AutofacDependencyRegister : IDependencyRegister
     public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
     {
         _container.RegisterType<TImplementation>().As<TService>().InstancePerDependency();
+    }
+
+    public void RegisterDecorator<TService, TDecorator>() where TDecorator : TService
+    {
+        _container.RegisterDecorator<TDecorator, TService>();
+    }
+
+    public void RegisterDecorator(Type service, Type decorator)
+    {
+        _container.RegisterGenericDecorator(decorator, service);
     }
 }

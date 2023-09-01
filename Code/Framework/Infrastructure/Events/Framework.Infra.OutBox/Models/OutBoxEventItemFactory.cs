@@ -1,6 +1,6 @@
-﻿using Framework.Core.Domian.Aggregates;
+﻿using Framework.Core.Contracts;
+using Framework.Core.Domian.Aggregates;
 using Framework.Core.Domian.Events;
-using Framework.Core.ServiceContracts;
 
 namespace Framework.Infra.OutBox.Models;
 

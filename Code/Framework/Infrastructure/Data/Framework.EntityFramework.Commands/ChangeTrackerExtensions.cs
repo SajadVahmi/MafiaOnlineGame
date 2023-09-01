@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Framework.Infra.EF.Commands;
+namespace Framework.EntityFramework.Commands;
 public static class ChangeTrackerExtensions
 {
     public static List<IAggregateRoot> GetChangedAggregates(this ChangeTracker changeTracker) =>

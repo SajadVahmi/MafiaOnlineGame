@@ -10,7 +10,4 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
 	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\..\Events\Framework.Infra.OutBox\Framework.Infra.OutBox.csproj" />
-	</ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ public abstract class Entity<TId> :
     where TId : notnull
 {
     protected Entity() { }
-    public TId Id { get; protected set; } = default!;
+    public TId Id { get;protected set; } = default!;
 
     #region Equality Check
     public bool Equals(Entity<TId>? other) => this == other;
