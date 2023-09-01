@@ -1,5 +1,5 @@
 ﻿namespace Framework.Core.Domian.Events;
 
-public interface IDomainEvent
+public interface IDomainEvent:IEvent
 {
 }
