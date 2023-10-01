@@ -59,6 +59,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDP.Administration.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDP.Shared.IdentityStore", "IdentityProvider\src\Shared\IDP.Shared.IdentityStore\IDP.Shared.IdentityStore.csproj", "{3F5C911C-B0DF-4DD0-A693-45D0E477F69C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Administration", "Administration", "{096DA738-FEBC-42B9-BB8E-02A3E87F6655}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecurityTokenService", "SecurityTokenService", "{B84BEBD2-51AD-4E62-8879-F73450D2B4AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDP.Administration.Api.Test.Integration", "IdentityProvider\test\Administration\IDP.Administration.Api.Test.Integration\IDP.Administration.Api.Test.Integration.csproj", "{B013DEC2-828C-4D0C-87AD-9644D01100D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +135,10 @@ Global
 		{3F5C911C-B0DF-4DD0-A693-45D0E477F69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F5C911C-B0DF-4DD0-A693-45D0E477F69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F5C911C-B0DF-4DD0-A693-45D0E477F69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B013DEC2-828C-4D0C-87AD-9644D01100D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B013DEC2-828C-4D0C-87AD-9644D01100D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B013DEC2-828C-4D0C-87AD-9644D01100D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B013DEC2-828C-4D0C-87AD-9644D01100D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +170,9 @@ Global
 		{90C97E6D-5F02-45AA-9A6C-94770E8FC511} = {4BE146EB-B3FF-4AFE-B677-A460DB2A2CBD}
 		{41F0DFDF-14DA-4FCA-8936-1C26632E4834} = {4BE146EB-B3FF-4AFE-B677-A460DB2A2CBD}
 		{3F5C911C-B0DF-4DD0-A693-45D0E477F69C} = {E74C29E5-6C02-453A-A26B-575FAE4658C6}
+		{096DA738-FEBC-42B9-BB8E-02A3E87F6655} = {C5CB10E6-9F67-4719-9310-97783AA9AEFB}
+		{B84BEBD2-51AD-4E62-8879-F73450D2B4AC} = {C5CB10E6-9F67-4719-9310-97783AA9AEFB}
+		{B013DEC2-828C-4D0C-87AD-9644D01100D7} = {096DA738-FEBC-42B9-BB8E-02A3E87F6655}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {897DF787-74FF-43C5-8CA4-5913E18ABCBF}

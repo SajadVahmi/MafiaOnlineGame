@@ -1,7 +1,8 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IDP.Administration.Api.V1.Users.Mappers;
-using IDP.Administration.Api.V1.Users.Validations;
+using IDP.Administration.Api.Users.Mappers;
+using IDP.Administration.Api.Users.Validations;
+using IDP.Administration.ServiceHost.Helpers;
 using IDP.Administration.Services.Users.Services;
 using IDP.Shared.IdentityStore.DbContexts;
 using IDP.Shared.IdentityStore.Models;
@@ -13,6 +14,16 @@ namespace IDP.Administration.ServiceHost;
 
 public static class HostingExtensions
 {
+    public static WebApplicationBuilder ConfigureConfiguration(this WebApplicationBuilder builder)
+    {
+        var appSettingsPath = $"appsettings.{EnvironmentHelper.GetHostingEnvironment()}.json";
+
+        builder.Configuration
+            .AddJsonFile(path: appSettingsPath, optional: true, reloadOnChange: true).AddEnvironmentVariables();
+
+        return builder;
+    }
+
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddControllers();
@@ -24,7 +35,7 @@ public static class HostingExtensions
         builder.Services.AddScoped<IUserServices, UserServices>();
 
         builder.Services.AddAutoMapper(
-            typeof(IDP.Administration.Api.V1.Users.Mappers.UserMapper),
+            typeof(UserMapper),
             typeof(Services.Users.Mappers.UserMapper));
 
         builder.Services.AddFluentValidationAutoValidation();

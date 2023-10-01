@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDP.Administration.Api.V1.Users.Models
+namespace IDP.Administration.Api.Users.Models
 {
     public class CreateUserRequestBody
     {

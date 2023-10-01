@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using IDP.Administration.Api.V1.Users.Models;
+using IDP.Administration.Api.Users.Models;
 
-namespace IDP.Administration.Api.V1.Users.Validations
+namespace IDP.Administration.Api.Users.Validations
 {
-    public class CreateUserRequestBodyValidator:AbstractValidator<CreateUserRequestBody>
+    public class CreateUserRequestBodyValidator : AbstractValidator<CreateUserRequestBody>
     {
         public CreateUserRequestBodyValidator()
         {

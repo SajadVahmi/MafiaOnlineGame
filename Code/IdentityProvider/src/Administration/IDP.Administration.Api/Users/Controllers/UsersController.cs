@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using IDP.Administration.Api.V1.Users.Models;
+using IDP.Administration.Api.Users.Models;
 using IDP.Administration.Services.Users.Dtos;
 using IDP.Administration.Services.Users.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace IDP.Administration.Api.V1.Users.Controllers
+namespace IDP.Administration.Api.Users.Controllers
 {
     [ApiController]
     [Route("v1/users")]
@@ -16,7 +16,7 @@ namespace IDP.Administration.Api.V1.Users.Controllers
         private readonly IUserServices _userServices;
         private readonly IMapper _mapper;
 
-        public UsersController(IUserServices userServices,IMapper mapper)
+        public UsersController(IUserServices userServices, IMapper mapper)
         {
             _userServices = userServices;
             _mapper = mapper;
@@ -27,9 +27,9 @@ namespace IDP.Administration.Api.V1.Users.Controllers
             CancellationToken cancellationToken = default)
         {
 
-            var createUserModel=_mapper.Map<CreateUserDto>(requestBody);
+            var createUserModel = _mapper.Map<CreateUserDto>(requestBody);
 
-            (IdentityResult result,string userId) createUserResult=await _userServices.CreateUserAsync(createUserModel, cancellationToken);
+            (IdentityResult result, string userId) createUserResult = await _userServices.CreateUserAsync(createUserModel, cancellationToken);
 
             if (createUserResult.result.Succeeded)
                 return Created(string.Empty, createUserResult.userId);
