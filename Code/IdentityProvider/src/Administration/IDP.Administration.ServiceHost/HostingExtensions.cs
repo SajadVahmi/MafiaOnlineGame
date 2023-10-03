@@ -2,7 +2,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using IDP.Administration.Api.Users.Mappers;
 using IDP.Administration.Api.Users.Validations;
-using IDP.Administration.ServiceHost.Helpers;
 using IDP.Administration.Services.Users.Services;
 using IDP.Shared.IdentityStore.DbContexts;
 using IDP.Shared.IdentityStore.Models;
@@ -16,7 +15,7 @@ public static class HostingExtensions
 {
     public static WebApplicationBuilder ConfigureConfiguration(this WebApplicationBuilder builder)
     {
-        var appSettingsPath = $"appsettings.{EnvironmentHelper.GetHostingEnvironment()}.json";
+        var appSettingsPath = $"appsettings.{builder.Environment.EnvironmentName}.json";
 
         builder.Configuration
             .AddJsonFile(path: appSettingsPath, optional: true, reloadOnChange: true).AddEnvironmentVariables();
@@ -34,28 +33,15 @@ public static class HostingExtensions
 
         builder.Services.AddScoped<IUserServices, UserServices>();
 
-        builder.Services.AddAutoMapper(
-            typeof(UserMapper),
-            typeof(Services.Users.Mappers.UserMapper));
+        builder.Services.AddAutoMapper(typeof(UserMapper), typeof(Services.Users.Mappers.UserMapper));
 
         builder.Services.AddFluentValidationAutoValidation();
 
         builder.Services.AddValidatorsFromAssemblyContaining<CreateUserRequestBodyValidator>();
 
-        var identityStoreOptions = builder.Configuration.GetSection("IdentityStore").Get<IdentityStoreOptions>();
+        ConfigureDatabase(builder);
 
-        builder.Services.AddDbContext<IdpDbContext>(options =>
-            options.UseSqlServer(identityStoreOptions.ConnectionString,
-                x =>
-                {
-                    x.MigrationsAssembly(identityStoreOptions.MigrationsAssembly);
-                    x.MigrationsHistoryTable(identityStoreOptions.MigrationsHistoryTable, identityStoreOptions.Schema);
-                }
-            ));
-
-        builder.Services.AddIdentity<IdpUser, IdentityRole>()
-            .AddEntityFrameworkStores<IdpDbContext>()
-            .AddDefaultTokenProviders();
+        ConfigureIdentity(builder);
 
         return builder.Build();
     }
@@ -73,5 +59,33 @@ public static class HostingExtensions
         app.MapControllers();
 
         return app;
+    }
+
+
+    private static void ConfigureDatabase(WebApplicationBuilder builder)
+    {
+        var identityStoreOptions = builder.Configuration.GetSection("IdentityStore").Get<IdentityStoreOptions>();
+
+        builder.Services.AddDbContext<IdpDbContext>(options =>
+            options.UseSqlServer(identityStoreOptions.ConnectionString,
+                x =>
+                {
+                    x.MigrationsAssembly(identityStoreOptions.MigrationsAssembly);
+                    x.MigrationsHistoryTable(identityStoreOptions.MigrationsHistoryTable, identityStoreOptions.Schema);
+                }
+            ));
+
+        using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<IdpDbContext>();
+            db.Database.Migrate();
+        }
+    }
+
+    private static void ConfigureIdentity(WebApplicationBuilder builder)
+    {
+        builder.Services.AddIdentity<IdpUser, IdentityRole>()
+          .AddEntityFrameworkStores<IdpDbContext>()
+          .AddDefaultTokenProviders();
     }
 }

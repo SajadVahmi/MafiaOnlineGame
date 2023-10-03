@@ -10,7 +10,7 @@ using System;
 namespace IDP.Administration.Api.Users.Controllers
 {
     [ApiController]
-    [Route("v1/users")]
+    [Route("[Controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IUserServices _userServices;

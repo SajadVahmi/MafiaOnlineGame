@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using IDP.Shared.IdentityStore.DbContexts;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace IDP.Administration.Api.Test.Integration.Fixtures
 {
-    [CollectionDefinition("IdpWebApp collection")]
-    public class IdpWebApplicationFactoryFixture : ICollectionFixture<IdpWebApplicationFactory<Program>>
+    [CollectionDefinition("IdpWebApp Collection")]
+    public class IdpWebApplicationFactoryFixture :ICollectionFixture<CustomWebApplicationFactory<Program>>
     {
-    
+
     }
 }
