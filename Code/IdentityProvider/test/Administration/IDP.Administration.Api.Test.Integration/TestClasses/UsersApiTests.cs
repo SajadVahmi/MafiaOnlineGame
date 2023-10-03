@@ -21,7 +21,7 @@ namespace IDP.Administration.Api.Test.Integration.TestClasses
         {
 
             var createRequestBody = CreateUserRequestBodyBuilder.Instantiate().BuildRequest();
-            
+
             var response = await Client.PostAsync(UsersTestData.Endpoints.Create, createRequestBody);
 
             response.StatusCode.Should().Be(HttpStatusCode.Created);

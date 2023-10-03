@@ -27,18 +27,17 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId
     {
         Mutate(@event);
 
-        AddEvent(@event);
+        Causes(@event);
     }
 
     private void Mutate(IDomainEvent @event)
     {
-        var onMethod = this.GetType().GetMethod("On", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { @event.GetType() });
-
+        var onMethod = this.GetType().GetMethod("When", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { @event.GetType() });
         onMethod?.Invoke(this, new[] { @event });
     }
 
 
-    protected void AddEvent(IDomainEvent @event) => _events.Add(@event);
+    protected void Causes(IDomainEvent @event) => _events.Add(@event);
 
 
     public IEnumerable<IDomainEvent> GetEvents() => _events.AsEnumerable();
