@@ -16,19 +16,14 @@ namespace IDP.Administration.Api.Test.Integration.TestData
         }
        public static class Sajad
        {
-            public static string? Email = "sajad.vahmi@gmail.com";
-            public static string? Mobile = "09387607524";
-            public static bool? LockoutEnabled = false;
-            public static bool? TwoFactorEnabled = false;
-            public static bool? OtpSmsEnabled = false;
+            public static string Email = "sajad.vahmi@gmail.com";
+            public static string PhoneNumber = "09387607524";
         }
         public static class Somebody
         {
-            public static string? Email =Faker.Internet.Email();
-            public static string? Mobile = $"0918{Random.Next(0,9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}";
-            public static bool? LockoutEnabled = false;
-            public static bool? TwoFactorEnabled = false;
-            public static bool? OtpSmsEnabled = false;
+            public static string Email =Faker.Internet.Email();
+            public static string PhoneNumber = $"0918{Random.Next(0,9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}{Random.Next(0, 9)}";
+
         }
     }
 }

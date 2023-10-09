@@ -10,6 +10,8 @@ namespace IDP.Administration.Services.Users.Mappers
         {
             CreateMap<CreateUserDto, IdpUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.PhoneNumber));
+
+            CreateMap<IdpUser, CreatedUserDto>();
         }
     }
 }

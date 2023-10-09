@@ -15,7 +15,7 @@ namespace IDP.Administration.Services.Users.Services
             _userManager = userManager;
             _mapper = mapper;
         }
-        public async Task<(IdentityResult identityResult, string userId)> CreateUserAsync(CreateUserDto userDto, CancellationToken cancellationToken = default)
+        public async Task<(IdentityResult identityResult, CreatedUserDto? createdUser)> CreateUserAsync(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
             var idpUser = _mapper.Map<IdpUser>(userDto);
 
@@ -24,7 +24,7 @@ namespace IDP.Administration.Services.Users.Services
 
             var identityResult = await _userManager.CreateAsync(idpUser);
 
-            return (identityResult, idpUser.Id);
+            return (identityResult, _mapper.Map<CreatedUserDto>(idpUser));
         }
     }
 }

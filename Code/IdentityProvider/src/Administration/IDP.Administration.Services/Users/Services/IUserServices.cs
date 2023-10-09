@@ -5,7 +5,7 @@ namespace IDP.Administration.Services.Users.Services
 {
     public interface IUserServices
     {
-        public Task<(IdentityResult identityResult, string userId)> CreateUserAsync(CreateUserDto userDto,
+        public Task<(IdentityResult identityResult, CreatedUserDto? createdUser)> CreateUserAsync(CreateUserDto userDto,
             CancellationToken cancellationToken = default);
     }
 }

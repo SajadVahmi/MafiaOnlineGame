@@ -10,18 +10,14 @@ namespace IDP.Administration.Api.Test.Integration.TestBuilders.Users
     {
         private string? _email;
         private string? _mobile;
-        private bool? _lockoutEnabled;
-        private bool? _twoFactorEnabled;
-        private bool? _otpSmsEnabled;
+      
 
         public static CreateUserRequestBodyBuilder Instantiate() => new();
-        public CreateUserRequestBodyBuilder()
+        protected CreateUserRequestBodyBuilder()
         {
             _email = UsersTestData.Somebody.Email;
-            _mobile = UsersTestData.Somebody.Mobile;
-            _lockoutEnabled = UsersTestData.Somebody.LockoutEnabled;
-            _otpSmsEnabled = UsersTestData.Somebody.OtpSmsEnabled;
-            _twoFactorEnabled = UsersTestData.Somebody.TwoFactorEnabled;
+            _mobile = UsersTestData.Somebody.PhoneNumber;
+           
         }
 
         public CreateUserRequestBodyBuilder WithEmail(string? email)
@@ -29,27 +25,9 @@ namespace IDP.Administration.Api.Test.Integration.TestBuilders.Users
             _email = email;
             return this;
         }
-        public CreateUserRequestBodyBuilder WithMobile(string? mobile)
+        public CreateUserRequestBodyBuilder WithPhoneNumber(string? mobile)
         {
             _mobile = mobile;
-            return this;
-        }
-
-        public CreateUserRequestBodyBuilder WithLockoutEnabled(bool? lockoutEnabled)
-        {
-            _lockoutEnabled = lockoutEnabled;
-            return this;
-        }
-
-        public CreateUserRequestBodyBuilder WithTwoFactorEnabled(bool? twoFactorEnabled)
-        {
-            _twoFactorEnabled = twoFactorEnabled;
-            return this;
-        }
-
-        public CreateUserRequestBodyBuilder WithOtpSmsEnabled(bool? otpSmsEnabled)
-        {
-            _otpSmsEnabled = otpSmsEnabled;
             return this;
         }
 
@@ -59,10 +37,7 @@ namespace IDP.Administration.Api.Test.Integration.TestBuilders.Users
             return new CreateUserRequestBody()
             {
                 Email = _email,
-                Mobile = _mobile,
-                LockoutEnabled = _lockoutEnabled,
-                TwoFactorEnabled = _twoFactorEnabled,
-                OtpSmsEnabled = _otpSmsEnabled
+                Mobile = _mobile
             };
         }
 

@@ -29,10 +29,10 @@ namespace IDP.Administration.Api.Users.Controllers
 
             var createUserModel = _mapper.Map<CreateUserDto>(requestBody);
 
-            (IdentityResult result, string userId) createUserResult = await _userServices.CreateUserAsync(createUserModel, cancellationToken);
+            (IdentityResult result, CreatedUserDto createdUser) createUserResult = await _userServices.CreateUserAsync(createUserModel, cancellationToken);
 
             if (createUserResult.result.Succeeded)
-                return Created(string.Empty, createUserResult.userId);
+                return Created(string.Empty, createUserResult.createdUser);
 
             else return BadRequest(createUserResult.result.Errors);
 

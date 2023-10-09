@@ -4,17 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDP.Administration.Api.Users.Models
+namespace IDP.Administration.Services.Users.Dtos
 {
-    public class CreateUserResponseBody
+    public class CreatedUserDto
     {
         public required string Id { get; set; }
         public required string UserName { get; set; }
         public required string PhoneNumber { get; set; }
         public required string Email { get; set; }
-        public bool EmailConfirmed { get; set; }
-        public bool TwoFactorEnabled { get; set; }
-        public string? LockoutEnd { get; set; }
-        public bool LockoutEnabled { get; set; }
     }
 }

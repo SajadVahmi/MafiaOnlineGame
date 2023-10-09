@@ -84,6 +84,7 @@ public static class HostingExtensions
 
     private static void ConfigureIdentity(WebApplicationBuilder builder)
     {
+
         builder.Services.AddIdentity<IdpUser, IdentityRole>()
           .AddEntityFrameworkStores<IdpDbContext>()
           .AddDefaultTokenProviders();

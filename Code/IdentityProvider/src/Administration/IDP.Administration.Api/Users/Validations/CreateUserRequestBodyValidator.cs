@@ -20,17 +20,8 @@ namespace IDP.Administration.Api.Users.Validations
                 .MaximumLength(11)
                 .WithMessage("Mobile number must be 11 digits.");
 
-            RuleFor(body => body.LockoutEnabled)
-                .NotNull()
-                .WithMessage("LockoutEnabled is required.");
 
-            RuleFor(body => body.TwoFactorEnabled)
-                .NotNull()
-                .WithMessage("TwoFactorEnabled is required.");
-
-            RuleFor(body => body.OtpSmsEnabled)
-                .NotNull()
-                .WithMessage("OtpSmsEnabled is required.");
+            
 
         }
     }
