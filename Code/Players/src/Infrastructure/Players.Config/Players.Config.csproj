@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Players.ApplicationServices\Players.ApplicationServices.csproj" />
+    <ProjectReference Include="..\..\Presentation\Players.RestApi\Players.RestApi.csproj" />
     <ProjectReference Include="..\Players.Persistence.SQL\Players.Persistence.SQL.csproj" />
   </ItemGroup>
 

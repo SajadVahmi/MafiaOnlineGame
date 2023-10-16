@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Presentation\Players.RestApi\Players.RestApi.csproj" />
+    <ProjectReference Include="..\Infrastructure\Players.Config\Players.Config.csproj" />
   </ItemGroup>
 
 </Project>
