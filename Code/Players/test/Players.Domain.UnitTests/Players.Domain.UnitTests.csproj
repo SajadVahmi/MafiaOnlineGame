@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PlayerAggregate\TestClases\" />
-    <Folder Include="PlayerAggregate\TestData\" />
+    <ProjectReference Include="..\..\..\Framework\Test\Framework.Test\Framework.Test.csproj" />
+    <ProjectReference Include="..\..\src\Core\Players.Domain\Players.Domain.csproj" />
   </ItemGroup>
 
 </Project>
