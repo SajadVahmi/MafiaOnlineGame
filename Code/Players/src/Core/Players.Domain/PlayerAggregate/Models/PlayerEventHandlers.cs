@@ -6,7 +6,7 @@ public partial class Player
 {
     private void When(PlayerIsRegistred domainEvent)
     {
-        Id = PlayerId.Instantiate(domainEvent.Id);
+        Id = PlayerId.Instantiate(domainEvent.PlayerId);
 
         FirstName = domainEvent.FirstName;
 

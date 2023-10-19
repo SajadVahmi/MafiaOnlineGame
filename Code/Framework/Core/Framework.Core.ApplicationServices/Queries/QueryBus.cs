@@ -13,6 +13,7 @@ public class QueryBus : IQueryBus
     {
 
         var handler = _handlerResolver.ResolveHandlers<TQuery, TResponse>(query);
+
         return handler.HandleAsync(query, cancellationToken);
     }
 

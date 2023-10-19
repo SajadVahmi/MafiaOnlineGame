@@ -18,5 +18,5 @@ public class AutofacCommandHandlerResolver : ICommandHandlerResolver
         return _context.Resolve<ICommandHandler<TCommand>>();
     }
 
-      
+
 }

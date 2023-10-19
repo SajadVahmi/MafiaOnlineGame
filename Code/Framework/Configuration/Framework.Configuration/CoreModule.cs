@@ -10,8 +10,11 @@ public class CoreModule : IFrameworkModule
     public void Register(IDependencyRegister dependencyRegister)
     {
         dependencyRegister.RegisterSingleton<IClock, UtcClock>();
+
         dependencyRegister.RegisterScoped<IQueryBus, QueryBus>();
+
         dependencyRegister.RegisterScoped<ICommandBus, CommandBus>();
+
         dependencyRegister.RegisterDecorator(typeof(ICommandHandler<>), typeof(TransactionalCommandHandlerDecorator<>));
     }
 }

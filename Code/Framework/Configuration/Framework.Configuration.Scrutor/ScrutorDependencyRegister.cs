@@ -1,9 +1,9 @@
-﻿using Framework.Core.ApplicationServices.Commands;
+﻿using Framework.Core.ApplicationServices.ApplicationServices;
+using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
+using Framework.Core.Domian.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Framework.Core.ApplicationServices.ApplicationServices;
-using Framework.Core.Domian.DomainServices;
 
 namespace Framework.Configuration.Scrutor;
 
@@ -76,6 +76,6 @@ public class ScrutorDependencyRegister : IDependencyRegister
 
     public void RegisterDecorator(Type service, Type decorator)
     {
-        _services.Decorate(service,decorator);
+        _services.Decorate(service, decorator);
     }
 }

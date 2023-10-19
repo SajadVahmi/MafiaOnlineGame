@@ -8,14 +8,4 @@ public class UtcClock : IClock
     {
         return DateTimeOffset.UtcNow;
     }
-
-    public void TimeTravelTo(DateTimeOffset targetTime)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void TimeTravelTo(string targetTime)
-    {
-        throw new NotImplementedException();
-    }
 }

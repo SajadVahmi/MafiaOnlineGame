@@ -4,11 +4,13 @@ namespace Framework.Core.Domian.Events;
 
 public abstract class DomainEvent : IDomainEvent
 {
-    public DomainEvent(IEventIdProvider idProvider, IClock clock)
-    {
-        EventId = idProvider.Get();
+    
 
-        WhenItHappened = clock.Now();
+    public DomainEvent(string id,DateTimeOffset whenItHappened)
+    {
+        EventId = id;
+
+        WhenItHappened = whenItHappened;
     }
 
     public string EventId { get; private set; }
