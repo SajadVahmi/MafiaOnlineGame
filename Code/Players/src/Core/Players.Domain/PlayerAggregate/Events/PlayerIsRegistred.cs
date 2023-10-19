@@ -7,11 +7,11 @@ namespace Players.Domain.PlayerAggregate.Events;
 public class PlayerIsRegistred : DomainEvent
 {
 
-    public PlayerIsRegistred(long id, string firstName, string lastName, DateOnly birthDate, Gender gender,
-                             DateTimeOffset registerDateTime, string userId, IEventIdProvider idProvider,
-                             IClock clock) : base(idProvider, clock)
+    public PlayerIsRegistred(long playerId, string firstName, string lastName, DateOnly birthDate, Gender gender,
+                             DateTimeOffset registerDateTime, string userId, string eventId,
+                             DateTimeOffset whenItHappened) : base(eventId, whenItHappened)
     {
-        Id = id;
+        PlayerId = playerId;
 
         FirstName = firstName;
 
@@ -26,7 +26,7 @@ public class PlayerIsRegistred : DomainEvent
         UserId = userId;
     }
 
-    public long Id { get; private set; }
+    public long PlayerId { get; private set; }
 
     public string FirstName { get; private set; }
 

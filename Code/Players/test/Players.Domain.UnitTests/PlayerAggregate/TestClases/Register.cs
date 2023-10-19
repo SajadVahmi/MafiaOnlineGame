@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Newtonsoft.Json;
 using Players.Domain.PlayerAggregate.Events;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.Domain.PlayerAggregate.Models;
@@ -45,15 +46,15 @@ public class Register
         PlayerRegisterArgs playerRegisterArgs = PlayerRegisterArgsTestBuilder.Instantiate().Build();
 
         var expectedDomainEvent = new PlayerIsRegistred(
-            id: playerRegisterArgs.Id.Value,
+            playerId: playerRegisterArgs.Id.Value,
             firstName: playerRegisterArgs.FirstName,
             lastName: playerRegisterArgs.LastName,
             birthDate: playerRegisterArgs.BirthDate,
             gender: playerRegisterArgs.Gender,
             userId: playerRegisterArgs.UserId,
             registerDateTime: playerRegisterArgs.Clock.Now(),
-            idProvider: playerRegisterArgs.IdProvider,
-            clock: playerRegisterArgs.Clock
+            eventId: playerRegisterArgs.IdProvider.Get(),
+            whenItHappened: playerRegisterArgs.Clock.Now()
             );
 
         //Act
@@ -88,10 +89,6 @@ public class Register
 
 
     }
-
-
-
-
 
 
 }
