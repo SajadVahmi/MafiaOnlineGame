@@ -19,22 +19,23 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId
             return;
 
         foreach (var @event in events)
-            Mutate(@event);
+            Apply(@event);
 
     }
 
-    protected void Apply(IDomainEvent @event)
+    protected void Causes(IDomainEvent @event)
     {
-        Mutate(@event);
+        Apply(@event);
 
         AddEvent(@event);
     }
 
-    private void Mutate(IDomainEvent @event)
+    private void Apply(IDomainEvent @event)
     {
-        var onMethod = this.GetType().GetMethod("On", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { @event.GetType() });
 
-        onMethod?.Invoke(this, new[] { @event });
+        var whenMethod = this.GetType().GetMethod("When", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { @event.GetType() });
+
+        whenMethod?.Invoke(this, new[] { @event });
     }
 
 

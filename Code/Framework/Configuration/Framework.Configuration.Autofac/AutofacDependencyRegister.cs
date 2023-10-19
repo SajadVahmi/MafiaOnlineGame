@@ -1,10 +1,9 @@
 ﻿using Autofac;
+using Framework.Core.ApplicationServices.ApplicationServices;
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
-using System.Reflection;
-using Framework.Core.ApplicationServices.ApplicationServices;
 using Framework.Core.Domian.DomainServices;
-using Framework.Core.Domian.Events;
+using System.Reflection;
 
 namespace Framework.Configuration.Autofac;
 

@@ -3,7 +3,7 @@
 public class OutBoxEventItem
 {
     public long Id { get; set; }
-    public Guid EventId { get; set; }
+    public string EventId { get; set; }
     public string? AccuredByUserId { get; set; }
     public DateTimeOffset AccuredOn { get; set; }
     public string? AggregateName { get; set; }
