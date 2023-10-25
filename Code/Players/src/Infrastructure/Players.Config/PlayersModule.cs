@@ -1,0 +1,48 @@
+﻿using Framework.Configuration;
+using Framework.Persistence.EF;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Players.ApplicationServices.PlayerAggregate.Services;
+using Players.Domain.PlayerAggregate.Services;
+using Players.Persistence.SQL.DbContexts;
+
+namespace Players.Config;
+
+public class PlayersModule : IFrameworkModule
+{
+    private readonly IConfiguration _configuration;
+    private readonly IServiceCollection _services;
+
+    public PlayersModule(IConfiguration configuration, IServiceCollection services)
+    {
+        this._configuration = configuration;
+        this._services = services;
+    }
+
+    public void Register(IDependencyRegister dependencyRegister)
+    {
+        dependencyRegister.RegisterDomainServices(typeof(DuplicateRegistrationCheckService).Assembly);
+
+        dependencyRegister.RegisterApplicationServices(typeof(PlayerApplicationService).Assembly);
+
+        dependencyRegister.RegisterScoped(CreateDbContext);
+    }
+
+    private FrameworkDbContext CreateDbContext()
+    {
+        var playerDbContextOptions = _configuration.GetSection("RedisConfiguration").Get<FrameworkDbContextOptions>();
+
+        if (playerDbContextOptions is null)
+            throw new Exception("There are not any dbcontext options in configuration.");
+
+        var options =
+            new DbContextOptionsBuilder<PlayersDbContext>()
+                .UseSqlServer(playerDbContextOptions.ConnectionString)
+                .Options;
+
+        var dbContext = new PlayersDbContext(options,playerDbContextOptions.SaveDomainEvents);
+
+        return dbContext;
+    }
+}

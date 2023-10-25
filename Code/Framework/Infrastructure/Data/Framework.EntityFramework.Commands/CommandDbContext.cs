@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Contracts;
-using Framework.Infra.OutBox.Models;
+using Framework.Events.OutBox.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;

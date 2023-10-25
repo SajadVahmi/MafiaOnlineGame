@@ -49,29 +49,43 @@ public class AutofacDependencyRegister : IDependencyRegister
             .InstancePerLifetimeScope();
     }
 
-    public void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService
+    public void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _container.RegisterType<TImplementation>().As<TService>().InstancePerLifetimeScope();
     }
 
-    public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
+    public void RegisterScoped<TService>(Func<TService> factory, Action<TService>? release = null) where TService : class
+    {
+        var registration = _container.Register(a => factory.Invoke()).InstancePerLifetimeScope();
+        if (release != null)
+
+            registration.OnRelease(release);
+    }
+
+    public void RegisterSingleton<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _container.RegisterType<TImplementation>().As<TService>().SingleInstance();
     }
 
-    public void RegisterSingleton<TService, TInstance>(TInstance instance)
-        where TService : class
-        where TInstance : TService
+    public void RegisterSingleton<TService, TInstance>(TInstance instance) where TService : class where TInstance : notnull, TService
     {
         _container.RegisterInstance<TService>(instance).SingleInstance();
     }
 
-    public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
+    public void RegisterSingleton<TService>(Func<TService> factory, Action<TService>? release = null) where TService : class
+    {
+        var registration = _container.Register(a => factory.Invoke()).SingleInstance();
+
+        if (release != null)
+            registration.OnRelease(release);
+    }
+
+    public void RegisterTransient<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _container.RegisterType<TImplementation>().As<TService>().InstancePerDependency();
     }
 
-    public void RegisterDecorator<TService, TDecorator>() where TDecorator : TService
+    public void RegisterDecorator<TService, TDecorator>() where TDecorator : notnull, TService where TService : notnull
     {
         _container.RegisterDecorator<TDecorator, TService>();
     }
@@ -80,4 +94,6 @@ public class AutofacDependencyRegister : IDependencyRegister
     {
         _container.RegisterGenericDecorator(decorator, service);
     }
+
+    
 }
