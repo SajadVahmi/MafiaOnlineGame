@@ -1,6 +1,7 @@
 ﻿using Framework.Core.ApplicationServices.ApplicationServices;
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
+using Framework.Core.Domian.Data;
 using Framework.Core.Domian.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -48,6 +49,14 @@ public class ScrutorDependencyRegister : IDependencyRegister
             .WithScopedLifetime());
     }
 
+    public void RegisterRepositories(Assembly assembly)
+    {
+        _services.Scan(s => s.FromAssemblies(assembly)
+            .AddClasses(c => c.AssignableToAny(typeof(IRepository<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+    }
+
     public void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _services.AddScoped(typeof(TService), typeof(TImplementation));
@@ -87,8 +96,6 @@ public class ScrutorDependencyRegister : IDependencyRegister
     {
         _services.Decorate(service, decorator);
     }
-
-    
 
    
 }

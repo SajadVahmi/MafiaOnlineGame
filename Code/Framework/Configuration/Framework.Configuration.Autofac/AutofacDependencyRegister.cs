@@ -2,6 +2,7 @@
 using Framework.Core.ApplicationServices.ApplicationServices;
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
+using Framework.Core.Domian.Data;
 using Framework.Core.Domian.DomainServices;
 using System.Reflection;
 
@@ -46,6 +47,14 @@ public class AutofacDependencyRegister : IDependencyRegister
             .RegisterAssemblyTypes(assembly)
             .AsClosedTypesOf(typeof(IQueryHandler<,>))
             .AsImplementedInterfaces()
+            .InstancePerLifetimeScope();
+    }
+
+    public void RegisterRepositories(Assembly assembly)
+    {
+        _container.RegisterAssemblyTypes(assembly)
+            .As(type => type.GetInterfaces()
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IRepository<,>))))
             .InstancePerLifetimeScope();
     }
 
@@ -95,5 +104,5 @@ public class AutofacDependencyRegister : IDependencyRegister
         _container.RegisterGenericDecorator(decorator, service);
     }
 
-    
+   
 }

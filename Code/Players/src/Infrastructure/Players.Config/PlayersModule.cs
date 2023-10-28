@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Players.ApplicationServices.PlayerAggregate.Services;
 using Players.Domain.PlayerAggregate.Services;
 using Players.Persistence.SQL.DbContexts;
+using Players.Persistence.SQL.Repositories;
 
 namespace Players.Config;
 
@@ -24,14 +25,16 @@ public class PlayersModule : IFrameworkModule
     {
         dependencyRegister.RegisterDomainServices(typeof(DuplicateRegistrationCheckService).Assembly);
 
-        dependencyRegister.RegisterApplicationServices(typeof(PlayerApplicationService).Assembly);
+      dependencyRegister.RegisterApplicationServices(typeof(PlayerApplicationService).Assembly);
+
+        dependencyRegister.RegisterRepositories(typeof(PlayerRepository).Assembly);
 
         dependencyRegister.RegisterScoped(CreateDbContext);
     }
 
     private FrameworkDbContext CreateDbContext()
     {
-        var playerDbContextOptions = _configuration.GetSection("RedisConfiguration").Get<FrameworkDbContextOptions>();
+        var playerDbContextOptions = _configuration.GetSection("Persistence:PlayersDbContext").Get<FrameworkDbContextOptions>();
 
         if (playerDbContextOptions is null)
             throw new Exception("There are not any dbcontext options in configuration.");

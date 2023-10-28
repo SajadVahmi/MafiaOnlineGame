@@ -15,6 +15,8 @@ public partial class Player : AggregateRoot<PlayerId>
 
     }
 
+    protected Player() { }
+
     protected Player(PlayerRegisterArgs args)
     {
 

@@ -13,6 +13,8 @@ public interface IDependencyRegister
 
     void RegisterQueryHandlers(Assembly assembly);
 
+    void RegisterRepositories(Assembly assembly);
+
     void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull;
 
     void RegisterScoped<TService>(Func<TService> factory, Action<TService>? release = null) where TService : class;
