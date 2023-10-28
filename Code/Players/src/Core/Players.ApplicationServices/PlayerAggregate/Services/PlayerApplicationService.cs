@@ -37,7 +37,7 @@ public class PlayerApplicationService : IPlayerApplicationService
     }
     public async Task<RegisteredPlayerDto> RegisterAsync(PlayerRegistrationDto playerRegistrationDto, CancellationToken cancellationToken = default)
     {
-        PlayerRegisterArgs playerRegisterArgs =await  PlayerRegisterArgsFactory.CreateAsync(
+        PlayerRegisterArgs playerRegisterArgs = await PlayerRegisterArgsFactory.CreateAsync(
             playerRegistrationDto: playerRegistrationDto,
             playerRepository: _playerRepository,
             duplicateRegistrationCheckService: _duplicateRegistrationCheckService,
@@ -46,11 +46,11 @@ public class PlayerApplicationService : IPlayerApplicationService
             cancellationToken: cancellationToken
             );
 
-        Player player =await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
+        Player player = await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
 
         await _playerRepository.RegisterAsync(player, cancellationToken);
 
-        RegisteredPlayerDto registeredPlayerDto = _mapper.Map<Player,RegisteredPlayerDto>(player);
+        RegisteredPlayerDto registeredPlayerDto = _mapper.Map<Player, RegisteredPlayerDto>(player);
 
         return registeredPlayerDto;
     }

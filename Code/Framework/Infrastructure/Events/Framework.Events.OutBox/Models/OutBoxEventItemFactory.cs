@@ -1,8 +1,9 @@
 ﻿using Framework.Core.Contracts;
 using Framework.Core.Domian.Aggregates;
 using Framework.Core.Domian.Events;
+using Framework.Events.OutBox.Models;
 
-namespace Framework.Infra.OutBox.Models;
+namespace Framework.Events.OutBox.Models;
 
 public static class OutBoxEventItemFactory
 {

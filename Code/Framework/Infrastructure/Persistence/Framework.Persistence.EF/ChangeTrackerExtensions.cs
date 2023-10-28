@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Framework.EntityFramework.Commands;
+namespace Framework.Persistence.EF;
+
 public static class ChangeTrackerExtensions
 {
     public static List<IAggregateRoot> GetChangedAggregates(this ChangeTracker changeTracker) =>
-   changeTracker.Entries<IAggregateRoot>()
+            changeTracker.Entries<IAggregateRoot>()
                             .Where(x => x.State == EntityState.Modified ||
                                    x.State == EntityState.Added ||
                                    x.State == EntityState.Deleted).Select(c => c.Entity).ToList();

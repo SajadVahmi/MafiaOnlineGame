@@ -15,6 +15,6 @@ public class CoreModule : IFrameworkModule
 
         dependencyRegister.RegisterScoped<ICommandBus, CommandBus>();
 
-        dependencyRegister.RegisterDecorator(typeof(ICommandHandler<>), typeof(TransactionalCommandHandlerDecorator<>));
+        dependencyRegister.RegisterSingleton<IEventIdProvider,GuidEventIdProvider>();
     }
 }

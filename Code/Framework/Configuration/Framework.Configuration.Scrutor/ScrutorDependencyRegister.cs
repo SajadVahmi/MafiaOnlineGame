@@ -1,6 +1,7 @@
 ﻿using Framework.Core.ApplicationServices.ApplicationServices;
 using Framework.Core.ApplicationServices.Commands;
 using Framework.Core.ApplicationServices.Queries;
+using Framework.Core.Domian.Data;
 using Framework.Core.Domian.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -48,13 +49,25 @@ public class ScrutorDependencyRegister : IDependencyRegister
             .WithScopedLifetime());
     }
 
-    public void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService
+    public void RegisterRepositories(Assembly assembly)
+    {
+        _services.Scan(s => s.FromAssemblies(assembly)
+            .AddClasses(c => c.AssignableToAny(typeof(IRepository<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+    }
+
+    public void RegisterScoped<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _services.AddScoped(typeof(TService), typeof(TImplementation));
     }
 
+    public void RegisterScoped<TService>(Func<TService> factory, Action<TService>? release = null) where TService : class
+    {
+        _services.AddScoped(s => factory.Invoke());
+    }
 
-    public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
+    public void RegisterSingleton<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _services.AddSingleton(typeof(TService), typeof(TImplementation));
     }
@@ -64,12 +77,17 @@ public class ScrutorDependencyRegister : IDependencyRegister
         _services.AddSingleton(typeof(TService), instance);
     }
 
-    public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
+    public void RegisterSingleton<TService>(Func<TService> factory, Action<TService>? release = null) where TService : class
+    {
+        _services.AddSingleton(s => factory.Invoke());
+    }
+
+    public void RegisterTransient<TService, TImplementation>() where TImplementation : notnull, TService where TService : notnull
     {
         _services.AddTransient(typeof(TService), typeof(TImplementation));
     }
 
-    public void RegisterDecorator<TService, TDecorator>() where TDecorator : TService
+    public void RegisterDecorator<TService, TDecorator>() where TDecorator : notnull, TService where TService : notnull
     {
         _services.Decorate<TService, TDecorator>();
     }
@@ -78,4 +96,6 @@ public class ScrutorDependencyRegister : IDependencyRegister
     {
         _services.Decorate(service, decorator);
     }
+
+   
 }

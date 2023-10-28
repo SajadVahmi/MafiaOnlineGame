@@ -1,9 +1,9 @@
-﻿namespace Framework.Infra.OutBox.Models;
+﻿namespace Framework.Events.OutBox.Models;
 
 public class OutBoxEventItem
 {
     public long Id { get; set; }
-    public string EventId { get; set; }
+    public required string EventId { get; set; }
     public string? AccuredByUserId { get; set; }
     public DateTimeOffset AccuredOn { get; set; }
     public string? AggregateName { get; set; }
