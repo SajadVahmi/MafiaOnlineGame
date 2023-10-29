@@ -7,12 +7,12 @@ namespace Framework.Events.OutBox.Models;
 
 public static class OutBoxEventItemFactory
 {
-    public static List<OutBoxEventItem> Create(IAggregateRoot aggregateRoot,IEnumerable<IDomainEvent> domainEvents,IObjectSerializer serializer,IAuthenticatedUser authenticatedUser)
+    public static List<OutBoxEventItem> Create(IAggregateRoot aggregateRoot,IEnumerable<IDomainEvent> domainEvents,ISerializerAdapter serializer,IAuthenticatedUser authenticatedUser)
     {
         return domainEvents.Select(domainEvent=>Create(aggregateRoot,domainEvent,serializer,authenticatedUser)).ToList();
     }
 
-    private static OutBoxEventItem Create(IAggregateRoot aggregateRoot,IDomainEvent domainEvent, IObjectSerializer serializer, IAuthenticatedUser authenticatedUser)
+    private static OutBoxEventItem Create(IAggregateRoot aggregateRoot,IDomainEvent domainEvent, ISerializerAdapter serializer, IAuthenticatedUser authenticatedUser)
     {
         return new OutBoxEventItem()
         {

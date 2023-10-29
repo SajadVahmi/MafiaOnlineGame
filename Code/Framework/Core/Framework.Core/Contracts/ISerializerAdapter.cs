@@ -1,6 +1,6 @@
 ﻿namespace Framework.Core.Contracts;
 
-public interface IObjectSerializer
+public interface ISerializerAdapter
 {
     string Serilize<TInput>(TInput input);
 

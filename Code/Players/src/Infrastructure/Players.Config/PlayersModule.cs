@@ -25,7 +25,7 @@ public class PlayersModule : IFrameworkModule
     {
         dependencyRegister.RegisterDomainServices(typeof(DuplicateRegistrationCheckService).Assembly);
 
-      dependencyRegister.RegisterApplicationServices(typeof(PlayerApplicationService).Assembly);
+        dependencyRegister.RegisterApplicationServices(typeof(PlayerApplicationService).Assembly);
 
         dependencyRegister.RegisterRepositories(typeof(PlayerRepository).Assembly);
 

@@ -115,7 +115,7 @@ public class FrameworkDbContext : DbContext
 
         var authenticatedUser = this.GetService<IAuthenticatedUser>();
 
-        var serializer = this.GetService<IObjectSerializer>();
+        var serializer = this.GetService<ISerializerAdapter>();
 
         var domainEvents = changedAggregates
             .SelectMany(aggregateRoot => OutBoxEventItemFactory.Create(aggregateRoot, aggregateRoot.GetEvents(), serializer, authenticatedUser))

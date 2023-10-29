@@ -1,5 +1,5 @@
 ﻿namespace Framework.Core.Contracts;
 
-public interface IFrameworkLogger
+public interface ILoggerAdapter
 {
 }

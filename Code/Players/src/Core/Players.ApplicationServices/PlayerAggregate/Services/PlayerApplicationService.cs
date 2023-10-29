@@ -15,14 +15,14 @@ public class PlayerApplicationService : IPlayerApplicationService
 
     private readonly IEventIdProvider _eventIdProvider;
 
-    private readonly IObjectMapper _mapper;
+    private readonly IMapperAdapter _mapper;
 
     private readonly IClock _clock;
 
     public PlayerApplicationService(IPlayerRepository playerRepository,
         IDuplicateRegistrationCheckService duplicateRegistrationCheckService,
         IEventIdProvider eventIdProvider,
-        IObjectMapper mapper,
+        IMapperAdapter mapper,
         IClock clock)
     {
         _playerRepository = playerRepository;

@@ -1,6 +1,6 @@
 ﻿namespace Framework.Core.Contracts;
 
-public interface IObjectMapper
+public interface IMapperAdapter
 {
    public TDestination Map<TSource, TDestination>(TSource source);
    
