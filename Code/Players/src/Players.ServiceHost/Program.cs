@@ -1,6 +1,8 @@
 using Framework.Configuration.Loaders;
 using Framework.Configuration.Scrutor;
+using Framework.Mapping.AutoMapper;
 using Players.Config;
+using Players.Mapping.PlayerAggregate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,8 @@ builder.Services.AddSwaggerGen();
 
 FrameworkModuleBuilder.Setup()
     .WithIocModule(new ScrutorModule(builder.Services))
-    .WithModule(new PlayersModule(builder.Configuration,builder.Services));
+    .WithModule(new PlayersModule(builder.Configuration, builder.Services))
+    .WithModule(new AutoMapperModule(typeof(PlayerMappings).Assembly));
 
 var app = builder.Build();
 
