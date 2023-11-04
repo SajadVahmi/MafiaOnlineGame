@@ -7,7 +7,8 @@ public class TheUserAlreadyRegistredException : BusinessException
     public TheUserAlreadyRegistredException() :
         base(
            message: PlayerDomainExceptionMessages.TheUserAlreadyRegistred,
-           code: PlayerDomainExceptionCodes.TheUserAlreadyRegistred)
+           code: PlayerDomainExceptionCodes.TheUserAlreadyRegistred,
+           name:nameof(PlayerDomainExceptionMessages.TheUserAlreadyRegistred))
     { }
 }
 

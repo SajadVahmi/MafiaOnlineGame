@@ -1,5 +1,4 @@
-﻿using Framework.Core.Domian.Data;
-using Framework.Persistence.EF;
+﻿using Framework.Persistence.EF;
 using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Persistence.SQL.Constants;
@@ -17,12 +16,14 @@ public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPl
     {
         var id = await Sequence.Next(Names.PlayersSequence);
 
-        return  PlayerId.Instantiate(id);
+        return PlayerId.Instantiate(id);
     }
 
     public async Task RegisterAsync(Player player, CancellationToken cancellationToken = default)
     {
-        
+        DbContext.Add(player);
+
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 
 

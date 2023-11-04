@@ -17,7 +17,9 @@ public class AutoMapperModule : IFrameworkModule
     {
 
         var autoMapperConfiguration = new MapperConfiguration(cfg => {
+
             cfg.AddMaps(_assemblies);
+
         });
 
         var mapper = new Mapper(autoMapperConfiguration);

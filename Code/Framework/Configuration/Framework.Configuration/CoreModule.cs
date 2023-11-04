@@ -16,5 +16,6 @@ public class CoreModule : IFrameworkModule
         dependencyRegister.RegisterScoped<ICommandBus, CommandBus>();
 
         dependencyRegister.RegisterSingleton<IEventIdProvider,GuidEventIdProvider>();
+
     }
 }

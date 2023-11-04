@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Framework.Core.Domian\Framework.Core.Domian\Framework.Core.Domian.csproj" />
+    <ProjectReference Include="..\..\..\Presentation\Framework.Presentation.AspNetCore\Framework.Presentation.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

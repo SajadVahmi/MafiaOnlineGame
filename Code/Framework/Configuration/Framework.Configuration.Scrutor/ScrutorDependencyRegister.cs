@@ -96,6 +96,4 @@ public class ScrutorDependencyRegister : IDependencyRegister
     {
         _services.Decorate(service, decorator);
     }
-
-   
 }

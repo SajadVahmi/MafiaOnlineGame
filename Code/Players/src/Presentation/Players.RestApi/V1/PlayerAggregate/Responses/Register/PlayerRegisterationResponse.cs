@@ -1,8 +1,8 @@
 ﻿using Players.Contracts.Enums;
 
-namespace Players.ApplicationServices.PlayerAggregate.Dtos;
+namespace Players.RestApi.V1.PlayerAggregate.Responses.Register;
 
-public class RegisteredPlayerDto
+public class PlayerRegisterationResponse
 {
     public required string FirstName { get; set; }
 
