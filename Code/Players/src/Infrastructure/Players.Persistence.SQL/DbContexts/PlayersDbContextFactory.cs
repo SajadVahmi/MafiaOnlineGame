@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Players.Persistence.SQL.DbContexts;
 
@@ -29,10 +28,10 @@ public class PlayersDbContextFactory : IDesignTimeDbContextFactory<PlayersDbCont
             throw new Exception("There are not any dbcontext options in configuration.");
 
         var builder =
-            new DbContextOptionsBuilder<PlayersDbContext>()
+            new DbContextOptionsBuilder()
                 .UseSqlServer(playersDbContextConfiguration.ConnectionString);
 
-        return new PlayersDbContext(builder.Options,playersDbContextConfiguration.SaveDomainEvents);
+        return new PlayersDbContext(builder.Options, playersDbContextConfiguration.SaveDomainEvents);
 
     }
 }

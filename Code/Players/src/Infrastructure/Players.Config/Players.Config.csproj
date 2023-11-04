@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Infrastructure\JsonSerializers\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
     <ProjectReference Include="..\Players.Mapping\Players.Mapping.csproj" />
   </ItemGroup>
 

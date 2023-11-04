@@ -1,5 +1,6 @@
 ﻿using Framework.Core.Contracts;
 using Framework.Events.OutBox.Models;
+using Framework.Presentation.AspNetCore.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -31,6 +32,11 @@ public class FrameworkDbContext : DbContext
             modelBuilder.Ignore<OutBoxEventItem>();
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)
@@ -115,7 +121,7 @@ public class FrameworkDbContext : DbContext
 
         var authenticatedUser = this.GetService<IAuthenticatedUser>();
 
-        var serializer = this.GetService<ISerializerAdapter>();
+        var serializer = this.GetService<IJsonSerializerAdapter>();
 
         var domainEvents = changedAggregates
             .SelectMany(aggregateRoot => OutBoxEventItemFactory.Create(aggregateRoot, aggregateRoot.GetEvents(), serializer, authenticatedUser))

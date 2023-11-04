@@ -40,8 +40,9 @@ public class PlayersModule : IFrameworkModule
             throw new Exception("There are not any dbcontext options in configuration.");
 
         var options =
-            new DbContextOptionsBuilder<PlayersDbContext>()
+            new DbContextOptionsBuilder<FrameworkDbContext>()
                 .UseSqlServer(playerDbContextOptions.ConnectionString)
+                .UseApplicationServiceProvider(_services.BuildServiceProvider())
                 .Options;
 
         var dbContext = new PlayersDbContext(options,playerDbContextOptions.SaveDomainEvents);

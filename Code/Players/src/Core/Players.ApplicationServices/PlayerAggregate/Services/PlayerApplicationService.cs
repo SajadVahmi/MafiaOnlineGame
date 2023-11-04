@@ -43,8 +43,7 @@ public class PlayerApplicationService : IPlayerApplicationService
             duplicateRegistrationCheckService: _duplicateRegistrationCheckService,
             eventIdProvider: _eventIdProvider,
             clock: _clock,
-            cancellationToken: cancellationToken
-            );
+            cancellationToken: cancellationToken);
 
         Player player = await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
 

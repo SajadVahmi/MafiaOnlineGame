@@ -21,6 +21,7 @@ public class PlayersDbContext : FrameworkDbContext
         CreateSequence(modelBuilder);
     }
 
+    
     private void CreateSequence(ModelBuilder builder)
     {
         builder.HasSequence<long>(Names.PlayersSequence)
