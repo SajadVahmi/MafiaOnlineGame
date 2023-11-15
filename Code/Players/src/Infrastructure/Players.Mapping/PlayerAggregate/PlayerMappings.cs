@@ -10,7 +10,8 @@ public class PlayerMappings:Profile
 {
     public PlayerMappings()
     {
-        CreateMap<Player, RegisteredPlayerDto>();
+        CreateMap<Player, RegisteredPlayerDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
 
         CreateMap<PlayerRegistrationRequest, PlayerRegistrationDto>();
 

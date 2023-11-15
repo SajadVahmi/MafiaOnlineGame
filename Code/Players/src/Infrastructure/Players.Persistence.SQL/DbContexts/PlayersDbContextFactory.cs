@@ -28,7 +28,7 @@ public class PlayersDbContextFactory : IDesignTimeDbContextFactory<PlayersDbCont
             throw new Exception("There are not any dbcontext options in configuration.");
 
         var builder =
-            new DbContextOptionsBuilder()
+            new DbContextOptionsBuilder<FrameworkDbContext>()
                 .UseSqlServer(playersDbContextConfiguration.ConnectionString);
 
         return new PlayersDbContext(builder.Options, playersDbContextConfiguration.SaveDomainEvents);

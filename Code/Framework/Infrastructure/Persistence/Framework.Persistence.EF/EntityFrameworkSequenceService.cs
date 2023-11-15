@@ -4,15 +4,19 @@ using System.Data;
 
 namespace Framework.Persistence.EF;
 
-public class SequenceHelper
+public interface IEntityFrameworkSequenceService{
+    public Task<string?> Next(string sequenceName);
+}
+
+public class EntityFrameworkSequenceService: IEntityFrameworkSequenceService
 {
     private readonly FrameworkDbContext _dbContext;
 
-    public SequenceHelper(FrameworkDbContext dbContext)
+    public EntityFrameworkSequenceService(FrameworkDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-    public async Task<long> Next(string sequenceName)
+    public async Task<string?> Next(string sequenceName)
     {
         var sequenceSqlParameter = new SqlParameter("@sequenceNumber", SqlDbType.BigInt)
         {
@@ -21,6 +25,6 @@ public class SequenceHelper
 
         await _dbContext.Database.ExecuteSqlRawAsync($"set @sequenceNumber = NEXT VALUE FOR {sequenceName}", sequenceSqlParameter);
 
-        return (long)sequenceSqlParameter.Value;
+        return sequenceSqlParameter.Value.ToString();
     }
 }
