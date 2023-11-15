@@ -11,12 +11,12 @@ public abstract class EntityFrameworkRepository<TId, TAggregateRoot> : IReposito
 {
     protected readonly FrameworkDbContext DbContext;
 
-    protected SequenceHelper Sequence { get; private set; }
+    protected IEntityFrameworkSequenceService Sequence { get; private set; }
 
-    protected EntityFrameworkRepository(FrameworkDbContext commandDbContext)
+    protected EntityFrameworkRepository(FrameworkDbContext commandDbContext,IEntityFrameworkSequenceService entityFrameworkSequenceService)
     {
         DbContext = commandDbContext;
-        Sequence = new SequenceHelper(DbContext);
+        Sequence = entityFrameworkSequenceService;
     }
 
     public abstract Task<TId> GetNextIdAsync(CancellationToken cancellationToken = default);

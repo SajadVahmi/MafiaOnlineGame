@@ -12,7 +12,7 @@ public class PlayerRegistrationRequestValidator : AbstractValidator<PlayerRegist
             .WithMessage(ValidationMessages.FirstNameIsRequired)
             .NotEmpty()
             .WithMessage(ValidationMessages.FirstNameIsRequired)
-            .MaximumLength(3)
+            .MinimumLength(3)
             .MaximumLength(50)
             .WithMessage(ValidationMessages.FirstNameLengthIsInvalid);
 
@@ -21,7 +21,7 @@ public class PlayerRegistrationRequestValidator : AbstractValidator<PlayerRegist
            .WithMessage(ValidationMessages.LastNameIsRequired)
            .NotEmpty()
            .WithMessage(ValidationMessages.LastNameIsRequired)
-           .MaximumLength(3)
+           .MinimumLength(3)
            .MaximumLength(50)
            .WithMessage(ValidationMessages.LastNameLengthIsInvalid);
 

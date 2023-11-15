@@ -13,11 +13,13 @@ namespace Players.Config;
 public class PlayersModule : IFrameworkModule
 {
     private readonly IConfiguration _configuration;
+
     private readonly IServiceCollection _services;
 
     public PlayersModule(IConfiguration configuration, IServiceCollection services)
     {
         this._configuration = configuration;
+
         this._services = services;
     }
 
@@ -30,6 +32,8 @@ public class PlayersModule : IFrameworkModule
         dependencyRegister.RegisterRepositories(typeof(PlayerRepository).Assembly);
 
         dependencyRegister.RegisterScoped(CreateDbContext);
+
+        dependencyRegister.RegisterScoped<IEntityFrameworkSequenceService,EntityFrameworkSequenceService>();
     }
 
     private FrameworkDbContext CreateDbContext()
@@ -46,6 +50,8 @@ public class PlayersModule : IFrameworkModule
                 .Options;
 
         var dbContext = new PlayersDbContext(options,playerDbContextOptions.SaveDomainEvents);
+
+        dbContext.Database.EnsureCreated();
 
         return dbContext;
     }
