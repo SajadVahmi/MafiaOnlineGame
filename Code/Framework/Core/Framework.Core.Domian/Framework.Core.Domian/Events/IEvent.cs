@@ -8,7 +8,7 @@ namespace Framework.Core.Domian.Events
 {
     public interface IEvent
     {
-        Guid EventId { get; }
-        DateTimeOffset PublishDateTime { get; }
+        string EventId { get; }
+        DateTimeOffset WhenItHappened { get; }
     }
 }
