@@ -8,9 +8,9 @@ namespace Players.Persistence.SQL.DbContexts;
 
 public class PlayersDbContext : FrameworkDbContext
 {
-    public PlayersDbContext(DbContextOptions options, bool saveDomainEvents = false) : base(options, saveDomainEvents) { }
+    public PlayersDbContext(DbContextOptions options) : base(options, true) { }
 
-    public virtual DbSet<Player> InitialPublicOfferings { get; set; } = null!;
+    public virtual DbSet<Player> Players { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

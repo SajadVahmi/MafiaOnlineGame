@@ -13,7 +13,7 @@ public class FrameworkDbContext : DbContext
 
     protected FrameworkDbContext() { }
 
-    protected FrameworkDbContext(DbContextOptions options, bool saveDomainEvents = false) : base(options)
+    public FrameworkDbContext(DbContextOptions options, bool saveDomainEvents = false) : base(options)
     {
         SaveDomainEvents = saveDomainEvents;
     }

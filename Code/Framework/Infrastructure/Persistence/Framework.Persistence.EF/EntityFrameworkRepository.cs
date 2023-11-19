@@ -1,7 +1,6 @@
 ﻿using Framework.Core.Domian.Aggregates;
 using Framework.Core.Domian.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
 namespace Framework.Persistence.EF;
@@ -13,7 +12,7 @@ public abstract class EntityFrameworkRepository<TId, TAggregateRoot> : IReposito
 
     protected IEntityFrameworkSequenceService Sequence { get; private set; }
 
-    protected EntityFrameworkRepository(FrameworkDbContext commandDbContext,IEntityFrameworkSequenceService entityFrameworkSequenceService)
+    protected EntityFrameworkRepository(FrameworkDbContext commandDbContext, IEntityFrameworkSequenceService entityFrameworkSequenceService)
     {
         DbContext = commandDbContext;
         Sequence = entityFrameworkSequenceService;
@@ -43,5 +42,5 @@ public abstract class EntityFrameworkRepository<TId, TAggregateRoot> : IReposito
         return DbContext.Set<TAggregateRoot>().AnyAsync(predicate, cancellationToken);
     }
 
-    
+
 }

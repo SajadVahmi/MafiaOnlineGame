@@ -2,12 +2,12 @@
 using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Persistence.SQL.Constants;
-using Players.Persistence.SQL.DbContexts;
 
 namespace Players.Persistence.SQL.Repositories;
 
 public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPlayerRepository
 {
+
 
     public PlayerRepository(FrameworkDbContext commandDbContext, IEntityFrameworkSequenceService entityFrameworkSequenceService) : base(commandDbContext, entityFrameworkSequenceService)
     {

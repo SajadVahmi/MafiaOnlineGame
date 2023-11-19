@@ -31,7 +31,7 @@ public class PlayersDbContextFactory : IDesignTimeDbContextFactory<PlayersDbCont
             new DbContextOptionsBuilder<FrameworkDbContext>()
                 .UseSqlServer(playersDbContextConfiguration.ConnectionString);
 
-        return new PlayersDbContext(builder.Options, playersDbContextConfiguration.SaveDomainEvents);
+        return new PlayersDbContext(builder.Options);
 
     }
 }
