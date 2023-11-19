@@ -6,6 +6,8 @@ namespace Players.Domain.PlayerAggregate.Models
     {
         public static PlayerId Instantiate(long value) => new(value);
 
+        protected PlayerId() { }
+
         protected PlayerId(long value) =>
             Value = value;
 

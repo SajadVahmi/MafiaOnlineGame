@@ -49,7 +49,7 @@ public class PlayersModule : IFrameworkModule
                 .UseApplicationServiceProvider(_services.BuildServiceProvider())
                 .Options;
 
-        var dbContext = new PlayersDbContext(options,playerDbContextOptions.SaveDomainEvents);
+        var dbContext = new PlayersDbContext(options);
 
         dbContext.Database.EnsureCreated();
 
