@@ -9,6 +9,7 @@ using Players.ApplicationServices.PlayerAggregate.Dtos;
 using Players.ApplicationServices.PlayerAggregate.Services;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
+using Players.RestApi.V1.PlayerAggregate.Requests.Update;
 using Players.RestApi.V1.PlayerAggregate.Responses.Register;
 
 namespace Players.RestApi.V1.PlayerAggregate.Controllers;
@@ -68,5 +69,35 @@ public class PlayersController : ControllerBase
         }
 
 
+    }
+
+    [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(type: typeof(ApiError), statusCode: StatusCodes.Status409Conflict)]
+    [ProducesResponseType(type: typeof(IEnumerable<ApiValidationError>), statusCode: StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateAsync([FromBody] PlayerUpdateRequest request, [FromServices] IValidator<PlayerUpdateRequest> validator)
+    {
+        try
+        {
+            ValidationResult requestValidationResult = validator.Validate(request);
+
+            if (!requestValidationResult.IsValid)
+                return BadRequest(ApiValidationError.Instantiate(requestValidationResult));
+
+            PlayerUpdateDto playerForupdate =
+           _mapper.Map<PlayerUpdateRequest, PlayerUpdateDto>(request);
+
+            //TODO:Replace this line after integrating with Identity Server
+            playerForupdate.UserId = _authenticatedUser.GetSub() ?? "1";
+
+            await _playerApplicationService.UpdateAsync(playerForupdate);
+
+            return Created(string.Empty, string.Empty);
+
+        }
+        catch (TheUserAlreadyRegistredException exception)
+        {
+            return Conflict(ApiError.Instantiate(exception));
+        }
     }
 }

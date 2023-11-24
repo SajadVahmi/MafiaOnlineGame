@@ -53,4 +53,9 @@ public class PlayerApplicationService : IPlayerApplicationService
 
         return registeredPlayerDto;
     }
+
+    public Task UpdateAsync(PlayerUpdateDto playerUpdateDto, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

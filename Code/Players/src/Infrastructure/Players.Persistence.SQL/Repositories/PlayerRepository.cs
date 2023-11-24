@@ -29,6 +29,12 @@ public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPl
 
         await DbContext.SaveChangesAsync(cancellationToken);
     }
+    public async Task UpdateAsync(Player player, CancellationToken cancellationToken = default)
+    {
+        DbContext.Update(player);
+
+        await DbContext.SaveChangesAsync(cancellationToken);
+    }
 
 
 }
