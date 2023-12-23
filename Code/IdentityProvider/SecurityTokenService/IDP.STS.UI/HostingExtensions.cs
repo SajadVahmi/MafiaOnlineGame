@@ -63,9 +63,6 @@ internal static class HostingExtensions
                 options.EnableTokenCleanup = true;
                 options.TokenCleanupInterval = 3600;
             })
-            .AddInMemoryIdentityResources(Config.IdentityResources)
-            .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<IdpUser>();
 
 
