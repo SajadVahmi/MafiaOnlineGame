@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace IDP.STS.UI;
 
@@ -12,41 +13,39 @@ public static class Config
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new ApiScope[]
-        {
-            new ApiScope("scope1"),
-            new ApiScope("scope2"),
-        };
+       new ApiScope[]
+       {
+            new ApiScope("players"),
+       };
 
     public static IEnumerable<Client> Clients =>
         new Client[]
         {
-            // m2m client credentials flow client
+            //players swagger api ui client
             new Client
             {
-                ClientId = "m2m.client",
-                ClientName = "Client Credentials Client",
+                ClientId = "playersswaggerapiui",
 
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientName = "Players Swagger API UI",
+
+                AllowedGrantTypes = GrantTypes.Implicit,
+
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                AllowedScopes = { "scope1" }
-            },
+                RedirectUris={"http://localhost:5171/swagger/oauth2-redirect.html"},
 
-            // interactive client using code flow + pkce
-            new Client
-            {
-                ClientId = "interactive",
-                ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                PostLogoutRedirectUris={ "http://localhost:5171/swagger" },
 
-                AllowedGrantTypes = GrantTypes.Code,
+                AllowedScopes = {
+                    "players",
 
-                RedirectUris = { "https://localhost:44300/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+                    IdentityServerConstants.StandardScopes.OpenId,
 
-                AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "scope2" }
-            },
+                    IdentityServerConstants.StandardScopes.Profile
+                },
+                AllowAccessTokensViaBrowser = true,
+            }
         };
+
+
 }

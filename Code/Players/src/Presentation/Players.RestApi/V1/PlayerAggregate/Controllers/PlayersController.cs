@@ -3,6 +3,8 @@ using FluentValidation.Results;
 using Framework.Core.Contracts;
 using Framework.Presentation.AspNetCore.Contracts;
 using Framework.Presentation.RestApi;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Players.ApplicationServices.PlayerAggregate.Dtos;
@@ -10,11 +12,13 @@ using Players.ApplicationServices.PlayerAggregate.Services;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
 using Players.RestApi.V1.PlayerAggregate.Responses.Register;
+using Players.RestApi.V1.Shared;
 
 namespace Players.RestApi.V1.PlayerAggregate.Controllers;
 
 [ApiController]
 [Route("[Controller]")]
+[Authorize]
 public class PlayersController : ControllerBase
 {
     private readonly IPlayerApplicationService _playerApplicationService;
@@ -43,6 +47,7 @@ public class PlayersController : ControllerBase
     {
         try
         {
+
             ValidationResult requestValidationResult = validator.Validate(request);
 
             if (!requestValidationResult.IsValid)
@@ -51,8 +56,7 @@ public class PlayersController : ControllerBase
             PlayerRegistrationDto playerForRegister =
            _mapper.Map<PlayerRegistrationRequest, PlayerRegistrationDto>(request);
 
-            //TODO:Replace this line after integrating with Identity Server
-            playerForRegister.UserId = _authenticatedUser.GetSub() ?? "1";
+            playerForRegister.UserId = _authenticatedUser.GetSub()?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
 
             RegisteredPlayerDto registredPlayer = await _playerApplicationService.RegisterAsync(playerForRegister);
 

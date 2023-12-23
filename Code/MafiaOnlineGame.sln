@@ -111,7 +111,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Test.Api", "Frame
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Players.Infrastructure.PersistTests", "Players\test\Players.Infrastructure.PersistTests\Players.Infrastructure.PersistTests.csproj", "{F57C74D2-94AE-4C96-8F14-8C387CC4B30A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Test.EntityFramework", "Framework\Test\Framework.Test.EntityFramework\Framework.Test.EntityFramework.csproj", "{D9F194DB-D9D1-4B42-9B08-353D478FEDE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Test.EntityFramework", "Framework\Test\Framework.Test.EntityFramework\Framework.Test.EntityFramework.csproj", "{D9F194DB-D9D1-4B42-9B08-353D478FEDE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
