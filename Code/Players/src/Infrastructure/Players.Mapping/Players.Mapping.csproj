@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Infrastructure\Mapping\Framework.Mapping.AutoMapper\Framework.Mapping.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Core\Players.ApplicationServices\Players.ApplicationServices.csproj" />
+    <ProjectReference Include="..\..\Core\Players.Domain\Players.Domain.csproj" />
+    <ProjectReference Include="..\..\Presentation\Players.RestApi\Players.RestApi.csproj" />
+    <ProjectReference Include="..\Players.Persistence.SQL\Players.Persistence.SQL.csproj" />
+  </ItemGroup>
+
+</Project>

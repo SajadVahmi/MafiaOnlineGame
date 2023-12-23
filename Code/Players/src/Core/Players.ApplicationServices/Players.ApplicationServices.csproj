@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Core\Framework.Core.ApplicationServices\Framework.Core.ApplicationServices.csproj" />
+    <ProjectReference Include="..\..\..\..\Framework\Core\Framework.Core.Domian\Framework.Core.Domian\Framework.Core.Domian.csproj" />
+    <ProjectReference Include="..\Players.Domain\Players.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
