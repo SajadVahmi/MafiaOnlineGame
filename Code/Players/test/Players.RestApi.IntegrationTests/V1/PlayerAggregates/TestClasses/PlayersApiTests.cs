@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Framework.Core.Contracts;
+using Framework.Test.Api.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
 using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Fixtures;
@@ -10,10 +11,12 @@ using static Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestData.Playe
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestClasses;
 
-public class PlayersApiTests : PlayersApiTransactionRollbackTestBase
+public class PlayersApiTests : PlayersApiTestBase
 {
+
     public PlayersApiTests(PlayersWebApplicationFactory factory) : base(factory)
     {
+
     }
 
     [Fact(DisplayName = "Register player api should returns 201 response when request is valid.")]
@@ -22,10 +25,8 @@ public class PlayersApiTests : PlayersApiTransactionRollbackTestBase
         //Arrange
         var registerRequestBody = PlayerRequestFactory.CreatePlayerRegistrationRequest();
 
-        HttpClient client = Factory.CreateClient();
-
         //Act
-        var response = await client.PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -44,10 +45,10 @@ public class PlayersApiTests : PlayersApiTransactionRollbackTestBase
                     .WithBirthDate(Sajad.BirthDate)
                     .WithGender(Sajad.Gender));
 
-        DateTimeOffset? currentDateTime = Factory.Services.GetRequiredService<IClock>()?.Now();
+        DateTimeOffset? currentDateTime = Clock.Now();
 
         //Act
-        var response = await Factory.CreateClient().PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
 
         var responseBody = await response.Content.ReadFromJsonAsync<PlayerRegisterationResponse>();
 
@@ -70,5 +71,5 @@ public class PlayersApiTests : PlayersApiTransactionRollbackTestBase
 
     }
 
-    
+
 }

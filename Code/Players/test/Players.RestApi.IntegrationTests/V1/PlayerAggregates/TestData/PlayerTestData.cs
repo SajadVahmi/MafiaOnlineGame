@@ -6,12 +6,16 @@ public class PlayerTestData
 {
     private static Random Random = new Random();
 
+ 
+
     public static class Endpoints
     {
         public static string Registration = "/players";
     }
     public static class Sajad
     {
+        public static string Id = "223565896";
+
         public static string FirstName = "Sajad";
 
         public static string LastName = "Vahmi";
@@ -22,6 +26,7 @@ public class PlayerTestData
     }
     public static class Somebody
     {
+       
         public static string FirstName = Faker.Name.First();
 
         public static string LastName = Faker.Name.Last();
