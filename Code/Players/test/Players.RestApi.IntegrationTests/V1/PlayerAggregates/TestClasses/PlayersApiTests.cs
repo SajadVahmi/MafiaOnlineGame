@@ -1,4 +1,7 @@
 ﻿using FluentAssertions;
+using Framework.Core.Contracts;
+using Framework.Test.Api.Builders;
+using Microsoft.Extensions.DependencyInjection;
 using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
 using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Fixtures;
 using Players.RestApi.V1.PlayerAggregate.Responses.Register;

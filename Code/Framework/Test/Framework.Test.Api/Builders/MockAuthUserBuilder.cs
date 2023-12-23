@@ -13,11 +13,11 @@ public class MockAuthUserBuilder
 
     public MockAuthUserBuilder WithClaim(string claimName, string claimValue)
     {
-        _claims.Add(new(claimName, claimValue));
+        _claims.Add(new Claim(claimName, claimValue));
 
         return this;
     }
 
-    public MockAuthUser Build() =>
-        new MockAuthUser(_claims.ToArray());
+    public MockAuthUser Build()=> new MockAuthUser(_claims.ToArray());
+        
 }

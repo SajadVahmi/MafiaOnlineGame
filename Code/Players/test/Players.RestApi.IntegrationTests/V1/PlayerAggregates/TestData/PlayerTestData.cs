@@ -4,6 +4,10 @@ namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestData;
 
 public class PlayerTestData
 {
+    private static Random Random = new Random();
+
+ 
+
     public static class Endpoints
     {
         public static string Registration = "/players";
