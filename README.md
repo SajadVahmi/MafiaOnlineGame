@@ -18,8 +18,9 @@ The project is a customized implementation of the Original Mafia Game, a social 
 Each Bounded Context encapsulates a specific domain and defines its own ubiquitous language and model within the microservices architecture.
 
 ## Mafia Game Resources
-- [How to Play Mafia](https://www.thespruce.com/how-to-play-mafia-411017): A step-by-step guide on how to play the Original Mafia Game.
-- [Official Mafia Game Rules](https://www.servinglibrary.org/journal/2/the-original-mafia-rules): The official rules of the Original Mafia Game.
+- [The original mafia rules] (https://web.archive.org/web/19990302082118/http://members.theglobe.com/mafia_rules/).
+- [The original mafia rules] (https://www.servinglibrary.org/journal/2/the-original-mafia-rules]).
+- [Mafia (party game)] (https://en.wikipedia.org/wiki/Mafia_(party_game)).
 
 ## Contributing
 If you want to contribute to the project and help in its development, you can reach out to me on [LinkedIn](https://www.linkedin.com/in/sajad-vahmi/).
