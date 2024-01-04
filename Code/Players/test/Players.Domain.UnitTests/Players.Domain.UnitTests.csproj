@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Test\Framework.Test\Framework.Test.csproj" />
     <ProjectReference Include="..\..\src\Core\Players.Domain\Players.Domain.csproj" />
+    <ProjectReference Include="..\Players.SharedTestClasess\Players.SharedTestClasess.csproj" />
   </ItemGroup>
 
 </Project>

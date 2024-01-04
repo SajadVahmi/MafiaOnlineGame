@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
 using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
-using Players.Infrastructure.PersistTests.PlayerAggregate.Factories;
 using Players.Infrastructure.PersistTests.Shared;
 using Players.Persistence.SQL.Repositories;
+using Players.SharedTestClasess.PlayerAggregate.Factories;
 
-namespace Players.Infrastructure.PersistTests.PlayerAggregate.TestClasess;
+namespace Players.Infrastructure.PersistTests.PlayerAggregate;
 
 public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
 {
@@ -18,11 +18,11 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
     }
 
     [Fact]
-    public async Task Repository()
+    public async Task Repository_Can_Persist_And_Load_Aggregate()
     {
 
         //Arrange
-        Player playerForPersist = await PlayerAggregateFactory.CreateAPlayerForPersist();
+        Player playerForPersist = await PlayerAggregateFactory.CreateAPlayer();
 
 
         //Act

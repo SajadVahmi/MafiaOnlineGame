@@ -1,6 +1,6 @@
-﻿namespace Players.Infrastructure.PersistTests.Shared;
+﻿namespace Players.SharedTestClasess.Shared.Data;
 
-public static class SharedTestData
+public static class UserTestData
 {
     public static class AuthenticatedUser
     {
@@ -13,17 +13,5 @@ public static class SharedTestData
         public static string UserName = "TestUserName";
 
         public static bool IsCurrentUser = true;
-    }
-
-    public static class DateTime
-    {
-        public static DateTimeOffset CurrentDateTime = new DateTimeOffset(
-            year: 2023,
-            month: 1,
-            day: 1,
-            hour: 0,
-            minute: 0,
-            second: 0,
-            TimeSpan.Zero);
     }
 }

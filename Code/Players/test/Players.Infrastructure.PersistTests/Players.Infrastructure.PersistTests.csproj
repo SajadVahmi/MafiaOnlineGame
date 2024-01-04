@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Framework\Test\Framework.Test.EntityFramework\Framework.Test.EntityFramework.csproj" />
     <ProjectReference Include="..\..\src\Infrastructure\Players.Persistence.SQL\Players.Persistence.SQL.csproj" />
+    <ProjectReference Include="..\Players.SharedTestClasess\Players.SharedTestClasess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

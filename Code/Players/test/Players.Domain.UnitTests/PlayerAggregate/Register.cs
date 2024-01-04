@@ -1,13 +1,12 @@
 ﻿using FluentAssertions;
-using Newtonsoft.Json;
 using Players.Domain.PlayerAggregate.Events;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Domain.PlayerAggregate.Services;
-using Players.Domain.UnitTests.PlayerAggregate.Factories;
-using Players.Domain.UnitTests.PlayerAggregate.TestBuilders;
+using Players.SharedTestClasess.PlayerAggregate.Builders;
+using Players.SharedTestClasess.PlayerAggregate.Factories;
 
-namespace Players.Domain.UnitTests.PlayerAggregate.TestClases;
+namespace Players.Domain.UnitTests.PlayerAggregate;
 
 public class Register
 {

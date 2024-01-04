@@ -1,7 +1,8 @@
 ﻿using Players.Contracts.Enums;
 using Players.Domain.PlayerAggregate.Models;
+using Players.SharedTestClasess.Shared.Data;
 
-namespace Players.Domain.UnitTests.PlayerAggregate.TestData;
+namespace Players.SharedTestClasess.PlayerAggregate.Data;
 
 public static class PlayerTestData
 {
@@ -35,6 +36,6 @@ public static class PlayerTestData
 
         public static Gender Gender = Gender.Male;
 
-        public static string UserId = "1234";
+        public static string UserId = AuthenticatedUser.Sub;
     }
 }
