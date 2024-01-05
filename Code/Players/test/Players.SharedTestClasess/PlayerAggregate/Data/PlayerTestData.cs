@@ -15,10 +15,7 @@ public static class PlayerTestData
 
         public static string LastName => Faker.Name.Last();
 
-        public static DateOnly BirthDate => new DateOnly(
-            year: Faker.Identification.DateOfBirth().Year,
-            month: Faker.Identification.DateOfBirth().Month,
-            day: Faker.Identification.DateOfBirth().Day);
+        public static DateOnly BirthDate => DateOnly.FromDateTime(Faker.Identification.DateOfBirth());
 
         public static Gender Gender => Faker.Enum.Random<Gender>();
 
