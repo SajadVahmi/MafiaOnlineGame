@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Players.Persistence.SQL.DbContexts;
+using Players.SharedTestClasess.Shared.Data;
+using static Players.SharedTestClasess.Shared.Data.UserTestData;
 
 namespace Players.Infrastructure.PersistTests.Shared;
 
@@ -69,17 +71,17 @@ public class PlayersPersistTestFixture :EfCoreSandboxTest<PlayersDbContext>
 
     private static IClock SetupClockService()
     {
-        return new ClockStub(SharedTestData.DateTime.CurrentDateTime);
+        return  ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
     }
 
     private static IAuthenticatedUser SetupAuthenticatedUserService()
     {
         return new AuthenticatedUserStub(
-             sub: SharedTestData.AuthenticatedUser.Sub,
-             userAgent: SharedTestData.AuthenticatedUser.UserAgent,
-             userIp: SharedTestData.AuthenticatedUser.UserIP,
-             userName: SharedTestData.AuthenticatedUser.UserName,
-             isCurrentUser: SharedTestData.AuthenticatedUser.IsCurrentUser);
+             sub: AuthenticatedUser.Sub,
+             userAgent: AuthenticatedUser.UserAgent,
+             userIp: AuthenticatedUser.UserIP,
+             userName: AuthenticatedUser.UserName,
+             isCurrentUser: AuthenticatedUser.IsCurrentUser);
     }
 
     private static string GetConnectionString()

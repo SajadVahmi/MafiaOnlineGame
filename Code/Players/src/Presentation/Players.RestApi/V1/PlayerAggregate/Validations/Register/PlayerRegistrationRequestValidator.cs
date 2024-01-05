@@ -7,34 +7,35 @@ public class PlayerRegistrationRequestValidator : AbstractValidator<PlayerRegist
 {
     public PlayerRegistrationRequestValidator()
     {
+        
         RuleFor(player => player.FirstName)
             .NotNull()
-            .WithMessage(ValidationMessages.FirstNameIsRequired)
-            .NotEmpty()
-            .WithMessage(ValidationMessages.FirstNameIsRequired)
+            .WithMessage(PlayerRegistrationValidationMessages.FirstNameIsRequired)
             .MinimumLength(3)
+            .WithMessage(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid)
             .MaximumLength(50)
-            .WithMessage(ValidationMessages.FirstNameLengthIsInvalid);
+            .WithMessage(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid);
 
         RuleFor(player => player.LastName)
            .NotNull()
-           .WithMessage(ValidationMessages.LastNameIsRequired)
-           .NotEmpty()
-           .WithMessage(ValidationMessages.LastNameIsRequired)
+           .WithMessage(PlayerRegistrationValidationMessages.LastNameIsRequired)
            .MinimumLength(3)
+           .WithMessage(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid)
            .MaximumLength(50)
-           .WithMessage(ValidationMessages.LastNameLengthIsInvalid);
+           .WithMessage(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid);
 
         RuleFor(player => player.BirthDate)
+          .Cascade(CascadeMode.Stop)
           .NotNull()
-          .WithMessage(ValidationMessages.BirthDateIsRequired)
+          .WithMessage(PlayerRegistrationValidationMessages.BirthDateIsRequired)
           .NotEqual(default(DateOnly))
-          .WithMessage(ValidationMessages.BirthDateIsInvalid);
+          .WithMessage(PlayerRegistrationValidationMessages.BirthDateIsInvalid);
 
         RuleFor(player => player.Gender)
+         .Cascade(CascadeMode.Stop)
          .NotNull()
-         .WithMessage(ValidationMessages.GenderIsRequired)
+         .WithMessage(PlayerRegistrationValidationMessages.GenderIsRequired)
          .IsInEnum()
-         .WithMessage(ValidationMessages.GenderIsInvalid);
+         .WithMessage(PlayerRegistrationValidationMessages.GenderIsInvalid);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Players.Contracts.Enums;
-using Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestData;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
+using Players.SharedTestClasess.PlayerAggregate.Data;
 
-namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestBuilders;
+namespace Players.SharedTestClasess.PlayerAggregate.Builders;
 
 public class PlayerRegistrationRequestBuilder
 {
@@ -14,17 +14,17 @@ public class PlayerRegistrationRequestBuilder
 
     private Gender? _gender;
 
-    public static PlayerRegistrationRequestBuilder Instantiate()=>new();
+    public static PlayerRegistrationRequestBuilder Instantiate() => new();
 
     protected PlayerRegistrationRequestBuilder()
     {
-        _firstName = PlayerTestData.Somebody.FirstName;
+        _firstName =SomeBody.FirstName;
 
-        _lastName= PlayerTestData.Somebody.LastName;
+        _lastName = SomeBody.LastName;
 
-        _birthDate=PlayerTestData.Somebody.BirthDate;
+        _birthDate =SomeBody.BirthDate;
 
-        _gender=PlayerTestData.Somebody.Gender;
+        _gender = SomeBody.Gender;
 
     }
 

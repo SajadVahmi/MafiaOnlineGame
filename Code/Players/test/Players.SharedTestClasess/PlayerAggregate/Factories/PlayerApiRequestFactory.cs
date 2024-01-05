@@ -1,12 +1,10 @@
-﻿using Framework.Persistence.EF;
-using Newtonsoft.Json;
-using Players.Domain.PlayerAggregate.Models;
-using Players.RestApi.IntegrationTests.V1.PlayerAggregates.TestBuilders;
+﻿using Newtonsoft.Json;
+using Players.SharedTestClasess.PlayerAggregate.Builders;
 using System.Text;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
 
-public static class PlayerRequestFactory
+public static class PlayerApiRequestFactory
 {
 
     public static StringContent CreatePlayerRegistrationRequest()
@@ -25,7 +23,7 @@ public static class PlayerRequestFactory
         return new StringContent(JsonConvert.SerializeObject(builder.Build()), Encoding.UTF8, "application/json");
     }
 
-  
 
-  
+
+
 }

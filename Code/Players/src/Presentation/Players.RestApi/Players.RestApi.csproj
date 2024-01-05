@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="V1\PlayerAggregate\Validations\Register\ValidationMessages.Designer.cs">
+    <Compile Update="V1\PlayerAggregate\Validations\Register\PlayerRegistrationValidationMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ValidationMessages.resx</DependentUpon>
+      <DependentUpon>PlayerRegistrationValidationMessages.resx</DependentUpon>
     </Compile>
     <Compile Update="V1\Shared\Exceptions.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="V1\PlayerAggregate\Validations\Register\ValidationMessages.resx">
+    <EmbeddedResource Update="V1\PlayerAggregate\Validations\Register\PlayerRegistrationValidationMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlayerRegistrationValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="V1\Shared\Exceptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
