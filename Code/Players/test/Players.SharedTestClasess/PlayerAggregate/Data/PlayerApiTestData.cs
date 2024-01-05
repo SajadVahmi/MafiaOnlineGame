@@ -8,4 +8,7 @@ public static class PlayerApiTestData
     {
         public static string Registration = "/players";
     }
+
+
+
 }

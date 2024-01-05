@@ -6,22 +6,23 @@ namespace Players.SharedTestClasess.PlayerAggregate.Data;
 
 public static class PlayerTestData
 {
+   
     public static class SomeBody
     {
-        public static PlayerId Id = PlayerId.Instantiate(Faker.RandomNumber.Next(1, 100));
+        public static PlayerId Id => PlayerId.Instantiate(Faker.RandomNumber.Next(1, 100000));
 
-        public static string FirstName = Faker.Name.First();
+        public static string FirstName => Faker.Name.First();
 
-        public static string LastName = Faker.Name.Last();
+        public static string LastName => Faker.Name.Last();
 
-        public static DateOnly BirthDate = new DateOnly(
+        public static DateOnly BirthDate => new DateOnly(
             year: Faker.Identification.DateOfBirth().Year,
             month: Faker.Identification.DateOfBirth().Month,
             day: Faker.Identification.DateOfBirth().Day);
 
-        public static Gender Gender = Faker.Enum.Random<Gender>();
+        public static Gender Gender => Faker.Enum.Random<Gender>();
 
-        public static string UserId = Faker.RandomNumber.Next(1000, 2000).ToString();
+        public static string UserId => Faker.RandomNumber.Next(1000, 200000).ToString();
     }
 
     public static class Sajad
