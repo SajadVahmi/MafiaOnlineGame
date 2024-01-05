@@ -3,11 +3,10 @@ using Framework.Test.Stubs;
 using Players.Contracts.Enums;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Domain.PlayerAggregate.Services;
-using Players.Domain.UnitTests.PlayerAggregate.Factories;
-using Players.Domain.UnitTests.PlayerAggregate.TestData;
-using IClock = Framework.Core.Contracts.IClock;
+using Players.SharedTestClasess.PlayerAggregate.Factories;
+using Players.SharedTestClasess.Shared.Data;
 
-namespace Players.Domain.UnitTests.PlayerAggregate.TestBuilders;
+namespace Players.SharedTestClasess.PlayerAggregate.Builders;
 
 public class PlayerRegisterArgsTestBuilder
 {
@@ -33,19 +32,19 @@ public class PlayerRegisterArgsTestBuilder
 
     protected PlayerRegisterArgsTestBuilder()
     {
-        _id = PlayerTestData.RandomPlayer.Id;
+        _id = SomeBody.Id;
 
-        _firstName = PlayerTestData.RandomPlayer.FirstName;
+        _firstName = SomeBody.FirstName;
 
-        _lastName = PlayerTestData.RandomPlayer.LastName;
+        _lastName = SomeBody.LastName;
 
-        _birthDate = PlayerTestData.RandomPlayer.BirthDate;
+        _birthDate = SomeBody.BirthDate;
 
-        _gender = PlayerTestData.RandomPlayer.Gender;
+        _gender = SomeBody.Gender;
 
-        _userId = PlayerTestData.RandomPlayer.UserId;
+        _userId = SomeBody.UserId;
 
-        _clock = ClockStub.Instantiate();
+        _clock = ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
 
         _idProvider = EventIdProviderStub.Instantiate();
 
@@ -141,3 +140,4 @@ public class PlayerRegisterArgsTestBuilder
 
 
 }
+

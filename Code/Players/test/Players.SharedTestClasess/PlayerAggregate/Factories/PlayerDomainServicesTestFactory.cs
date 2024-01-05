@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using Players.Domain.PlayerAggregate.Services;
 
-namespace Players.Domain.UnitTests.PlayerAggregate.Factories;
+namespace Players.SharedTestClasess.PlayerAggregate.Factories;
 
 public static class PlayerDomainServicesTestFactory
 {

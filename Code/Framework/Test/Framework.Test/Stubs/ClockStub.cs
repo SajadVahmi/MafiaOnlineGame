@@ -6,12 +6,16 @@ public class ClockStub : IClock
 {
     public static ClockStub Instantiate() => new();
 
+    public static ClockStub InstantiateOn(DateTimeOffset now) => new(now);
+
+
+
     private DateTimeOffset _now;
 
-    public ClockStub() =>
+    protected ClockStub() =>
     _now = DateTimeOffset.UtcNow;
 
-    public ClockStub(DateTimeOffset now) =>
+    protected ClockStub(DateTimeOffset now) =>
         _now = now;
 
     public DateTimeOffset Now() =>
@@ -20,8 +24,5 @@ public class ClockStub : IClock
     public void TimeTravelTo(DateTimeOffset targetTime) =>
         _now = targetTime;
 
-    public void TimeTravelTo(string targetTime)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

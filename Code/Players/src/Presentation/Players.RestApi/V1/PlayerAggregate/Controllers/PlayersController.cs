@@ -3,7 +3,6 @@ using FluentValidation.Results;
 using Framework.Core.Contracts;
 using Framework.Presentation.AspNetCore.Contracts;
 using Framework.Presentation.RestApi;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +55,7 @@ public class PlayersController : ControllerBase
             PlayerRegistrationDto playerForRegister =
            _mapper.Map<PlayerRegistrationRequest, PlayerRegistrationDto>(request);
 
-            playerForRegister.UserId = _authenticatedUser.GetSub()?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
+            playerForRegister.UserId = _authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
 
             RegisteredPlayerDto registredPlayer = await _playerApplicationService.RegisterAsync(playerForRegister);
 
