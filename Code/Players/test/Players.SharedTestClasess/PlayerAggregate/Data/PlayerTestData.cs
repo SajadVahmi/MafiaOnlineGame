@@ -6,7 +6,7 @@ namespace Players.SharedTestClasess.PlayerAggregate.Data;
 
 public static class PlayerTestData
 {
-    public static class RandomPlayer
+    public static class SomeBody
     {
         public static PlayerId Id = PlayerId.Instantiate(Faker.RandomNumber.Next(1, 100));
 
@@ -32,10 +32,10 @@ public static class PlayerTestData
 
         public static string LastName = "Vahmi";
 
-        public static DateOnly BirthDate = new DateOnly(1991, 03, 01);
+        public static DateOnly BirthDate = DateOnly.FromDateTime(DateTimeTestData.Friday1March1991.Date);
 
         public static Gender Gender = Gender.Male;
 
-        public static string UserId = AuthenticatedUser.Sub;
+        public static string UserId = AuthenticatedSajad.Sub;
     }
 }

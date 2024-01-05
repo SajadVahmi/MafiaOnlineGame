@@ -32,17 +32,17 @@ public class PlayerRegisterArgsTestBuilder
 
     protected PlayerRegisterArgsTestBuilder()
     {
-        _id = RandomPlayer.Id;
+        _id = SomeBody.Id;
 
-        _firstName = RandomPlayer.FirstName;
+        _firstName = SomeBody.FirstName;
 
-        _lastName = RandomPlayer.LastName;
+        _lastName = SomeBody.LastName;
 
-        _birthDate = RandomPlayer.BirthDate;
+        _birthDate = SomeBody.BirthDate;
 
-        _gender = RandomPlayer.Gender;
+        _gender = SomeBody.Gender;
 
-        _userId = RandomPlayer.UserId;
+        _userId = SomeBody.UserId;
 
         _clock = ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
 

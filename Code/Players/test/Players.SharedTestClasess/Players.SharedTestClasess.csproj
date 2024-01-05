@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\..\Framework\Test\Framework.Test\Framework.Test.csproj" />
     <ProjectReference Include="..\..\src\Core\Players.Contracts\Players.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Core\Players.Domain\Players.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Presentation\Players.RestApi\Players.RestApi.csproj" />
   </ItemGroup>
 
 </Project>
