@@ -19,16 +19,16 @@ public class AuthorizeCheckOperationFilter : IOperationFilter
 
             operation.Security = new List<OpenApiSecurityRequirement>
             {
-                new OpenApiSecurityRequirement
-                {
-                    [
-                        new OpenApiSecurityScheme {Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "oauth2"}
-                        }
-                    ] = new[] {"api1"}
-                }
+               new OpenApiSecurityRequirement
+            {
+                 {
+                     new OpenApiSecurityScheme
+                     {
+                         Reference = new OpenApiReference { Id = "OAuth", Type = ReferenceType.SecurityScheme }
+                     },
+                     new List<string> { }
+                 }
+            }
             };
 
         }

@@ -24,26 +24,19 @@ public static class Config
             //players swagger api ui client
             new Client
             {
-                ClientId = "playersswaggerapiui",
 
-                ClientName = "Players Swagger API UI",
-
-                AllowedGrantTypes = GrantTypes.Implicit,
-
-                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                RedirectUris={"http://localhost:5171/swagger/oauth2-redirect.html"},
-
-                PostLogoutRedirectUris={ "http://localhost:5171/swagger" },
-
+                ClientId = "players-api-swagger",
+                RequireClientSecret = false,
+                AllowedGrantTypes = GrantTypes.Code,
+                RequirePkce = true,
+                RedirectUris = { "http://localhost:5171/swagger/oauth2-redirect.html" },
+                AllowedCorsOrigins = { "http://localhost:5171" },
+                AllowOfflineAccess = true,
                 AllowedScopes = {
-                    "players",
-
                     IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "players"   }
 
-                    IdentityServerConstants.StandardScopes.Profile
-                },
-                AllowAccessTokensViaBrowser = true,
             }
         };
 
