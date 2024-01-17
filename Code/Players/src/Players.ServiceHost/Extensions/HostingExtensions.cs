@@ -31,31 +31,30 @@ internal static class HostingExtensions
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Players API", Version = "v1" });
 
-            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            var scheme = new OpenApiSecurityScheme
             {
-                Type = SecuritySchemeType.OAuth2,
-
+                In = ParameterLocation.Header,
+                Name = "Authorization",
                 Flows = new OpenApiOAuthFlows
                 {
-                    Implicit = new OpenApiOAuthFlow
+                    AuthorizationCode = new OpenApiOAuthFlow
                     {
                         AuthorizationUrl = new Uri("https://localhost:5001/connect/authorize"),
 
-                        TokenUrl = new Uri("https://localhost:5001/connect/authorize"),
+                        TokenUrl = new Uri("https://localhost:5001/connect/token"),
 
-                        Scopes = new Dictionary<string, string>
-                             {
-                                 {"players","For access to players api"}
-                             }
+                        Scopes = new Dictionary<string, string>{
+
+                            {"players","For access to players api"}
+                        }
                     }
                 },
+                Type = SecuritySchemeType.OAuth2
+            };
 
-                In = ParameterLocation.Header,
-
-            });
+            options.AddSecurityDefinition("OAuth", scheme);
 
             options.OperationFilter<AuthorizeCheckOperationFilter>();
-
         });
 
         builder.Services.AddHttpContextServices();
@@ -101,9 +100,13 @@ internal static class HostingExtensions
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Players API V1");
 
-                options.OAuthClientId("playersswaggerapiui");
+                options.OAuthAppName("Players Swagger API");
 
-                options.OAuthAppName("Players Swagger API UI");
+                options.OAuthClientId("players-api-swagger");
+
+                options.OAuthScopes("profile", "openid", "players");
+
+                options.OAuthUsePkce();
 
             });
         }
