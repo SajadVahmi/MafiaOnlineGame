@@ -3,11 +3,11 @@ using System.Resources;
 
 namespace Framework.Core.Domian.Exceptions;
 
-public class BusinessException:Exception
+public class BusinessException : Exception
 {
-    public string Code { get;private set; }
+    public string Code { get; private set; }
     public string Name { get; private set; }
-    public BusinessException(string message,string code, string name) : base(message)
+    public BusinessException(string message, string code, string name) : base(message)
     {
         Code = code;
         Name = name;

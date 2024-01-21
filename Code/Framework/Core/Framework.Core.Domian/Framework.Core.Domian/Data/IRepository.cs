@@ -15,4 +15,8 @@ public interface IRepository<TId, TAggregateRoot> : IRepository where TAggregate
     Task<TAggregateRoot?> LoadAsync(TId key, CancellationToken cancellationToken = default);
 
     Task<bool> ExistAsync(Expression<Func<TAggregateRoot, bool>> predicate, CancellationToken cancellationToken = default);
+
+    Task SaveChangesAsync();
+    void SaveChanges();
+
 }

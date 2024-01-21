@@ -1,5 +1,4 @@
-﻿using Framework.Core.Domian.Entities;
-using Framework.Core.Domian.Events;
+﻿using Framework.Core.Domian.Events;
 
 namespace Framework.Core.Domian.Aggregates;
 

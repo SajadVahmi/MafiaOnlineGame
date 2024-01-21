@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates;
 
-
-public class PlayersApiTestBase : IClassFixture<FrameworkWebApplicationFactory<Program>>
+[Collection("application collection")]
+public class PlayersApiTestBase 
 {
     protected IClock Clock;
 

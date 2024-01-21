@@ -7,4 +7,6 @@ public interface IPlayerRepository : IRepository<PlayerId, Player>
 {
     public Task RegisterAsync(Player player, CancellationToken cancellationToken = default);
 
+    public Task<Player> LoadAsync(PlayerId playerId, string userId, CancellationToken cancellationToken = default);
+
 }

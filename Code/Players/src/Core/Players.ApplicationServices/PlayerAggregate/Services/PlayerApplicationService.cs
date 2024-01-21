@@ -1,6 +1,8 @@
-﻿using Framework.Core.Contracts;
+﻿using Framework.Core.ApplicationServices.Exceptions;
+using Framework.Core.Contracts;
 using Players.ApplicationServices.PlayerAggregate.Dtos;
 using Players.ApplicationServices.PlayerAggregate.Factories;
+using Players.Contracts.Resources;
 using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Domain.PlayerAggregate.Services;
@@ -35,6 +37,7 @@ public class PlayerApplicationService : IPlayerApplicationService
 
         _clock = clock;
     }
+
     public async Task<RegisteredPlayerDto> RegisterAsync(PlayerRegistrationDto playerRegistrationDto, CancellationToken cancellationToken = default)
     {
         PlayerRegisterArgs playerRegisterArgs = await PlayerRegisterArgsFactory.CreateAsync(
@@ -52,5 +55,27 @@ public class PlayerApplicationService : IPlayerApplicationService
         RegisteredPlayerDto registeredPlayerDto = _mapper.Map<Player, RegisteredPlayerDto>(player);
 
         return registeredPlayerDto;
+    }
+
+    public async Task ChangeProfileAsync(PlayerChangeProfileDto playerChangeProfileDto, CancellationToken cancellationToken = default)
+    {
+        var player = await _playerRepository.LoadAsync(
+            playerId: PlayerId.Instantiate(playerChangeProfileDto.Id),
+            userId: playerChangeProfileDto.UserId);
+
+        if (player is null)
+            throw new AggregateNotFoundException(
+                message:PlayersResource.Player101ThePlayerNotFound,
+                code:PlayersCodes.Player101ThePlayerNotFound,
+                name:PlayersResource.Player101ThePlayerNotFound);
+
+      var playerChangeProfile= PlayerChangeProfileArgsFactory.Create(
+            playerChangeProfileDto: playerChangeProfileDto,
+            eventIdProvider: _eventIdProvider,
+            clock: _clock);
+
+        player.ChangeProfile(playerChangeProfile);
+
+        await _playerRepository.SaveChangesAsync();
     }
 }
