@@ -1,7 +1,6 @@
 ﻿using Framework.Core.Contracts;
 using Framework.Core.Domian.Aggregates;
 using Framework.Core.Domian.Events;
-using Framework.Presentation.AspNetCore.Contracts;
 
 namespace Framework.Events.OutBox.Models;
 

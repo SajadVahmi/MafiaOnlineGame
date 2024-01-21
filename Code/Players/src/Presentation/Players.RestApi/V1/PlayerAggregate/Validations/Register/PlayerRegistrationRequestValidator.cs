@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Players.Contracts.Resources;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
 
 namespace Players.RestApi.V1.PlayerAggregate.Validations.Register;
@@ -10,32 +11,32 @@ public class PlayerRegistrationRequestValidator : AbstractValidator<PlayerRegist
         
         RuleFor(player => player.FirstName)
             .NotNull()
-            .WithMessage(PlayerRegistrationValidationMessages.FirstNameIsRequired)
+            .WithMessage(PlayersResource.Player104FirstNameIsRequired)
             .MinimumLength(3)
-            .WithMessage(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid)
+            .WithMessage(PlayersResource.Player105FirstNameLengthIsInvalid)
             .MaximumLength(50)
-            .WithMessage(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid);
+            .WithMessage(PlayersResource.Player105FirstNameLengthIsInvalid);
 
         RuleFor(player => player.LastName)
            .NotNull()
-           .WithMessage(PlayerRegistrationValidationMessages.LastNameIsRequired)
+           .WithMessage(PlayersResource.Player108LastNameIsRequired)
            .MinimumLength(3)
-           .WithMessage(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid)
+           .WithMessage(PlayersResource.Player109LastNameLengthIsInvalid)
            .MaximumLength(50)
-           .WithMessage(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid);
+           .WithMessage(PlayersResource.Player109LastNameLengthIsInvalid);
 
         RuleFor(player => player.BirthDate)
           .Cascade(CascadeMode.Stop)
           .NotNull()
-          .WithMessage(PlayerRegistrationValidationMessages.BirthDateIsRequired)
+          .WithMessage(PlayersResource.Player103BirthDateIsRequired)
           .NotEqual(default(DateOnly))
-          .WithMessage(PlayerRegistrationValidationMessages.BirthDateIsInvalid);
+          .WithMessage(PlayersResource.Player102BirthDateIsInvalid);
 
         RuleFor(player => player.Gender)
          .Cascade(CascadeMode.Stop)
          .NotNull()
-         .WithMessage(PlayerRegistrationValidationMessages.GenderIsRequired)
+         .WithMessage(PlayersResource.Player107GenderIsRequired)
          .IsInEnum()
-         .WithMessage(PlayerRegistrationValidationMessages.GenderIsInvalid);
+         .WithMessage(PlayersResource.Player106GenderIsInvalid);
     }
 }

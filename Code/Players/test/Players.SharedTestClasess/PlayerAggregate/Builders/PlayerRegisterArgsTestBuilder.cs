@@ -44,7 +44,7 @@ public class PlayerRegisterArgsTestBuilder
 
         _userId = SomeBody.UserId;
 
-        _clock = ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
+        _clock = ClockStub.InstantiateOn(DateTimeTestData.CurrentDateTime);
 
         _idProvider = EventIdProviderStub.Instantiate();
 

@@ -1,4 +1,5 @@
-﻿using Framework.Core.Domian.Exceptions;
+﻿using Framework.Core.ApplicationServices.Exceptions;
+using Framework.Core.Domian.Exceptions;
 using System.Globalization;
 using System.Resources;
 
@@ -7,6 +8,9 @@ namespace Framework.Presentation.RestApi;
 public class ApiError
 {
     public static ApiError Instantiate(BusinessException exception) =>new(code:exception.Code,message:exception.Message);
+
+    public static ApiError Instantiate(ApplicationServicesException exception) => new(code: exception.Code, message: exception.Message);
+
 
     public static ApiError Instantiate(BusinessException exception, ResourceManager resourceManager, CultureInfo cultureInfo)
     {

@@ -3,7 +3,9 @@ using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Infrastructure.PersistTests.Shared;
 using Players.Persistence.SQL.Repositories;
+using Players.SharedTestClasess.PlayerAggregate.Builders;
 using Players.SharedTestClasess.PlayerAggregate.Factories;
+using System.Numerics;
 
 namespace Players.Infrastructure.PersistTests.PlayerAggregate;
 
@@ -18,11 +20,11 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
     }
 
     [Fact]
-    public async Task Repository_Can_Persist_And_Load_Aggregate()
+    public async Task player_repository_can_persist_and_load_aggregate()
     {
 
         //Arrange
-        Player playerForPersist = await PlayerAggregateFactory.CreateAPlayer();
+        Player playerForPersist = await PlayerAggregateFactory.CreateAPlayerAsync();
 
 
         //Act
@@ -36,5 +38,31 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
         persistedPlayer.Should().BeEquivalentTo(playerForPersist);
 
 
+    }
+
+    [Fact]
+    public async Task player_repository_can_save_changes_on_aggreggate()
+    {
+        //Arrange
+        Player player = await PlayerAggregateFactory.CreateAFemailPlayerAsync();
+
+        await _playerRepository.RegisterAsync(player);
+
+        var playerChangeProfileArgs=PlayerChangeProfileArgsTestBuilder.Instantiate()
+            .WithFirstName("UpdatedFirstName")
+             .WithLastName("UpdatedLastName")
+             .WithBirthDate(player.BirthDate.AddMonths(1))
+             .WithGender(Contracts.Enums.Gender.Male)
+             .Build();
+
+        player.ChangeProfile(playerChangeProfileArgs);
+
+        //Act
+        var persistedPlayer = await _playerRepository.LoadAsync(player.Id,player.UserId);
+
+        //Assert
+        persistedPlayer.Should().NotBeNull();
+
+        persistedPlayer.Should().BeEquivalentTo(player);
     }
 }

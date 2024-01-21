@@ -42,5 +42,13 @@ public abstract class EntityFrameworkRepository<TId, TAggregateRoot> : IReposito
         return DbContext.Set<TAggregateRoot>().AnyAsync(predicate, cancellationToken);
     }
 
+    public Task SaveChangesAsync()
+    {
+        return DbContext.SaveChangesAsync();
+    }
 
+    public void SaveChanges()
+    {
+        DbContext.SaveChanges();
+    }
 }

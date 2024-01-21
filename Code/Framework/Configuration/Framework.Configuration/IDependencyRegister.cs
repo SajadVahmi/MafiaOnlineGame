@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using static Framework.Configuration.IDependencyRegister;
 
 namespace Framework.Configuration;
 

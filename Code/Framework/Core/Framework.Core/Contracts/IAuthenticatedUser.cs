@@ -1,5 +1,5 @@
 ﻿
-namespace Framework.Presentation.AspNetCore.Contracts;
+namespace Framework.Core.Contracts;
 
 public interface IAuthenticatedUser
 {

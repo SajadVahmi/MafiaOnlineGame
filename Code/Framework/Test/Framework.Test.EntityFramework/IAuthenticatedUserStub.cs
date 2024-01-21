@@ -1,4 +1,4 @@
-﻿using Framework.Presentation.AspNetCore.Contracts;
+﻿using Framework.Core.Contracts;
 
 namespace Framework.Test.EntityFramework;
 

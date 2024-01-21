@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="V1\PlayerAggregate\Validations\Register\PlayerRegistrationValidationMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PlayerRegistrationValidationMessages.resx</DependentUpon>
-    </Compile>
     <Compile Update="V1\Shared\Exceptions.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -30,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="V1\PlayerAggregate\Validations\Register\PlayerRegistrationValidationMessages.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PlayerRegistrationValidationMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="V1\Shared\Exceptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
