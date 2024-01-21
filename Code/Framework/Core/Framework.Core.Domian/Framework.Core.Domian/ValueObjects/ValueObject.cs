@@ -16,7 +16,7 @@ public abstract class ValueObject<TValueObject> : IEquatable<TValueObject>
     public override int GetHashCode()
     {
         return GetEqualityComponents()
-            .Select(x =>  x.GetHashCode() )
+            .Select(x => x.GetHashCode())
             .Aggregate((x, y) => x ^ y);
     }
     protected abstract IEnumerable<object> GetEqualityComponents();

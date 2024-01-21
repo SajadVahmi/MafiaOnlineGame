@@ -7,6 +7,7 @@ public static class PlayerApiTestData
     public static class Endpoints
     {
         public static string Registration = "/players";
+        public static string ChangeProfile = "/players/{playerId}";
     }
 
 

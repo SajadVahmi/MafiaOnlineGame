@@ -104,5 +104,5 @@ public class AutofacDependencyRegister : IDependencyRegister
         _container.RegisterGenericDecorator(decorator, service);
     }
 
-   
+
 }

@@ -1,4 +1,5 @@
 ﻿using Framework.Persistence.EF;
+using Microsoft.EntityFrameworkCore;
 using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Persistence.SQL.Constants;
@@ -23,11 +24,16 @@ public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPl
         return PlayerId.Instantiate(long.Parse(id));
     }
 
-    public async Task RegisterAsync(Player player, CancellationToken cancellationToken = default)
+    public Task<Player?> LoadAsync(PlayerId playerId, string userId, CancellationToken cancellationToken = default)
+    {
+        return DbContext.Set<Player>().FirstOrDefaultAsync(player => player.Id == playerId && player.UserId == userId, cancellationToken);
+    }
+
+    public Task RegisterAsync(Player player, CancellationToken cancellationToken = default)
     {
         DbContext.Add(player);
 
-        await DbContext.SaveChangesAsync(cancellationToken);
+        return DbContext.SaveChangesAsync(cancellationToken);
     }
 
 

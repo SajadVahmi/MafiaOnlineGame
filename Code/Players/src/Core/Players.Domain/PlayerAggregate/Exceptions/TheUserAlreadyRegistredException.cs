@@ -1,4 +1,5 @@
 ﻿using Framework.Core.Domian.Exceptions;
+using Players.Contracts.Resources;
 
 namespace Players.Domain.PlayerAggregate.Exceptions;
 
@@ -6,9 +7,8 @@ public class TheUserAlreadyRegistredException : BusinessException
 {
     public TheUserAlreadyRegistredException() :
         base(
-           message: PlayerDomainExceptionMessages.TheUserAlreadyRegistred,
-           code: PlayerDomainExceptionCodes.TheUserAlreadyRegistred,
-           name:nameof(PlayerDomainExceptionMessages.TheUserAlreadyRegistred))
+           message: PlayersResource.Player100TheUserAlreadyRegistred,
+           code: PlayersCodes.Player100TheUserAlreadyRegistred,
+           name:nameof(PlayersResource.Player100TheUserAlreadyRegistred))
     { }
 }
-

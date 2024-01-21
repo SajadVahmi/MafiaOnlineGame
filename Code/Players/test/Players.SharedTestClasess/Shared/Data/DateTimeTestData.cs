@@ -2,6 +2,8 @@
 
 public static class DateTimeTestData
 {
+    public static DateTimeOffset CurrentDateTime= DateTimeOffset.UtcNow;
+
     public static DateTimeOffset Friday29December2023 = new DateTimeOffset(
         year: 2023,
         month: 12,

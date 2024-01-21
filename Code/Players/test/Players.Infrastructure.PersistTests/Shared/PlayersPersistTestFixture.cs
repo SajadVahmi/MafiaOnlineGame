@@ -1,7 +1,6 @@
 ﻿using Framework.Core.Contracts;
 using Framework.JsonSerializer.NewtonSoft;
 using Framework.Persistence.EF;
-using Framework.Presentation.AspNetCore.Contracts;
 using Framework.Presentation.AspNetCore.Helpers;
 using Framework.Test.EntityFramework;
 using Framework.Test.Stubs;
@@ -15,7 +14,7 @@ using static Players.SharedTestClasess.Shared.Data.UserTestData;
 
 namespace Players.Infrastructure.PersistTests.Shared;
 
-public class PlayersPersistTestFixture :EfCoreSandboxTest<PlayersDbContext>
+public class PlayersPersistTestFixture : EfCoreSandboxTest<PlayersDbContext>
 {
 
     public IEntityFrameworkSequenceService SequenceService;
@@ -71,7 +70,7 @@ public class PlayersPersistTestFixture :EfCoreSandboxTest<PlayersDbContext>
 
     private static IClock SetupClockService()
     {
-        return  ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
+        return ClockStub.InstantiateOn(DateTimeTestData.Friday29December2023);
     }
 
     private static IAuthenticatedUser SetupAuthenticatedUserService()
