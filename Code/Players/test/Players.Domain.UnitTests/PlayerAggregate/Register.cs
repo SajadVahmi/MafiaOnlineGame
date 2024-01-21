@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Players.Contracts.Resources;
 using Players.Domain.PlayerAggregate.Events;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.Domain.PlayerAggregate.Models;
@@ -82,9 +83,9 @@ public class Register
         //Assert
         var exception = await registration.Should().ThrowExactlyAsync<TheUserAlreadyRegistredException>();
 
-        exception.Which.Message.Should().Be(PlayerDomainExceptionMessages.TheUserAlreadyRegistred);
+        exception.Which.Message.Should().Be(PlayersResource.Player100TheUserAlreadyRegistred);
 
-        exception.Which.Code.Should().Be(PlayerDomainExceptionCodes.TheUserAlreadyRegistred);
+        exception.Which.Code.Should().Be(PlayersCodes.Player100TheUserAlreadyRegistred);
 
 
     }

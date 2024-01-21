@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BirthDateIsInvalid" xml:space="preserve">
-    <value>Birth date must has correct value</value>
+  <data name="Player100TheUserAlreadyRegistred" xml:space="preserve">
+    <value>Player-100</value>
   </data>
-  <data name="BirthDateIsRequired" xml:space="preserve">
-    <value>Birth date is required</value>
+  <data name="Player101ThePlayerNotFound" xml:space="preserve">
+    <value>Player-101</value>
   </data>
-  <data name="FirstNameIsRequired" xml:space="preserve">
-    <value>First name is required</value>
+  <data name="Player102BirthDateIsInvalid" xml:space="preserve">
+    <value>Player-102</value>
   </data>
-  <data name="FirstNameLengthIsInvalid" xml:space="preserve">
-    <value>First name lenght should be between 3 to 50 characters</value>
+  <data name="Player103BirthDateIsRequired" xml:space="preserve">
+    <value>Player-103</value>
   </data>
-  <data name="GenderIsInvalid" xml:space="preserve">
-    <value>Gender must be one of the specified values</value>
+  <data name="Player104FirstNameIsRequired" xml:space="preserve">
+    <value>Player-104</value>
   </data>
-  <data name="GenderIsRequired" xml:space="preserve">
-    <value>Gender is required</value>
+  <data name="Player105FirstNameLengthIsInvalid" xml:space="preserve">
+    <value>Player-105</value>
   </data>
-  <data name="LastNameIsRequired" xml:space="preserve">
-    <value>Last name is required</value>
+  <data name="Player106GenderIsInvalid" xml:space="preserve">
+    <value>Player-106</value>
   </data>
-  <data name="LastNameLengthIsInvalid" xml:space="preserve">
-    <value>Last name lenght should be between 3 to 50 characters</value>
+  <data name="Player107GenderIsRequired" xml:space="preserve">
+    <value>Player-107</value>
+  </data>
+  <data name="Player108LastNameIsRequired" xml:space="preserve">
+    <value>Player-108</value>
+  </data>
+  <data name="Player109LastNameLengthIsInvalid" xml:space="preserve">
+    <value>Player-109</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using Framework.Presentation.AspNetCore.Contracts;
+﻿using Framework.Core.Contracts;
 using Framework.Presentation.AspNetCore.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

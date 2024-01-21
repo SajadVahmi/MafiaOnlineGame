@@ -2,10 +2,11 @@
 
 public interface IUnitOfWork
 {
-    Task BeginAsync(CancellationToken cancellationToken = default);
 
-    Task CommitAsync(CancellationToken cancellationToken = default);
+    Task BeginAsync();
 
-    Task RollbackAsync(CancellationToken cancellationToken = default);
+    Task CommitAsync();
+
+    Task RollbackAsync();
 
 }

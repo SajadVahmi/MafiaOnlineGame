@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Players.RestApi.V1.PlayerAggregate.Validations.Register {
+namespace Players.Contracts.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Players.RestApi.V1.PlayerAggregate.Validations.Register {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PlayerRegistrationValidationMessages {
+    public class PlayersResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PlayerRegistrationValidationMessages() {
+        internal PlayersResource() {
         }
         
         /// <summary>
@@ -39,8 +39,7 @@ namespace Players.RestApi.V1.PlayerAggregate.Validations.Register {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Players.RestApi.V1.PlayerAggregate.Validations.Register.PlayerRegistrationValidat" +
-                            "ionMessages", typeof(PlayerRegistrationValidationMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Players.Contracts.Resources.PlayersResource", typeof(PlayersResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,74 +61,92 @@ namespace Players.RestApi.V1.PlayerAggregate.Validations.Register {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Birth date must has correct value.
+        ///   Looks up a localized string similar to The user already registered..
         /// </summary>
-        public static string BirthDateIsInvalid {
+        public static string Player100TheUserAlreadyRegistred {
             get {
-                return ResourceManager.GetString("BirthDateIsInvalid", resourceCulture);
+                return ResourceManager.GetString("Player100TheUserAlreadyRegistred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The player not found..
+        /// </summary>
+        public static string Player101ThePlayerNotFound {
+            get {
+                return ResourceManager.GetString("Player101ThePlayerNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth date must has correct value..
+        /// </summary>
+        public static string Player102BirthDateIsInvalid {
+            get {
+                return ResourceManager.GetString("Player102BirthDateIsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Birth date is required.
         /// </summary>
-        public static string BirthDateIsRequired {
+        public static string Player103BirthDateIsRequired {
             get {
-                return ResourceManager.GetString("BirthDateIsRequired", resourceCulture);
+                return ResourceManager.GetString("Player103BirthDateIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to First name is required.
         /// </summary>
-        public static string FirstNameIsRequired {
+        public static string Player104FirstNameIsRequired {
             get {
-                return ResourceManager.GetString("FirstNameIsRequired", resourceCulture);
+                return ResourceManager.GetString("Player104FirstNameIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to First name lenght should be between 3 to 50 characters.
         /// </summary>
-        public static string FirstNameLengthIsInvalid {
+        public static string Player105FirstNameLengthIsInvalid {
             get {
-                return ResourceManager.GetString("FirstNameLengthIsInvalid", resourceCulture);
+                return ResourceManager.GetString("Player105FirstNameLengthIsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gender must be one of the specified values.
         /// </summary>
-        public static string GenderIsInvalid {
+        public static string Player106GenderIsInvalid {
             get {
-                return ResourceManager.GetString("GenderIsInvalid", resourceCulture);
+                return ResourceManager.GetString("Player106GenderIsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gender is required.
         /// </summary>
-        public static string GenderIsRequired {
+        public static string Player107GenderIsRequired {
             get {
-                return ResourceManager.GetString("GenderIsRequired", resourceCulture);
+                return ResourceManager.GetString("Player107GenderIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Last name is required.
         /// </summary>
-        public static string LastNameIsRequired {
+        public static string Player108LastNameIsRequired {
             get {
-                return ResourceManager.GetString("LastNameIsRequired", resourceCulture);
+                return ResourceManager.GetString("Player108LastNameIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Last name lenght should be between 3 to 50 characters.
         /// </summary>
-        public static string LastNameLengthIsInvalid {
+        public static string Player109LastNameLengthIsInvalid {
             get {
-                return ResourceManager.GetString("LastNameLengthIsInvalid", resourceCulture);
+                return ResourceManager.GetString("Player109LastNameLengthIsInvalid", resourceCulture);
             }
         }
     }

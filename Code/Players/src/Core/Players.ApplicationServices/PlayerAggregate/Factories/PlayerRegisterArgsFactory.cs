@@ -6,7 +6,7 @@ using Players.Domain.PlayerAggregate.Services;
 
 namespace Players.ApplicationServices.PlayerAggregate.Factories;
 
-public class PlayerRegisterArgsFactory
+public static class PlayerRegisterArgsFactory
 {
     public static async Task<PlayerRegisterArgs> CreateAsync(PlayerRegistrationDto playerRegistrationDto,
         IPlayerRepository playerRepository,
@@ -39,4 +39,5 @@ public class PlayerRegisterArgsFactory
 
         return playerRegisterArgs;
     }
+
 }

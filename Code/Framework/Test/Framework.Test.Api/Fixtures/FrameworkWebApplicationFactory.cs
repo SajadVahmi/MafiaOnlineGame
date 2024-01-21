@@ -1,4 +1,5 @@
-﻿using Framework.Persistence.EF;
+﻿using Framework.Core.Domian.Aggregates;
+using Framework.Persistence.EF;
 using Framework.Presentation.AspNetCore.Constants;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -39,7 +40,16 @@ public class FrameworkWebApplicationFactory<TProgram>
         dbContext.SaveChanges();
 
     }
+    public TEntity? LoadFromDatabase<TEntity,TKey>(TKey key) where TEntity : AggregateRoot<TKey>
+        where TKey:notnull
+    {
+        var scope = base.Services.CreateScope();
 
+        var dbContext = scope.ServiceProvider.GetRequiredService<FrameworkDbContext>();
+
+      return  dbContext.Set<TEntity>().Find(key);
+
+    }
     protected override void Dispose(bool disposing)
     {
         var scope = base.Services.CreateScope();

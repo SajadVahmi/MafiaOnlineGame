@@ -46,4 +46,17 @@ public partial class Player : AggregateRoot<PlayerId>
 
     public string UserId { get; private set; }
 
+
+    public void ChangeProfile(PlayerChangeProfileArgs args)
+    {
+        Causes(new PlayerProfileChanged(
+             playerId: Id.Value,
+             firstName: args.FirstName,
+             lastName: args.LastName,
+             birthDate: args.BirthDate,
+             gender: args.Gender,
+             eventId: args.IdProvider.Get(),
+             whenItHappened: args.Clock.Now()
+            ));
+    }
 }

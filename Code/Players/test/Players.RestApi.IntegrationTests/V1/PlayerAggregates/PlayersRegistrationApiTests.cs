@@ -1,12 +1,10 @@
 ﻿using FluentAssertions;
 using Framework.Presentation.RestApi;
 using Framework.Test.Api.Fixtures;
-using Players.Domain.PlayerAggregate.Exceptions;
-using Players.Domain.PlayerAggregate.Models;
+using Players.Contracts.Resources;
 using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
 using Players.RestApi.V1.PlayerAggregate.Responses.Register;
-using Players.RestApi.V1.PlayerAggregate.Validations.Register;
 using Players.SharedTestClasess.PlayerAggregate.Factories;
 using System.Net;
 using System.Net.Http.Json;
@@ -81,16 +79,12 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
     public async Task ShouldReturnConflicStatusCode_WhenAUserWantsToRegisterTwice()
     {
         //Arrange
-        var registredPlayer = await PlayerAggregateFactory.CreateAPlayer(AuthUserId);
+        var registredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
 
         Factory.InitialDatabase(registredPlayer);
 
         var registerRequestBody =
-           PlayerApiRequestFactory.CreatePlayerRegistrationRequest(player =>
-             player.WithFirstName(SomeBody.FirstName)
-                   .WithLastName(SomeBody.LastName)
-                   .WithBirthDate(SomeBody.BirthDate)
-                   .WithGender(SomeBody.Gender));
+           PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
 
         //Act
         var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
@@ -104,16 +98,12 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
     public async Task ShouldReturnApiErrorObjectWithSpecifiedMessageAndCode_WhenAUserWantsToRegisterTwice()
     {
         //Arrange
-        var registredPlayer = await PlayerAggregateFactory.CreateAPlayer(AuthUserId);
+        var registredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
 
         Factory.InitialDatabase(registredPlayer);
 
         var registerRequestBody =
-           PlayerApiRequestFactory.CreatePlayerRegistrationRequest(player =>
-             player.WithFirstName(SomeBody.FirstName)
-                   .WithLastName(SomeBody.LastName)
-                   .WithBirthDate(SomeBody.BirthDate)
-                   .WithGender(SomeBody.Gender));
+           PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
 
         //Act
         var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
@@ -121,15 +111,29 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
         var responseBody = await response.Content.ReadFromJsonAsync<ApiError>();
 
         //Assert
-        responseBody.Code.Should().Be(PlayerDomainExceptionCodes.TheUserAlreadyRegistred);
+        responseBody.Code.Should().Be(PlayersCodes.Player100TheUserAlreadyRegistred);
 
-        responseBody.Message.Should().Be(PlayerDomainExceptionMessages.TheUserAlreadyRegistred);
+        responseBody.Message.Should().Be(PlayersResource.Player100TheUserAlreadyRegistred);
     }
 
+    [Fact(DisplayName = "Should returns 400 response when user registration request has invalid data")]
+    public async Task ShouldReturns400Response_WhenUserRegistrationRequestHasInvalidData()
+    {
+        //Arrange
+        var request = PlayerApiRequestFactory.CreatePlayerRegistrationRequest(player =>
+             player.WithFirstName(null)
+        );
+
+        //Act
+        var response = await Client.PostAsync(Endpoints.Registration, request);
+
+        //Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
 
     [Theory(DisplayName = "Should return api validation error with specified property name and message when user registration request has invalid data")]
     [MemberData(nameof(GetInvalidRegistrationDataAndItsAssertion))]
-    public async Task ShouldReturnApiValidationErrorWithSpecifiedPropertyNmaeAndMessage_WhenUserRegistrationRequestHasInvalidData(StringContent request,Action<ApiValidationError> assertion)
+    public async Task ShouldReturnApiValidationErrorWithSpecifiedPropertyNmaeAndMessage_WhenUserRegistrationRequestHasInvalidData(StringContent request, Action<ApiValidationError> assertion)
     {
 
         //Act
@@ -138,8 +142,6 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
         var responseBody = await response.Content.ReadFromJsonAsync<List<ApiValidationError>>();
 
         //Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
         assertion.Invoke(responseBody.First());
     }
 
@@ -152,7 +154,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.FirstName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.FirstNameIsRequired);
+                error.Messages.Single().Should().Be(PlayersResource.Player104FirstNameIsRequired);
             })
        },
        new object[]
@@ -161,7 +163,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.FirstName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player105FirstNameLengthIsInvalid);
             })
        },
        new object[]
@@ -170,7 +172,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.FirstName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.FirstNameLengthIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player105FirstNameLengthIsInvalid);
             })
        },
        new object[]
@@ -179,7 +181,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.LastName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.LastNameIsRequired);
+                error.Messages.Single().Should().Be(PlayersResource.Player108LastNameIsRequired);
             })
        },
        new object[]
@@ -188,7 +190,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.LastName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player109LastNameLengthIsInvalid);
             })
        },
        new object[]
@@ -197,7 +199,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.LastName));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.LastNameLengthIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player109LastNameLengthIsInvalid);
             })
        },
         new object[]
@@ -206,7 +208,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.BirthDate));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.BirthDateIsRequired);
+                error.Messages.Single().Should().Be(PlayersResource.Player103BirthDateIsRequired);
             })
        },
        new object[]
@@ -215,7 +217,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.BirthDate));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.BirthDateIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player102BirthDateIsInvalid);
             })
        },
        new object[]
@@ -224,7 +226,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.Gender));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.GenderIsRequired);
+                error.Messages.Single().Should().Be(PlayersResource.Player107GenderIsRequired);
             })
        },
        new object[]
@@ -233,7 +235,7 @@ public class PlayersRegistrationApiTests : PlayersApiTestBase
             new Action<ApiValidationError>(error =>
             {
                 error.PropertyName.Should().Be(nameof(PlayerRegistrationRequest.Gender));
-                error.Messages.Single().Should().Be(PlayerRegistrationValidationMessages.GenderIsInvalid);
+                error.Messages.Single().Should().Be(PlayersResource.Player106GenderIsInvalid);
             })
        }
      };

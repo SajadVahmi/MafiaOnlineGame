@@ -19,17 +19,17 @@ namespace Framework.Core.ApplicationServices.Commands
         {
             try
             {
-                await _unitOfWork.BeginAsync(cancellationToken);
+                await _unitOfWork.BeginAsync();
 
                 await _commandHandler.HandleAsync(command, cancellationToken);
 
-                await _unitOfWork.CommitAsync(cancellationToken);
+                await _unitOfWork.CommitAsync();
             }
             catch (Exception)
             {
                 try
                 {
-                    await _unitOfWork.RollbackAsync(cancellationToken);
+                    await _unitOfWork.RollbackAsync();
                 }
                 catch (Exception)
                 {
