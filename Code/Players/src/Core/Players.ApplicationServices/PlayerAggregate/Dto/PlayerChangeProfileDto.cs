@@ -1,6 +1,6 @@
 ﻿using Players.Contracts.Enums;
 
-namespace Players.ApplicationServices.PlayerAggregate.Dtos;
+namespace Players.ApplicationServices.PlayerAggregate.Dto;
 
 public class PlayerChangeProfileDto
 {

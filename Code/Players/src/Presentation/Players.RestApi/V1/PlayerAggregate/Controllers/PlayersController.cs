@@ -6,7 +6,7 @@ using Framework.Presentation.RestApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Players.ApplicationServices.PlayerAggregate.Dtos;
+using Players.ApplicationServices.PlayerAggregate.Dto;
 using Players.ApplicationServices.PlayerAggregate.Services;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.RestApi.V1.PlayerAggregate.Requests.ChangeProfile;
@@ -20,24 +20,33 @@ namespace Players.RestApi.V1.PlayerAggregate.Controllers;
 [ApiController]
 [Route("[Controller]")]
 [Authorize]
-public class PlayersController : ControllerBase
+public class PlayersController(
+    IPlayerApplicationService playerApplicationService,
+    IMapperAdapter mapper,
+    IAuthenticatedUser authenticatedUser)
+    : ControllerBase
 {
-    private readonly IPlayerApplicationService _playerApplicationService;
+    [HttpGet("{playerId}")]
+    [ProducesResponseType(type:typeof(PlayerDto),statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(type: typeof(ApiError), statusCode: StatusCodes.Status404NotFound)]
 
-    private readonly IMapperAdapter _mapper;
-
-    private readonly IAuthenticatedUser _authenticatedUser;
-
-    public PlayersController(
-        IPlayerApplicationService playerApplicationService,
-        IMapperAdapter mapper,
-        IAuthenticatedUser authenticatedUser)
+    public async Task<IActionResult> ViewAsync(long playerId, CancellationToken cancellationToken = default)
     {
-        _playerApplicationService = playerApplicationService;
+        try
+        {
+            var player = await playerApplicationService.ViewAsync(
+                playerId: playerId,
+                userId: authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken),
+                cancellationToken: cancellationToken);
 
-        _mapper = mapper;
+            return Ok(player);
+        }
+        catch (NotFoundException exception)
+        {
+              return NotFound(ApiError.Instantiate(exception));
+        }
 
-        _authenticatedUser = authenticatedUser;
+
     }
 
     [HttpPost]
@@ -47,31 +56,31 @@ public class PlayersController : ControllerBase
     public async Task<IActionResult> RegisterAsync([FromBody] PlayerRegistrationRequest request, [FromServices] IValidator<PlayerRegistrationRequest> validator)
     {
 
-        ValidationResult requestValidationResult = validator.Validate(request);
+        var requestValidationResult = validator.Validate(request);
 
         if (!requestValidationResult.IsValid)
             return BadRequest(ApiValidationError.Instantiate(requestValidationResult));
 
-        PlayerRegistrationDto playerForRegister =
-       _mapper.Map<PlayerRegistrationRequest, PlayerRegistrationDto>(request);
+        var playerForRegister =
+       mapper.Map<PlayerRegistrationRequest, PlayerRegistrationDto>(request);
 
-        playerForRegister.UserId = _authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
+        playerForRegister.UserId = authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
 
-        RegisteredPlayerDto registredPlayer;
+        RegisteredPlayerDto registeredPlayer;
 
         try
         {
-            registredPlayer = await _playerApplicationService.RegisterAsync(playerForRegister);
+            registeredPlayer = await playerApplicationService.RegisterAsync(playerForRegister);
         }
         catch (TheUserAlreadyRegistredException exception)
         {
             return Conflict(ApiError.Instantiate(exception));
         }
 
-        PlayerRegisterationResponse playerRegisterationResponse =
-            _mapper.Map<RegisteredPlayerDto, PlayerRegisterationResponse>(registredPlayer);
+        var playerRegistrationResponse =
+            mapper.Map<RegisteredPlayerDto, PlayerRegisterationResponse>(registeredPlayer);
 
-        return Created(string.Empty, playerRegisterationResponse);
+        return Created(string.Empty, playerRegistrationResponse);
 
     }
 
@@ -81,23 +90,23 @@ public class PlayersController : ControllerBase
     [ProducesResponseType(type: typeof(IEnumerable<ApiValidationError>), statusCode: StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ChangeProfileAsync([FromRoute] long playerId,[FromBody] PlayerChangeProfileRequest request, [FromServices] IValidator<PlayerChangeProfileRequest> validator)
     {
-        ValidationResult requestValidationResult = validator.Validate(request);
+        var requestValidationResult = validator.Validate(request);
 
         if (!requestValidationResult.IsValid)
             return BadRequest(ApiValidationError.Instantiate(requestValidationResult));
 
-        PlayerChangeProfileDto playerChangeProfileDto =
-       _mapper.Map<PlayerChangeProfileRequest, PlayerChangeProfileDto>(request);
+        var playerChangeProfileDto =
+       mapper.Map<PlayerChangeProfileRequest, PlayerChangeProfileDto>(request);
 
         playerChangeProfileDto.Id = playerId;
         
-        playerChangeProfileDto.UserId = _authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
+        playerChangeProfileDto.UserId = authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
 
         try
         {
-            await _playerApplicationService.ChangeProfileAsync(playerChangeProfileDto);
+            await playerApplicationService.ChangeProfileAsync(playerChangeProfileDto);
         }
-        catch (AggregateNotFoundException exception)
+        catch (NotFoundException exception)
         {
             return NotFound(ApiError.Instantiate(exception));
         }

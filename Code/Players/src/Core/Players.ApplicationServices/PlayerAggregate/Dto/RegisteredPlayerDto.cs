@@ -1,9 +1,11 @@
 ﻿using Players.Contracts.Enums;
 
-namespace Players.ApplicationServices.PlayerAggregate.Dtos;
+namespace Players.ApplicationServices.PlayerAggregate.Dto;
 
-public class PlayerRegistrationDto
+public class RegisteredPlayerDto
 {
+    public required string Id { get; set; }
+
     public required string FirstName { get; set; }
 
     public required string LastName { get; set; }
@@ -12,5 +14,5 @@ public class PlayerRegistrationDto
 
     public Gender Gender { get; set; }
 
-    public required string UserId { get; set; }
+    public DateTimeOffset RegisterDateTime { get; set; }
 }

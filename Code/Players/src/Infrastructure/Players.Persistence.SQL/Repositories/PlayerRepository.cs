@@ -6,14 +6,11 @@ using Players.Persistence.SQL.Constants;
 
 namespace Players.Persistence.SQL.Repositories;
 
-public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPlayerRepository
+public class PlayerRepository(
+    FrameworkDbContext commandDbContext,
+    IEntityFrameworkSequenceService entityFrameworkSequenceService)
+    : EntityFrameworkRepository<PlayerId, Player>(commandDbContext, entityFrameworkSequenceService), IPlayerRepository
 {
-
-
-    public PlayerRepository(FrameworkDbContext commandDbContext, IEntityFrameworkSequenceService entityFrameworkSequenceService) : base(commandDbContext, entityFrameworkSequenceService)
-    {
-    }
-
     public override async Task<PlayerId> GetNextIdAsync(CancellationToken cancellationToken = default)
     {
         var id = await Sequence.Next(Names.PlayersSequence);
@@ -25,6 +22,11 @@ public class PlayerRepository : EntityFrameworkRepository<PlayerId, Player>, IPl
     }
 
     public Task<Player?> LoadAsync(PlayerId playerId, string userId, CancellationToken cancellationToken = default)
+    {
+        return DbContext.Set<Player>().FirstOrDefaultAsync(player => player.Id == playerId && player.UserId == userId, cancellationToken);
+    }
+
+    public Task<Player?> ViewAsync(PlayerId playerId, string userId, CancellationToken cancellationToken = default)
     {
         return DbContext.Set<Player>().FirstOrDefaultAsync(player => player.Id == playerId && player.UserId == userId, cancellationToken);
     }

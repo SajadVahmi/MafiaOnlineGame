@@ -34,9 +34,9 @@ public partial class Player : AggregateRoot<PlayerId>
     }
 
 
-    public string FirstName { get; private set; }
+    public string FirstName { get; private set; } = null!;
 
-    public string LastName { get; private set; }
+    public string LastName { get; private set; } = null!;
 
     public DateOnly BirthDate { get; private set; }
 
@@ -44,7 +44,7 @@ public partial class Player : AggregateRoot<PlayerId>
 
     public DateTimeOffset RegisterDateTime { get; private set; }
 
-    public string UserId { get; private set; }
+    public string UserId { get; private set; } = null!;
 
 
     public void ChangeProfile(PlayerChangeProfileArgs args)

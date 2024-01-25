@@ -13,10 +13,10 @@ using System.Net.Http.Json;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates;
 
-public class PlayersRegistrationApiTests : PlayersApiTestBase
+public class PlayersRegistrationApiTest : PlayersApiTestBase
 {
 
-    public PlayersRegistrationApiTests(FrameworkWebApplicationFactory<Program> factory) : base(factory)
+    public PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> factory) : base(factory)
     {
 
     }
