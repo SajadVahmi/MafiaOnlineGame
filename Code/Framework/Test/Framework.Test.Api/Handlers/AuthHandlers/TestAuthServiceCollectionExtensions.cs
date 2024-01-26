@@ -16,6 +16,6 @@ public static class TestAuthServiceCollectionExtensions
         });
 
         return services.AddAuthentication(TestAuthConstants.Scheme)
-            .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthConstants.Scheme, options => { });
+            .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthConstants.Scheme, _ => { });
     }
 }

@@ -1,6 +1,5 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IDP.Administration.Api.V1.Users.Mappers;
 using IDP.Administration.Api.V1.Users.Validations;
 using IDP.Administration.Services.Users.Services;
 using IDP.Shared.IdentityStore.DbContexts;

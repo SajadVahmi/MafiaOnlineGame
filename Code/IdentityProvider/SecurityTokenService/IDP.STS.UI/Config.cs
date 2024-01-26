@@ -13,13 +13,13 @@ public static class Config
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
-       new ApiScope[]
+       new[]
        {
             new ApiScope("players"),
        };
 
     public static IEnumerable<Client> Clients =>
-        new Client[]
+        new []
         {
             //players swagger api ui client
             new Client

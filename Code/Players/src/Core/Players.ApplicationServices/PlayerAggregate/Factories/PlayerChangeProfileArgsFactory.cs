@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Contracts;
-using Players.ApplicationServices.PlayerAggregate.Dtos;
+using Players.ApplicationServices.PlayerAggregate.Dto;
 using Players.Domain.PlayerAggregate.Models;
 
 namespace Players.ApplicationServices.PlayerAggregate.Factories;

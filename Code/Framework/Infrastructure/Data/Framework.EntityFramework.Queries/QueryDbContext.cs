@@ -12,12 +12,12 @@ public class QueryDbContext : DbContext
 
     public override int SaveChanges()
     {
-        throw new Exception("the query dbcontext cannot save any entity...!");
+        throw new Exception("the query db context cannot save any entity...!");
 
     }
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        throw new Exception("the query dbcontext cannot save any entity...!");
+        throw new Exception("the query db context cannot save any entity...!");
 
     }
 }

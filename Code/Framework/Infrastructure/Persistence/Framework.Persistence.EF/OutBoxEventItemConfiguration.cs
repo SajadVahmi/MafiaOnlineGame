@@ -13,7 +13,7 @@ public class OutBoxEventItemConfiguration : IEntityTypeConfiguration<OutBoxEvent
 
         builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.AccuredByUserId).HasMaxLength(255);
+        builder.Property(c => c.OccurredByUserId).HasMaxLength(255);
 
         builder.Property(c => c.EventName).HasMaxLength(255);
 

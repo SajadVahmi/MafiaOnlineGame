@@ -3,21 +3,15 @@ using Players.Domain.PlayerAggregate.Data;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Infrastructure.PersistTests.Shared;
 using Players.Persistence.SQL.Repositories;
-using Players.SharedTestClasess.PlayerAggregate.Builders;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
-using System.Numerics;
+using Players.SharedTestClasses.PlayerAggregate.Builders;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
+
 
 namespace Players.Infrastructure.PersistTests.PlayerAggregate;
 
-public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
+public class PlayerAggregateTests(PlayersPersistTestFixture fixture) : IClassFixture<PlayersPersistTestFixture>
 {
-    IPlayerRepository _playerRepository;
-
-    public PlayerAggregateTests(PlayersPersistTestFixture fixture)
-    {
-
-        _playerRepository = new PlayerRepository(fixture.DbContext, fixture.SequenceService);
-    }
+    readonly IPlayerRepository _playerRepository = new PlayerRepository(fixture.DbContext, fixture.SequenceService);
 
     [Fact]
     public async Task player_repository_can_persist_and_load_aggregate()
@@ -28,7 +22,9 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
 
 
         //Act
-        await _playerRepository.RegisterAsync(playerForPersist);
+        _playerRepository.Register(playerForPersist);
+
+        await _playerRepository.SaveChangesAsync();
 
         var persistedPlayer = await _playerRepository.LoadAsync(playerForPersist.Id);
 
@@ -46,7 +42,9 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
         //Arrange
         Player player = await PlayerAggregateFactory.CreateAFemailPlayerAsync();
 
-        await _playerRepository.RegisterAsync(player);
+         _playerRepository.Register(player);
+
+         await _playerRepository.SaveChangesAsync();
 
         var playerChangeProfileArgs=PlayerChangeProfileArgsTestBuilder.Instantiate()
             .WithFirstName("UpdatedFirstName")

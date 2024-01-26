@@ -9,7 +9,7 @@ public class AuthorizeCheckOperationFilter : IOperationFilter
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var hasAuthorize =
-          context.MethodInfo.DeclaringType.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any()
+          context.MethodInfo.DeclaringType!.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any()
           || context.MethodInfo.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any();
 
         if (hasAuthorize)
@@ -26,7 +26,7 @@ public class AuthorizeCheckOperationFilter : IOperationFilter
                      {
                          Reference = new OpenApiReference { Id = "OAuth", Type = ReferenceType.SecurityScheme }
                      },
-                     new List<string> { }
+                     new List<string>()
                  }
             }
             };

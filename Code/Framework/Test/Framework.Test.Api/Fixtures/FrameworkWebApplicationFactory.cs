@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.Aggregates;
+﻿using Framework.Core.Domain.Aggregates;
 using Framework.Persistence.EF;
 using Framework.Presentation.AspNetCore.Constants;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Framework.Test.Api.Fixtures;
 
 public class FrameworkWebApplicationFactory<TProgram>
-: WebApplicationFactory<TProgram>, IDisposable where TProgram : class
+: WebApplicationFactory<TProgram> where TProgram : class
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

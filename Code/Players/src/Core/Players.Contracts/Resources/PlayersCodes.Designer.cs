@@ -149,5 +149,14 @@ namespace Players.Contracts.Resources {
                 return ResourceManager.GetString("Player109LastNameLengthIsInvalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RequestValidation-400.
+        /// </summary>
+        public static string RequestValidation400 {
+            get {
+                return ResourceManager.GetString("RequestValidation400", resourceCulture);
+            }
+        }
     }
 }

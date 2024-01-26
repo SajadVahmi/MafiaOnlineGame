@@ -10,19 +10,8 @@ using Players.Persistence.SQL.Repositories;
 
 namespace Players.Config;
 
-public class PlayersModule : IFrameworkModule
+public class PlayersModule(IConfiguration configuration, IServiceCollection services) : IFrameworkModule
 {
-    private readonly IConfiguration _configuration;
-
-    private readonly IServiceCollection _services;
-
-    public PlayersModule(IConfiguration configuration, IServiceCollection services)
-    {
-        this._configuration = configuration;
-
-        this._services = services;
-    }
-
     public void Register(IDependencyRegister dependencyRegister)
     {
         dependencyRegister.RegisterDomainServices(typeof(DuplicateRegistrationCheckService).Assembly);
@@ -38,15 +27,15 @@ public class PlayersModule : IFrameworkModule
 
     private FrameworkDbContext CreateDbContext()
     {
-        var playerDbContextOptions = _configuration.GetSection("Persistence:PlayersDbContext").Get<FrameworkDbContextOptions>();
+        var playerDbContextOptions = configuration.GetSection("Persistence:PlayersDbContext").Get<FrameworkDbContextOptions>();
 
         if (playerDbContextOptions is null)
-            throw new Exception("There are not any dbcontext options in configuration.");
+            throw new Exception("There are not any db context options in configuration.");
 
         var options =
             new DbContextOptionsBuilder<FrameworkDbContext>()
                 .UseSqlServer(playerDbContextOptions.ConnectionString)
-                .UseApplicationServiceProvider(_services.BuildServiceProvider())
+                .UseApplicationServiceProvider(services.BuildServiceProvider())
                 .Options;
 
         var dbContext = new PlayersDbContext(options);

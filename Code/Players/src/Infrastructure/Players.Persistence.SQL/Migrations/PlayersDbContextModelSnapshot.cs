@@ -33,11 +33,11 @@ namespace Players.Persistence.SQL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("AccuredByUserId")
+                    b.Property<string>("OccurredByUserId")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTimeOffset>("AccuredOn")
+                    b.Property<DateTimeOffset>("OccurredOn")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("AggregateName")

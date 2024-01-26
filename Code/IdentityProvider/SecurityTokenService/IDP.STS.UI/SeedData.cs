@@ -48,10 +48,10 @@ public class SeedData
 
 
         result = userManager.AddClaimsAsync(sajad, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Sajad Vahmi"),
-                            new Claim(JwtClaimTypes.GivenName, "Sajad"),
-                            new Claim(JwtClaimTypes.FamilyName, "Vahmi"),
-                            new Claim(JwtClaimTypes.Email,sajad.Email)
+                            new(JwtClaimTypes.Name, "Sajad Vahmi"),
+                            new (JwtClaimTypes.GivenName, "Sajad"),
+                            new (JwtClaimTypes.FamilyName, "Vahmi"),
+                            new (JwtClaimTypes.Email,sajad.Email)
                         }).Result;
 
         if (!result.Succeeded)
@@ -84,16 +84,16 @@ public class SeedData
         Log.Debug("ApiScopes populated.");
 
 
-        Log.Debug("Going to populate IdentiyResources.");
+        Log.Debug("Going to populate IdentityResources.");
 
-        foreach (var identiyResource in Config.IdentityResources.ToList())
-            dbContext.IdentityResources.Add(identiyResource.ToEntity());
+        foreach (var identityResource in Config.IdentityResources.ToList())
+            dbContext.IdentityResources.Add(identityResource.ToEntity());
 
-        Log.Debug("IdentiyResources populated.");
+        Log.Debug("IdentityResources populated.");
 
         dbContext.SaveChanges();
 
-        Log.Debug("Going to populate IdentiyResources.");
+        Log.Debug("Going to populate IdentityResources.");
 
         foreach (var client in Config.Clients.ToList())
             dbContext.Clients.Add(client.ToEntity());
@@ -106,12 +106,9 @@ public class SeedData
 
     public static void EnsureSeedOperationalSeedData(WebApplication app)
     {
-        using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-        {
-            var context = scope.ServiceProvider.GetService<PersistedGrantDbContext>();
-            context.Database.Migrate();
-
-        }
+        using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+        var context = scope.ServiceProvider.GetService<PersistedGrantDbContext>();
+        context.Database.Migrate();
     }
 }
 
