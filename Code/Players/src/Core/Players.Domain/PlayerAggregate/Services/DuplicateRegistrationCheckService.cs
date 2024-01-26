@@ -1,19 +1,12 @@
 ﻿using Players.Domain.PlayerAggregate.Data;
 
-namespace Players.Domain.PlayerAggregate.Services
+namespace Players.Domain.PlayerAggregate.Services;
+
+public class DuplicateRegistrationCheckService(IPlayerRepository playerRepository)
+    : IDuplicateRegistrationCheckService
 {
-    public class DuplicateRegistrationCheckService:IDuplicateRegistrationCheckService
+    public Task<bool> CheckAsync(string userId, CancellationToken cancellationToken = default)
     {
-        private readonly IPlayerRepository _playerRepository;
-
-        public DuplicateRegistrationCheckService(IPlayerRepository playerRepository)
-        {
-            _playerRepository = playerRepository;
-        }
-
-        public Task<bool> CheckAsync(string userId, CancellationToken cancellationToken = default)
-        {
-            return _playerRepository.ExistAsync(player => player.UserId == userId); 
-        }
+        return playerRepository.ExistAsync(player => player.UserId == userId, cancellationToken); 
     }
 }

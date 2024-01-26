@@ -1,36 +1,30 @@
 ﻿using FluentAssertions;
 using Framework.Presentation.RestApi;
 using Framework.Test.Api.Fixtures;
-using Microsoft.AspNetCore.Http;
 using Players.Contracts.Enums;
 using Players.Contracts.Resources;
 using Players.Domain.PlayerAggregate.Models;
-using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
 using Players.RestApi.V1.PlayerAggregate.Requests.ChangeProfile;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
 using System.Net;
 using System.Net.Http.Json;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates;
 
-public class PlayersChangeProfileApiTest : PlayersApiTestBase
+public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program> factory) : PlayersApiTestBase(factory)
 {
-    public PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program> factory) : base(factory)
-    {
-    }
-
     [Fact(DisplayName = "Should returns 204 response when request is valid.")]
-    public async Task ShouldReturnsNoContentHttpSatusCode_WhenRequestIsValid()
+    public async Task ShouldReturnsNoContentHttpStatusCode_WhenRequestIsValid()
     {
         //Arrange
-        var registredPlayer = await PlayerAggregateFactory.CreateAFemailPlayerAsync(AuthUserId);
+        var registeredPlayer = await PlayerAggregateFactory.CreateAFemailPlayerAsync(AuthUserId);
 
-        Factory.InitialDatabase(registredPlayer);
+        Factory.InitialDatabase(registeredPlayer);
 
         var changeProfileRequestBody =
            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest();
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", registredPlayer.Id.Value.ToString());
+        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", registeredPlayer.Id.Value.ToString());
 
         //Act
         var response = await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
@@ -58,18 +52,18 @@ public class PlayersChangeProfileApiTest : PlayersApiTestBase
         var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", registredPlayer.Id.Value.ToString());
 
         //Act
-        var response = await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
+        await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
 
         var updatedPlayer = Factory.LoadFromDatabase<Player, PlayerId>(registredPlayer.Id);
 
         //Assert
-        updatedPlayer.FirstName.Should().Be("UpdatedFirstName");
+        updatedPlayer?.FirstName.Should().Be("UpdatedFirstName");
 
-        updatedPlayer.LastName.Should().Be("UpdatedLastName");
+        updatedPlayer?.LastName.Should().Be("UpdatedLastName");
 
-        updatedPlayer.BirthDate.Should().Be(registredPlayer.BirthDate.AddMonths(1));
+        updatedPlayer?.BirthDate.Should().Be(registredPlayer.BirthDate.AddMonths(1));
 
-        updatedPlayer.Gender.Should().Be(Gender.Male);
+        updatedPlayer?.Gender.Should().Be(Gender.Male);
 
 
     }
@@ -166,104 +160,104 @@ public class PlayersChangeProfileApiTest : PlayersApiTestBase
                 error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player104FirstNameIsRequired);
             })
        },
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ab")),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.FirstName));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player105FirstNameLengthIsInvalid);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ThisSentenceIncludesANameWithMoreThanfiftyCharacters")),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.FirstName));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player105FirstNameLengthIsInvalid);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName(null)),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player108LastNameIsRequired);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ab")),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player109LastNameLengthIsInvalid);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ThisSentenceIncludesALastNameWithMoreThanfiftyCharacters")),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player109LastNameLengthIsInvalid);
-       //     })
-       //},
-       // new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithBirthDate(null)),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.BirthDate));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player103BirthDateIsRequired);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithBirthDate(default(DateOnly))),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.BirthDate));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player102BirthDateIsInvalid);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithGender(null)),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.Gender));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player107GenderIsRequired);
-       //     })
-       //},
-       //new object[]
-       //{
-       //     PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithGender(0)),
-       //     new Action<ApiError>(error =>
-       //     {
-       //         error.Code.Should().Be(PlayersCodes.RequestValidation400);
-       //         error.Message.Should().Be(PlayersResource.RequestValidation400);
-       //         error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.Gender));
-       //         error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player106GenderIsInvalid);
-       //     })
-       //}
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ab")),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.FirstName));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player105FirstNameLengthIsInvalid);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ThisSentenceIncludesANameWithMoreThanfiftyCharacters")),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.FirstName));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player105FirstNameLengthIsInvalid);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName(null)),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player108LastNameIsRequired);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ab")),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player109LastNameLengthIsInvalid);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ThisSentenceIncludesALastNameWithMoreThanfiftyCharacters")),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.LastName));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player109LastNameLengthIsInvalid);
+            })
+       },
+        new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithBirthDate(null)),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.BirthDate));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player103BirthDateIsRequired);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithBirthDate(default(DateOnly))),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.BirthDate));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player102BirthDateIsInvalid);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithGender(null)),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.Gender));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player107GenderIsRequired);
+            })
+       },
+       new object[]
+       {
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithGender(0)),
+            new Action<ApiError>(error =>
+            {
+                error.Code.Should().Be(PlayersCodes.RequestValidation400);
+                error.Message.Should().Be(PlayersResource.RequestValidation400);
+                error.MetaData?.Single().Key.Should().Be(nameof(PlayerChangeProfileRequest.Gender));
+                error.MetaData?.Single().Value.Should().Contain(PlayersResource.Player106GenderIsInvalid);
+            })
+       }
     };
 }

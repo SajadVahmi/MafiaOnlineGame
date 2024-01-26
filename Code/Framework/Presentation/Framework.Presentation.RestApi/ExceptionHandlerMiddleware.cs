@@ -1,6 +1,6 @@
 ﻿using Framework.Core.ApplicationServices.Exceptions;
 using Framework.Core.Contracts;
-using Framework.Core.Domian.Exceptions;
+using Framework.Core.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
@@ -46,7 +46,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate next, IJsonSerializerAda
 
         context.Response.ContentType = "application/json";
 
-        await context.Response.WriteAsync(jsonSerializer.Serilize(error)!);
+        await context.Response.WriteAsync(jsonSerializer.Serialize(error)!);
     }
 
 }

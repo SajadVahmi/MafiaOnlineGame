@@ -16,7 +16,7 @@ public class PlayerMappings:Profile
 
         CreateMap<PlayerRegistrationRequest, PlayerRegistrationDto>();
 
-        CreateMap<RegisteredPlayerDto, PlayerRegisterationResponse>();
+        CreateMap<RegisteredPlayerDto, PlayerRegistrationResponse>();
 
         CreateMap<PlayerChangeProfileRequest, PlayerChangeProfileDto>();
 

@@ -1,4 +1,4 @@
-﻿using IDP.Administration.Services.Users.Dtos;
+﻿using IDP.Administration.Services.Users.Dto;
 using Microsoft.AspNetCore.Identity;
 
 namespace IDP.Administration.Services.Users.Services

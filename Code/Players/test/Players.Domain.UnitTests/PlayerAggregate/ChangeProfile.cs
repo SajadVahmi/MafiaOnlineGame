@@ -1,10 +1,7 @@
 ﻿using FluentAssertions;
 using Players.Domain.PlayerAggregate.Events;
-using Players.Domain.PlayerAggregate.Models;
-using Players.SharedTestClasess.PlayerAggregate.Builders;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
-using System.Security.Cryptography.X509Certificates;
-using static Players.SharedTestClasess.PlayerAggregate.Data.PlayerTestData;
+using Players.SharedTestClasses.PlayerAggregate.Builders;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
 
 namespace Players.Domain.UnitTests.PlayerAggregate
 {
@@ -13,7 +10,7 @@ namespace Players.Domain.UnitTests.PlayerAggregate
         [Fact(DisplayName = "Each player can change his or her profile")]
         public async Task each_player_can_change_his_or_her_profile()
         {
-            //Arrang
+            //Arrange
             var player = await PlayerAggregateFactory.CreateAFemailPlayerAsync();
 
             var playerChangeProfileArgs = PlayerChangeProfileArgsTestBuilder.Instantiate()

@@ -4,7 +4,4 @@ namespace Players.RestApi.IntegrationTests;
 
 
 [CollectionDefinition("application collection")]
-public class WebApplicationCollection : ICollectionFixture<FrameworkWebApplicationFactory<Program>>
-{
-
-}
+public class WebApplicationCollection : ICollectionFixture<FrameworkWebApplicationFactory<Program>>;

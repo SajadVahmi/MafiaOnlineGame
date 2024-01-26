@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.DomainServices;
+﻿using Framework.Core.Domain.DomainServices;
 
 namespace Players.Domain.PlayerAggregate.Services;
 

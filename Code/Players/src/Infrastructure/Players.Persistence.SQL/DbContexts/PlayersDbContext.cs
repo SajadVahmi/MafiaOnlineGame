@@ -6,10 +6,8 @@ using Players.Persistence.SQL.Constants;
 
 namespace Players.Persistence.SQL.DbContexts;
 
-public class PlayersDbContext : FrameworkDbContext
+public class PlayersDbContext(DbContextOptions options) : FrameworkDbContext(options, true)
 {
-    public PlayersDbContext(DbContextOptions options) : base(options, true) { }
-
     public virtual DbSet<Player> Players { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

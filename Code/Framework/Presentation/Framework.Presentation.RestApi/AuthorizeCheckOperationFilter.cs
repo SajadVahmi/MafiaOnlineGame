@@ -26,7 +26,7 @@ public class AuthorizeCheckOperationFilter : IOperationFilter
                      {
                          Reference = new OpenApiReference { Id = "OAuth", Type = ReferenceType.SecurityScheme }
                      },
-                     new List<string> { }
+                     new List<string>()
                  }
             }
             };

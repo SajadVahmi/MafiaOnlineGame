@@ -4,8 +4,8 @@ using Players.Domain.PlayerAggregate.Events;
 using Players.Domain.PlayerAggregate.Exceptions;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Domain.PlayerAggregate.Services;
-using Players.SharedTestClasess.PlayerAggregate.Builders;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
+using Players.SharedTestClasses.PlayerAggregate.Builders;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
 
 namespace Players.Domain.UnitTests.PlayerAggregate;
 
@@ -16,10 +16,10 @@ public class Register
     public async Task each_user_can_register_as_a_player()
     {
         //Arrange
-        PlayerRegisterArgs playerRegisterArgs = PlayerRegisterArgsTestBuilder.Instantiate().Build();
+        var playerRegisterArgs = PlayerRegisterArgsTestBuilder.Instantiate().Build();
 
         //Act
-        Player player = await Player.RegisterAsync(playerRegisterArgs);
+        var player = await Player.RegisterAsync(playerRegisterArgs);
 
         //Assert
         player.Id.Should().Be(playerRegisterArgs.Id);
@@ -45,7 +45,7 @@ public class Register
         //Arrange
         PlayerRegisterArgs playerRegisterArgs = PlayerRegisterArgsTestBuilder.Instantiate().Build();
 
-        var expectedDomainEvent = new PlayerIsRegistred(
+        var expectedDomainEvent = new PlayerIsRegistered(
             playerId: playerRegisterArgs.Id.Value,
             firstName: playerRegisterArgs.FirstName,
             lastName: playerRegisterArgs.LastName,
@@ -81,7 +81,7 @@ public class Register
         Func<Task> registration = async () => await Player.RegisterAsync(playerRegisterArgs);
 
         //Assert
-        var exception = await registration.Should().ThrowExactlyAsync<TheUserAlreadyRegistredException>();
+        var exception = await registration.Should().ThrowExactlyAsync<TheUserAlreadyRegisteredException>();
 
         exception.Which.Message.Should().Be(PlayersResource.Player100TheUserAlreadyRegistred);
 

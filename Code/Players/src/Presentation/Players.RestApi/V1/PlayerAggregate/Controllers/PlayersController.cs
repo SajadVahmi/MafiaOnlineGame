@@ -39,7 +39,7 @@ public class PlayersController(
     }
 
     [HttpPost]
-    [ProducesResponseType(type: typeof(PlayerRegisterationResponse), statusCode: StatusCodes.Status201Created)]
+    [ProducesResponseType(type: typeof(PlayerRegistrationResponse), statusCode: StatusCodes.Status201Created)]
     [ProducesResponseType(type: typeof(ApiError), statusCode: StatusCodes.Status409Conflict)]
     [ProducesResponseType(type: typeof(ApiError), statusCode: StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterAsync([FromBody] PlayerRegistrationRequest request, [FromServices] IValidator<PlayerRegistrationRequest> validator)
@@ -57,12 +57,10 @@ public class PlayersController(
 
         playerForRegister.UserId = authenticatedUser.GetSub() ?? throw new Exception(Exceptions.CannotOptainUserIdFromAccessToken);
 
-        RegisteredPlayerDto registeredPlayer;
-
-        registeredPlayer = await playerApplicationService.RegisterAsync(playerForRegister);
+        var registeredPlayer = await playerApplicationService.RegisterAsync(playerForRegister);
 
         var playerRegistrationResponse =
-            mapper.Map<RegisteredPlayerDto, PlayerRegisterationResponse>(registeredPlayer);
+            mapper.Map<RegisteredPlayerDto, PlayerRegistrationResponse>(registeredPlayer);
 
         return Created(string.Empty, playerRegistrationResponse);
 

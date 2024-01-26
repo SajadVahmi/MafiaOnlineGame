@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Players.Domain.PlayerAggregate.Models;
 using Players.Persistence.SQL.Constants;
-using System.Reflection.Emit;
 
 namespace Players.Persistence.SQL.Configurations;
 

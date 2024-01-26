@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.Aggregates;
+﻿using Framework.Core.Domain.Aggregates;
 using Players.Contracts.Enums;
 using Players.Domain.PlayerAggregate.Events;
 
@@ -20,7 +20,7 @@ public partial class Player : AggregateRoot<PlayerId>
     protected Player(PlayerRegisterArgs args)
     {
 
-        Causes(new PlayerIsRegistred(
+        Causes(new PlayerIsRegistered(
              playerId: args.Id.Value,
              firstName: args.FirstName,
              lastName: args.LastName,

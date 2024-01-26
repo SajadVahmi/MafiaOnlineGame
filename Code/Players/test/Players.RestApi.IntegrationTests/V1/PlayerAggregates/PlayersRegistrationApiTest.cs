@@ -2,11 +2,9 @@
 using Framework.Presentation.RestApi;
 using Framework.Test.Api.Fixtures;
 using Players.Contracts.Resources;
-using Players.RestApi.IntegrationTests.V1.PlayerAggregates.Factories;
-using Players.RestApi.V1.PlayerAggregate.Requests.ChangeProfile;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
 using Players.RestApi.V1.PlayerAggregate.Responses.Register;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -14,16 +12,10 @@ using System.Net.Http.Json;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates;
 
-public class PlayersRegistrationApiTest : PlayersApiTestBase
+public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> factory) : PlayersApiTestBase(factory)
 {
-
-    public PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> factory) : base(factory)
-    {
-
-    }
-
     [Fact(DisplayName = "Should returns 201 response when request is valid.")]
-    public async Task ShouldReturnsCreatedHttpSatusCode_WhenRequestIsValid()
+    public async Task ShouldReturnsCreatedHttpStatusCode_WhenRequestIsValid()
     {
         //Arrange
         var registerRequestBody = PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
@@ -37,8 +29,8 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
     }
 
 
-    [Fact(DisplayName = "Should return registred player when http response is success.")]
-    public async Task ShouldReturnRegistredPlayer_WhenHttpResponseIsSuccess()
+    [Fact(DisplayName = "Should return registered player when http response is success.")]
+    public async Task ShouldReturnRegisteredPlayer_WhenHttpResponseIsSuccess()
     {
 
         //Arrange
@@ -54,7 +46,7 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
         //Act
         var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
 
-        var responseBody = await response.Content.ReadFromJsonAsync<PlayerRegisterationResponse>();
+        var responseBody = await response.Content.ReadFromJsonAsync<PlayerRegistrationResponse>();
 
         //Assert
         responseBody.Should().NotBeNull();
@@ -77,12 +69,12 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
 
 
     [Fact(DisplayName = "Should return 409 status code when a user wants to register twice")]
-    public async Task ShouldReturnConflicStatusCode_WhenAUserWantsToRegisterTwice()
+    public async Task ShouldReturnConflictStatusCode_WhenAUserWantsToRegisterTwice()
     {
         //Arrange
-        var registredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
+        var registeredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
 
-        Factory.InitialDatabase(registredPlayer);
+        Factory.InitialDatabase(registeredPlayer);
 
         var registerRequestBody =
            PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
@@ -99,9 +91,9 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
     public async Task ShouldReturnApiErrorObjectWithSpecifiedMessageAndCode_WhenAUserWantsToRegisterTwice()
     {
         //Arrange
-        var registredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
+        var registeredPlayer = await PlayerAggregateFactory.CreateAPlayerAsync(AuthUserId);
 
-        Factory.InitialDatabase(registredPlayer);
+        Factory.InitialDatabase(registeredPlayer);
 
         var registerRequestBody =
            PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
@@ -134,7 +126,7 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
 
     [Theory(DisplayName = "Should return api validation error with specified property name and message when user registration request has invalid data")]
     [MemberData(nameof(GetInvalidRegistrationDataAndItsAssertion))]
-    public async Task ShouldReturnApiValidationErrorWithSpecifiedPropertyNmaeAndMessage_WhenUserRegistrationRequestHasInvalidData(StringContent request, Action<ApiError> assertion)
+    public async Task ShouldReturnApiValidationErrorWithSpecifiedPropertyNameAndMessage_WhenUserRegistrationRequestHasInvalidData(StringContent request, Action<ApiError> assertion)
     {
 
         //Act
@@ -173,7 +165,7 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
        },
        new object[]
        {
-            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ThisSentenceIncludesANameWithMoreThanfiftyCharacters")),
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithFirstName("ThisSentenceIncludesANameWithMoreThanFiftyCharacters")),
             new Action<ApiError>(error =>
             {
                 error.Code.Should().Be(PlayersCodes.RequestValidation400);
@@ -206,7 +198,7 @@ public class PlayersRegistrationApiTest : PlayersApiTestBase
        },
        new object[]
        {
-            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ThisSentenceIncludesALastNameWithMoreThanfiftyCharacters")),
+            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest(player =>player.WithLastName("ThisSentenceIncludesALastNameWithMoreThanFiftyCharacters")),
             new Action<ApiError>(error =>
             {
                 error.Code.Should().Be(PlayersCodes.RequestValidation400);

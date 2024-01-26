@@ -4,7 +4,7 @@ namespace Players.Domain.PlayerAggregate.Models;
 
 public partial class Player
 {   
-    private void When(PlayerIsRegistred domainEvent)
+    private void When(PlayerIsRegistered domainEvent)
     {
         Id = PlayerId.Instantiate(domainEvent.PlayerId);
 

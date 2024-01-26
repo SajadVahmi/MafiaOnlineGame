@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Framework.Test.Api.Fixtures;
 using Players.ApplicationServices.PlayerAggregate.Dto;
-using Players.SharedTestClasess.PlayerAggregate.Factories;
+using System.Net;
+using System.Net.Http.Json;
+using Players.SharedTestClasses.PlayerAggregate.Factories;
 
 namespace Players.RestApi.IntegrationTests.V1.PlayerAggregates;
 

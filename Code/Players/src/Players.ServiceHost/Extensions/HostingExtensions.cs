@@ -1,16 +1,13 @@
 ﻿using FluentValidation;
-using FluentValidation.AspNetCore;
 using Framework.Configuration.Loaders;
 using Framework.Configuration.Scrutor;
 using Framework.JsonSerializer.NewtonSoft;
 using Framework.Mapping.AutoMapper;
 using Framework.Presentation.AspNetCore.Extensions;
 using Framework.Presentation.RestApi;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Players.Config;
-using Players.Contracts.Resources;
 using Players.Mapping.PlayerAggregate;
 using Players.RestApi.V1.PlayerAggregate.Validations.Register;
 

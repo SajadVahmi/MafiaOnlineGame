@@ -1,33 +1,25 @@
-﻿using Framework.Core.Domian.Events;
+﻿using Framework.Core.Domain.Events;
 using Players.Contracts.Enums;
 
 namespace Players.Domain.PlayerAggregate.Events;
 
-public class PlayerProfileChanged : DomainEvent
+public class PlayerProfileChanged(
+    long playerId,
+    string firstName,
+    string lastName,
+    DateOnly birthDate,
+    Gender gender,
+    string eventId,
+    DateTimeOffset whenItHappened)
+    : DomainEvent(eventId, whenItHappened)
 {
+    public long PlayerId { get; private set; } = playerId;
 
-    public PlayerProfileChanged(long playerId, string firstName, string lastName, DateOnly birthDate, Gender gender,
-                              string eventId,DateTimeOffset whenItHappened) : base(eventId, whenItHappened)
-    {
-        PlayerId = playerId;
+    public string FirstName { get; private set; } = firstName;
 
-        FirstName = firstName;
+    public string LastName { get; private set; } = lastName;
 
-        LastName = lastName;
+    public DateOnly BirthDate { get; private set; } = birthDate;
 
-        BirthDate = birthDate;
-
-        Gender = gender;
-
-    }
-
-    public long PlayerId { get; private set; }
-
-    public string FirstName { get; private set; }
-
-    public string LastName { get; private set; }
-
-    public DateOnly BirthDate { get; private set; }
-
-    public Gender Gender { get; private set; }
+    public Gender Gender { get; private set; } = gender;
 }

@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Players.Domain\Players.Domain.csproj" />
-    <ProjectReference Include="..\Players.SharedTestClasess\Players.SharedTestClasess.csproj" />
+    <ProjectReference Include="..\Players.SharedTestClasses\Players.SharedTestClasses.csproj" />
   </ItemGroup>
 
 </Project>

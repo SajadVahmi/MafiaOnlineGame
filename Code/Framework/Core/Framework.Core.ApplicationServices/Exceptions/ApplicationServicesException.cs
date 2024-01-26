@@ -3,15 +3,10 @@ using System.Resources;
 
 namespace Framework.Core.ApplicationServices.Exceptions;
 
-public class ApplicationServicesException : Exception
+public class ApplicationServicesException(string message, string code, string name) : Exception(message)
 {
-    public string Code { get; private set; }
-    public string Name { get; private set; }
-    public ApplicationServicesException(string message, string code, string name) : base(message)
-    {
-        Code = code;
-        Name = name;
-    }
+    public string Code { get; private set; } = code;
+    public string Name { get; private set; } = name;
 
     public string? GetLocalizedMessage(ResourceManager resourceManager, CultureInfo cultureInfo)
     {
