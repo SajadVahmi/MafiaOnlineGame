@@ -4,18 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Framework.Configuration.Scrutor;
 
-public class ScrutorModule : IFrameworkIocModule
+public class ScrutorModule(IServiceCollection serviceCollection) : IFrameworkIocModule
 {
-    private readonly IServiceCollection _serviceCollection;
-
-    public ScrutorModule(IServiceCollection serviceCollection)
-    {
-        _serviceCollection = serviceCollection;
-    }
-
     public IDependencyRegister CreateServiceRegistry()
     {
-        return new ScrutorDependencyRegister(_serviceCollection);
+        return new ScrutorDependencyRegister(serviceCollection);
     }
 
     public void Register(IDependencyRegister dependencyRegister)

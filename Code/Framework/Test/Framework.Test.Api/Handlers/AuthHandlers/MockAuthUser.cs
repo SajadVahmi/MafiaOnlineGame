@@ -2,10 +2,7 @@
 
 namespace Framework.Test.Api.Handlers.AuthHandlers;
 
-public class MockAuthUser
+public class MockAuthUser(params Claim[] claims)
 {
-    public List<Claim> Claims { get; private set; } = new();
-
-    public MockAuthUser(params Claim[] claims)
-        => Claims = claims.ToList();
+    public List<Claim> Claims { get; private set; } = claims.ToList();
 }

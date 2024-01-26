@@ -4,13 +4,8 @@ using Framework.Core.ApplicationServices.Queries;
 
 namespace Framework.Configuration.Autofac;
 
-public class AutofacModule : IFrameworkIocModule
+public class AutofacModule(ContainerBuilder builder) : IFrameworkIocModule
 {
-    private readonly ContainerBuilder _builder;
-    public AutofacModule(ContainerBuilder builder)
-    {
-        _builder = builder;
-    }
     public void Register(IDependencyRegister dependencyRegister)
     {
         dependencyRegister.RegisterScoped<ICommandHandlerResolver, AutofacCommandHandlerResolver>();
@@ -19,6 +14,6 @@ public class AutofacModule : IFrameworkIocModule
 
     public IDependencyRegister CreateServiceRegistry()
     {
-        return new AutofacDependencyRegister(_builder);
+        return new AutofacDependencyRegister(builder);
     }
 }

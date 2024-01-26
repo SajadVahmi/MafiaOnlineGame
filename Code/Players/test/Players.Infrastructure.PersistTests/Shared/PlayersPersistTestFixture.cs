@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Players.Persistence.SQL.DbContexts;
-using Players.SharedTestClasess.Shared.Data;
-using static Players.SharedTestClasess.Shared.Data.UserTestData;
+using Players.SharedTestClasses.Shared.Data;
+using static Players.SharedTestClasses.Shared.Data.UserTestData;
 
 namespace Players.Infrastructure.PersistTests.Shared;
 
@@ -41,19 +41,19 @@ public class PlayersPersistTestFixture : EfCoreSandboxTest<PlayersDbContext>
 
     private static IServiceCollection BuildServiceCollection()
     {
-        IAuthenticatedUser AauthenticatedUserService = SetupAuthenticatedUserService();
+        IAuthenticatedUser authenticatedUserService = SetupAuthenticatedUserService();
 
-        IClock ClockService = SetupClockService();
+        IClock clockService = SetupClockService();
 
-        IJsonSerializerAdapter JsonSerializerAdapter = SetupJsonSerializerAdapterService();
+        IJsonSerializerAdapter jsonSerializerAdapter = SetupJsonSerializerAdapterService();
 
         IServiceCollection services = new ServiceCollection();
 
-        services.AddSingleton(AauthenticatedUserService);
+        services.AddSingleton(authenticatedUserService);
 
-        services.AddSingleton(ClockService);
+        services.AddSingleton(clockService);
 
-        services.AddSingleton(JsonSerializerAdapter);
+        services.AddSingleton(jsonSerializerAdapter);
 
         return services;
     }
@@ -78,7 +78,7 @@ public class PlayersPersistTestFixture : EfCoreSandboxTest<PlayersDbContext>
         return new AuthenticatedUserStub(
              sub: AuthenticatedUser.Sub,
              userAgent: AuthenticatedUser.UserAgent,
-             userIp: AuthenticatedUser.UserIP,
+             userIp: AuthenticatedUser.UserIp,
              userName: AuthenticatedUser.UserName,
              isCurrentUser: AuthenticatedUser.IsCurrentUser);
     }

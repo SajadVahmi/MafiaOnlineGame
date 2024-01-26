@@ -90,7 +90,7 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-
+        app.UseFrameworkGlobalExceptionHandlerMiddleware();
 
         if (app.Environment.IsDevelopment())
         {

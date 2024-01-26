@@ -15,7 +15,7 @@ internal static class HostingExtensions
     {
         builder.Services.AddRazorPages();
 
-        var configurationStoreOptions = builder.Configuration.GetSection("ConfigurationStore").Get<ConfiguratonStoreOptions>();
+        var configurationStoreOptions = builder.Configuration.GetSection("ConfigurationStore").Get<ConfigurationStoreOptions>();
 
         var operationalStoreOptions = builder.Configuration.GetSection("OperationalStore").Get<OperationalStoreOptions>();
 

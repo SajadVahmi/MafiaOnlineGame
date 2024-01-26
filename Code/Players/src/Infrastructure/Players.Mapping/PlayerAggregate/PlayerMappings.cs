@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Players.ApplicationServices.PlayerAggregate.Dtos;
+using Players.ApplicationServices.PlayerAggregate.Dto;
 using Players.Domain.PlayerAggregate.Models;
 using Players.RestApi.V1.PlayerAggregate.Requests.ChangeProfile;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;
@@ -16,8 +16,11 @@ public class PlayerMappings:Profile
 
         CreateMap<PlayerRegistrationRequest, PlayerRegistrationDto>();
 
-        CreateMap<RegisteredPlayerDto, PlayerRegisterationResponse>();
+        CreateMap<RegisteredPlayerDto, PlayerRegistrationResponse>();
 
         CreateMap<PlayerChangeProfileRequest, PlayerChangeProfileDto>();
+
+        CreateMap<Player, PlayerDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
     }
 }

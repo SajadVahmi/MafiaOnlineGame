@@ -2,18 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace IDP.Shared.IdentityStore.DbContexts
-{
-    public class IdpDbContext: IdentityDbContext<IdpUser>
-    {
-        public IdpDbContext(DbContextOptions<IdpDbContext> options)
-            : base(options)
-        {
-        }
+namespace IDP.Shared.IdentityStore.DbContexts;
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
-    }
-}
+public class IdpDbContext(DbContextOptions<IdpDbContext> options) : IdentityDbContext<IdpUser>(options);

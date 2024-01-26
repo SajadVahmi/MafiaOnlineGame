@@ -32,7 +32,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Framework\Test\Framework.Test.Api\Framework.Test.Api.csproj" />
 		<ProjectReference Include="..\..\src\Players.ServiceHost\Players.ServiceHost.csproj" />
-		<ProjectReference Include="..\Players.SharedTestClasess\Players.SharedTestClasess.csproj" />
+		<ProjectReference Include="..\Players.SharedTestClasses\Players.SharedTestClasses.csproj" />
 	</ItemGroup>
 
 </Project>

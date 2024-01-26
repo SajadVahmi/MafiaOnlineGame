@@ -2,10 +2,5 @@
 
 namespace Framework.Persistence.EF;
 
-public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
-{
-    public TimeOnlyConverter() : base(
-        timeOnly => timeOnly.ToTimeSpan(),
-        timeSpan => TimeOnly.FromTimeSpan(timeSpan))
-    { }
-}
+public class TimeOnlyConverter() : ValueConverter<TimeOnly, TimeSpan>(timeOnly => timeOnly.ToTimeSpan(),
+    timeSpan => TimeOnly.FromTimeSpan(timeSpan));

@@ -1,22 +1,20 @@
-﻿using Framework.Core.Domian.Aggregates;
-using Framework.Core.Domian.Data;
+﻿using Framework.Core.Domain.Aggregates;
+using Framework.Core.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Framework.Persistence.EF;
 
-public abstract class EntityFrameworkRepository<TId, TAggregateRoot> : IRepository<TId, TAggregateRoot>
-    where TAggregateRoot : AggregateRoot<TId> where TId : notnull
+public abstract class EntityFrameworkRepository<TId, TAggregateRoot>(
+    FrameworkDbContext commandDbContext,
+    IEntityFrameworkSequenceService entityFrameworkSequenceService)
+    : IRepository<TId, TAggregateRoot>
+    where TAggregateRoot : AggregateRoot<TId>
+    where TId : notnull
 {
-    protected readonly FrameworkDbContext DbContext;
+    protected readonly FrameworkDbContext DbContext = commandDbContext;
 
-    protected IEntityFrameworkSequenceService Sequence { get; private set; }
-
-    protected EntityFrameworkRepository(FrameworkDbContext commandDbContext, IEntityFrameworkSequenceService entityFrameworkSequenceService)
-    {
-        DbContext = commandDbContext;
-        Sequence = entityFrameworkSequenceService;
-    }
+    protected IEntityFrameworkSequenceService Sequence { get; private set; } = entityFrameworkSequenceService;
 
     public abstract Task<TId> GetNextIdAsync(CancellationToken cancellationToken = default);
 

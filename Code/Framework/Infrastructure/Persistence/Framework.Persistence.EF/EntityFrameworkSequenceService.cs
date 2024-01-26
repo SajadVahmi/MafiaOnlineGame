@@ -8,14 +8,8 @@ public interface IEntityFrameworkSequenceService{
     public Task<string?> Next(string sequenceName);
 }
 
-public class EntityFrameworkSequenceService: IEntityFrameworkSequenceService
+public class EntityFrameworkSequenceService(FrameworkDbContext dbContext) : IEntityFrameworkSequenceService
 {
-    private readonly FrameworkDbContext _dbContext;
-
-    public EntityFrameworkSequenceService(FrameworkDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
     public async Task<string?> Next(string sequenceName)
     {
         var sequenceSqlParameter = new SqlParameter("@sequenceNumber", SqlDbType.BigInt)
@@ -23,7 +17,7 @@ public class EntityFrameworkSequenceService: IEntityFrameworkSequenceService
             Direction = ParameterDirection.Output
         };
 
-        await _dbContext.Database.ExecuteSqlRawAsync($"set @sequenceNumber = NEXT VALUE FOR {sequenceName}", sequenceSqlParameter);
+        await dbContext.Database.ExecuteSqlRawAsync($"set @sequenceNumber = NEXT VALUE FOR {sequenceName}", sequenceSqlParameter);
 
         return sequenceSqlParameter.Value.ToString();
     }
