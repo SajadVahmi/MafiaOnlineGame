@@ -18,6 +18,16 @@ public class PlayerApplicationService(
 {
     public async Task<RegisteredPlayerDto> RegisterAsync(PlayerRegistrationDto playerRegistrationDto, CancellationToken cancellationToken = default)
     {
+        var playerAlreadyRegistered =
+            await playerRepository.ExistAsync(player => player.UserId == playerRegistrationDto.UserId,
+                cancellationToken);
+
+        if (playerAlreadyRegistered)
+            throw new ConflictException(
+                message: PlayersResource.Player100TheUserAlreadyRegistred,
+                code: PlayersCodes.Player100TheUserAlreadyRegistred,
+                name: PlayersResource.Player100TheUserAlreadyRegistred);
+
         var playerRegisterArgs = await PlayerRegisterArgsFactory.CreateAsync(
             playerRegistrationDto: playerRegistrationDto,
             playerRepository: playerRepository,
@@ -27,8 +37,10 @@ public class PlayerApplicationService(
             cancellationToken: cancellationToken);
 
         var player = await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
+        
+        playerRepository.Register(player);
 
-        await playerRepository.RegisterAsync(player, cancellationToken);
+        await playerRepository.SaveChangesAsync();
 
         var registeredPlayerDto = mapper.Map<Player, RegisteredPlayerDto>(player);
 

@@ -1,3 +1,4 @@
 ﻿namespace Framework.Core.ApplicationServices.Exceptions;
-public class NotFoundException(string message, string code, string name)
+
+public class ConflictException(string message, string code, string name)
     : ApplicationServicesException(message, code, name);

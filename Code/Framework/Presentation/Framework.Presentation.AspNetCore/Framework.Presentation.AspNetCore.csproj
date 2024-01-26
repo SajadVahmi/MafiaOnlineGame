@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Framework.Core.ApplicationServices\Framework.Core.ApplicationServices.csproj" />
+    <ProjectReference Include="..\..\Core\Framework.Core.Domian\Framework.Core.Domian\Framework.Core.Domian.csproj" />
     <ProjectReference Include="..\..\Core\Framework.Core\Framework.Core.csproj" />
   </ItemGroup>
 

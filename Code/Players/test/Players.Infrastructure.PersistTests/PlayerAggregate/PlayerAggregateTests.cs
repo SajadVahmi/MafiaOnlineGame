@@ -28,7 +28,9 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
 
 
         //Act
-        await _playerRepository.RegisterAsync(playerForPersist);
+        _playerRepository.Register(playerForPersist);
+
+        await _playerRepository.SaveChangesAsync();
 
         var persistedPlayer = await _playerRepository.LoadAsync(playerForPersist.Id);
 
@@ -46,7 +48,9 @@ public class PlayerAggregateTests : IClassFixture<PlayersPersistTestFixture>
         //Arrange
         Player player = await PlayerAggregateFactory.CreateAFemailPlayerAsync();
 
-        await _playerRepository.RegisterAsync(player);
+         _playerRepository.Register(player);
+
+         await _playerRepository.SaveChangesAsync();
 
         var playerChangeProfileArgs=PlayerChangeProfileArgsTestBuilder.Instantiate()
             .WithFirstName("UpdatedFirstName")
