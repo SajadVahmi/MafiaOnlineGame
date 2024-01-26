@@ -5,20 +5,14 @@ using System.Reflection;
 
 namespace Framework.Mapping.AutoMapper;
 
-public class AutoMapperModule : IFrameworkModule
+public class AutoMapperModule(params Assembly[] assemblies) : IFrameworkModule
 {
-    private readonly Assembly[] _assemblies;
-
-    public AutoMapperModule(params Assembly[] assemblies)
-    {
-        _assemblies = assemblies;
-    }
     public void Register(IDependencyRegister dependencyRegister)
     {
 
         var autoMapperConfiguration = new MapperConfiguration(cfg => {
 
-            cfg.AddMaps(_assemblies);
+            cfg.AddMaps(assemblies);
 
         });
 

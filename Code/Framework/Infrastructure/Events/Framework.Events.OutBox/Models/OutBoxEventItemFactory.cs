@@ -1,6 +1,7 @@
 ﻿using Framework.Core.Contracts;
-using Framework.Core.Domian.Aggregates;
-using Framework.Core.Domian.Events;
+using Framework.Core.Domain.Aggregates;
+using Framework.Core.Domain.Events;
+
 
 namespace Framework.Events.OutBox.Models;
 
@@ -16,13 +17,13 @@ public static class OutBoxEventItemFactory
         return new OutBoxEventItem()
         {
             EventId = domainEvent.EventId,
-            AccuredByUserId = authenticatedUser.GetSub(),
-            AccuredOn = domainEvent.WhenItHappened,
+            OccurredByUserId = authenticatedUser.GetSub(),
+            OccurredOn = domainEvent.TimeOfOccurrence,
             AggregateName = aggregateRoot.GetType().Name,
             AggregateTypeName = aggregateRoot.GetType().FullName,
             EventName = domainEvent.GetType().Name,
             EventTypeName = domainEvent.GetType().FullName,
-            EventPayload = serializer.Serilize(domainEvent)
+            EventPayload = serializer.Serialize(domainEvent)
         };
     }
 }

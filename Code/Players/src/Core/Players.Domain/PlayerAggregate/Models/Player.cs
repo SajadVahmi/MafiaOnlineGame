@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.Aggregates;
+﻿using Framework.Core.Domain.Aggregates;
 using Players.Contracts.Enums;
 using Players.Domain.PlayerAggregate.Events;
 
@@ -20,7 +20,7 @@ public partial class Player : AggregateRoot<PlayerId>
     protected Player(PlayerRegisterArgs args)
     {
 
-        Causes(new PlayerIsRegistred(
+        Causes(new PlayerIsRegistered(
              playerId: args.Id.Value,
              firstName: args.FirstName,
              lastName: args.LastName,
@@ -34,9 +34,9 @@ public partial class Player : AggregateRoot<PlayerId>
     }
 
 
-    public string FirstName { get; private set; }
+    public string FirstName { get; private set; } = null!;
 
-    public string LastName { get; private set; }
+    public string LastName { get; private set; } = null!;
 
     public DateOnly BirthDate { get; private set; }
 
@@ -44,7 +44,7 @@ public partial class Player : AggregateRoot<PlayerId>
 
     public DateTimeOffset RegisterDateTime { get; private set; }
 
-    public string UserId { get; private set; }
+    public string UserId { get; private set; } = null!;
 
 
     public void ChangeProfile(PlayerChangeProfileArgs args)

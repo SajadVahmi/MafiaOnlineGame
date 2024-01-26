@@ -1,6 +1,6 @@
 ﻿using Framework.Core.ApplicationServices.Exceptions;
 using Framework.Core.Contracts;
-using Players.ApplicationServices.PlayerAggregate.Dtos;
+using Players.ApplicationServices.PlayerAggregate.Dto;
 using Players.ApplicationServices.PlayerAggregate.Factories;
 using Players.Contracts.Resources;
 using Players.Domain.PlayerAggregate.Data;
@@ -9,73 +9,79 @@ using Players.Domain.PlayerAggregate.Services;
 
 namespace Players.ApplicationServices.PlayerAggregate.Services;
 
-public class PlayerApplicationService : IPlayerApplicationService
+public class PlayerApplicationService(
+    IPlayerRepository playerRepository,
+    IDuplicateRegistrationCheckService duplicateRegistrationCheckService,
+    IEventIdProvider eventIdProvider,
+    IMapperAdapter mapper,
+    IClock clock) : IPlayerApplicationService
 {
-    private readonly IPlayerRepository _playerRepository;
-
-    private readonly IDuplicateRegistrationCheckService _duplicateRegistrationCheckService;
-
-    private readonly IEventIdProvider _eventIdProvider;
-
-    private readonly IMapperAdapter _mapper;
-
-    private readonly IClock _clock;
-
-    public PlayerApplicationService(IPlayerRepository playerRepository,
-        IDuplicateRegistrationCheckService duplicateRegistrationCheckService,
-        IEventIdProvider eventIdProvider,
-        IMapperAdapter mapper,
-        IClock clock)
-    {
-        _playerRepository = playerRepository;
-
-        _duplicateRegistrationCheckService = duplicateRegistrationCheckService;
-
-        _eventIdProvider = eventIdProvider;
-
-        _mapper = mapper;
-
-        _clock = clock;
-    }
-
     public async Task<RegisteredPlayerDto> RegisterAsync(PlayerRegistrationDto playerRegistrationDto, CancellationToken cancellationToken = default)
     {
-        PlayerRegisterArgs playerRegisterArgs = await PlayerRegisterArgsFactory.CreateAsync(
+        var playerAlreadyRegistered =
+            await playerRepository.ExistAsync(player => player.UserId == playerRegistrationDto.UserId,
+                cancellationToken);
+
+        if (playerAlreadyRegistered)
+            throw new ConflictException(
+                message: PlayersResource.Player100TheUserAlreadyRegistred,
+                code: PlayersCodes.Player100TheUserAlreadyRegistred,
+                name: PlayersResource.Player100TheUserAlreadyRegistred);
+
+        var playerRegisterArgs = await PlayerRegisterArgsFactory.CreateAsync(
             playerRegistrationDto: playerRegistrationDto,
-            playerRepository: _playerRepository,
-            duplicateRegistrationCheckService: _duplicateRegistrationCheckService,
-            eventIdProvider: _eventIdProvider,
-            clock: _clock,
+            playerRepository: playerRepository,
+            duplicateRegistrationCheckService: duplicateRegistrationCheckService,
+            eventIdProvider: eventIdProvider,
+            clock: clock,
             cancellationToken: cancellationToken);
 
-        Player player = await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
+        var player = await Player.RegisterAsync(playerRegisterArgs, cancellationToken);
+        
+        playerRepository.Register(player);
 
-        await _playerRepository.RegisterAsync(player, cancellationToken);
+        await playerRepository.SaveChangesAsync();
 
-        RegisteredPlayerDto registeredPlayerDto = _mapper.Map<Player, RegisteredPlayerDto>(player);
+        var registeredPlayerDto = mapper.Map<Player, RegisteredPlayerDto>(player);
 
         return registeredPlayerDto;
     }
 
     public async Task ChangeProfileAsync(PlayerChangeProfileDto playerChangeProfileDto, CancellationToken cancellationToken = default)
     {
-        var player = await _playerRepository.LoadAsync(
+        var player = await playerRepository.LoadAsync(
             playerId: PlayerId.Instantiate(playerChangeProfileDto.Id),
-            userId: playerChangeProfileDto.UserId);
+            userId: playerChangeProfileDto.UserId, cancellationToken: cancellationToken);
 
         if (player is null)
-            throw new AggregateNotFoundException(
-                message:PlayersResource.Player101ThePlayerNotFound,
-                code:PlayersCodes.Player101ThePlayerNotFound,
-                name:PlayersResource.Player101ThePlayerNotFound);
+            throw new NotFoundException(
+                message: PlayersResource.Player101ThePlayerNotFound,
+                code: PlayersCodes.Player101ThePlayerNotFound,
+                name: PlayersResource.Player101ThePlayerNotFound);
 
-      var playerChangeProfile= PlayerChangeProfileArgsFactory.Create(
+        var playerChangeProfile = PlayerChangeProfileArgsFactory.Create(
             playerChangeProfileDto: playerChangeProfileDto,
-            eventIdProvider: _eventIdProvider,
-            clock: _clock);
+            eventIdProvider: eventIdProvider,
+            clock: clock);
 
         player.ChangeProfile(playerChangeProfile);
 
-        await _playerRepository.SaveChangesAsync();
+        await playerRepository.SaveChangesAsync();
+    }
+
+    public async Task<PlayerDto> ViewAsync(long playerId, string userId, CancellationToken cancellationToken = default)
+    {
+        var player = await playerRepository.ViewAsync(
+            playerId: PlayerId.Instantiate(playerId),
+            userId: userId,
+            cancellationToken: cancellationToken);
+
+        if (player is null) throw new NotFoundException(
+            message: PlayersResource.Player101ThePlayerNotFound,
+            code: PlayersCodes.Player101ThePlayerNotFound,
+            name: PlayersResource.Player101ThePlayerNotFound);
+
+        return mapper.Map<Player, PlayerDto>(player);
+
     }
 }

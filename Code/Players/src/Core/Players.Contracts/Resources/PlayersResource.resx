@@ -147,4 +147,7 @@
   <data name="Player109LastNameLengthIsInvalid" xml:space="preserve">
     <value>Last name lenght should be between 3 to 50 characters</value>
   </data>
+  <data name="RequestValidation400" xml:space="preserve">
+    <value>There are some validation errors in your request</value>
+  </data>
 </root>

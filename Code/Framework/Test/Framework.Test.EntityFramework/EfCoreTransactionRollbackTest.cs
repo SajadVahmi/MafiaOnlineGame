@@ -3,18 +3,12 @@ using System.Transactions;
 
 namespace Framework.Test.EntityFramework;
 
-public class EfCoreTransactionRollbackTest<TDbContext> : IDisposable where TDbContext : DbContext
+public class EfCoreTransactionRollbackTest<TDbContext>(DbContextOptions dbContextOptions) : IDisposable
+    where TDbContext : DbContext
 {
-    private TransactionScope _scope;
+    private readonly TransactionScope _scope = new();
 
-    protected TDbContext DbContext;
-
-    public EfCoreTransactionRollbackTest(DbContextOptions dbContextOptions)
-    {
-        _scope = new TransactionScope();
-
-        DbContext = DbContextFactory<TDbContext>.Create(dbContextOptions);
-    }
+    protected TDbContext DbContext = DbContextFactory<TDbContext>.Create(dbContextOptions);
 
     public void Dispose()
     {

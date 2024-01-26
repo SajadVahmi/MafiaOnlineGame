@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.Aggregates;
+﻿using Framework.Core.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

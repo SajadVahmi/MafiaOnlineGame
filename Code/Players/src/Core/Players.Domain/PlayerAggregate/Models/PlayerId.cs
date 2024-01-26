@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.ValueObjects;
+﻿using Framework.Core.Domain.ValueObjects;
 
 namespace Players.Domain.PlayerAggregate.Models;
 

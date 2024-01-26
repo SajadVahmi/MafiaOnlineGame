@@ -9,7 +9,7 @@ public static class DbContextFactory<TDbContext> where TDbContext : DbContext
         var dbContext = Activator.CreateInstance(typeof(TDbContext), args: dbContextOptions);
 
         if (dbContext is null)
-            throw new Exception("Cannot create dbcontext instance");
+            throw new Exception("Cannot create db context instance");
 
         return (TDbContext)dbContext;
     }

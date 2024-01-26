@@ -147,4 +147,7 @@
   <data name="Player109LastNameLengthIsInvalid" xml:space="preserve">
     <value>Player-109</value>
   </data>
+  <data name="RequestValidation400" xml:space="preserve">
+    <value>RequestValidation-400</value>
+  </data>
 </root>

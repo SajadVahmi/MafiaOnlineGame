@@ -2,22 +2,18 @@
 
 namespace Framework.Test.Stubs;
 
-public class EventIdProviderStub : IEventIdProvider
+public class EventIdProviderStub(string id) : IEventIdProvider
 {
-    private string _id;
-
     public static EventIdProviderStub Instantiate() =>
         new EventIdProviderStub();
 
-    public EventIdProviderStub() =>
-        _id = Guid.NewGuid().ToString();
-
-
-    public EventIdProviderStub(string id) => _id = id;
+    public EventIdProviderStub() : this(Guid.NewGuid().ToString())
+    {
+    }
 
 
     public string Get()
     {
-        return _id;
+        return id;
     }
 }

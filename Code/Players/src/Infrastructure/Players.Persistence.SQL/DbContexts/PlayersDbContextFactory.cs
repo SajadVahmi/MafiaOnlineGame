@@ -7,16 +7,10 @@ namespace Players.Persistence.SQL.DbContexts;
 
 public class PlayersDbContextFactory : IDesignTimeDbContextFactory<PlayersDbContext>
 {
-    public required IConfiguration Configuration;
-
-    public PlayersDbContextFactory()
-    {
-        Configuration =
-          new ConfigurationBuilder()
-              .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-              .AddJsonFile($"appsettings.Development.json", optional: false, reloadOnChange: true)
-              .Build();
-    }
+    public required IConfiguration Configuration = new ConfigurationBuilder()
+        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+        .AddJsonFile($"appsettings.Development.json", optional: false, reloadOnChange: true)
+        .Build();
 
 
     public PlayersDbContext CreateDbContext(string[] args)
@@ -25,7 +19,7 @@ public class PlayersDbContextFactory : IDesignTimeDbContextFactory<PlayersDbCont
         var playersDbContextConfiguration = Configuration.GetSection("Persistence:PlayersDbContext").Get<FrameworkDbContextOptions>();
 
         if (playersDbContextConfiguration is null)
-            throw new Exception("There are not any dbcontext options in configuration.");
+            throw new Exception("There are not any db context options in configuration.");
 
         var builder =
             new DbContextOptionsBuilder<FrameworkDbContext>()

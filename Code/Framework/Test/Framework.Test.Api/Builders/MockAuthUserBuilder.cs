@@ -5,7 +5,7 @@ namespace Framework.Test.Api.Builders;
 
 public class MockAuthUserBuilder
 {
-    private List<Claim> _claims = new();
+    private readonly List<Claim> _claims = [];
 
     public static MockAuthUserBuilder Instantiate() => new();
 
@@ -18,6 +18,6 @@ public class MockAuthUserBuilder
         return this;
     }
 
-    public MockAuthUser Build()=> new MockAuthUser(_claims.ToArray());
+    public MockAuthUser Build()=> new(_claims.ToArray());
         
 }
