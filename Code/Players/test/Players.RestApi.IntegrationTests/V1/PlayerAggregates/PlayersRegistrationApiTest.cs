@@ -21,7 +21,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
         var registerRequestBody = PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, registerRequestBody);
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -44,7 +44,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
         DateTimeOffset? currentDateTime = Clock.Now();
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, registerRequestBody);
 
         var responseBody = await response.Content.ReadFromJsonAsync<PlayerRegistrationResponse>();
 
@@ -80,7 +80,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
            PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, registerRequestBody);
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.Conflict);
@@ -99,7 +99,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
            PlayerApiRequestFactory.CreatePlayerRegistrationRequest();
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, registerRequestBody);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, registerRequestBody);
 
         var responseBody = await response.Content.ReadFromJsonAsync<ApiError>();
 
@@ -118,7 +118,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
         );
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, request);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, request);
 
         //Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -130,7 +130,7 @@ public class PlayersRegistrationApiTest(FrameworkWebApplicationFactory<Program> 
     {
 
         //Act
-        var response = await Client.PostAsync(Endpoints.Registration, request);
+        var response = await Client.PostAsync(Endpoints.Version1.Registration, request);
 
         var responseBody = await response.Content.ReadFromJsonAsync<ApiError>();
 

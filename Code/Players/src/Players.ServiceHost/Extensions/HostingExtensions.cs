@@ -5,11 +5,15 @@ using Framework.JsonSerializer.NewtonSoft;
 using Framework.Mapping.AutoMapper;
 using Framework.Presentation.AspNetCore.Extensions;
 using Framework.Presentation.RestApi;
+using Framework.Presentation.RestApi.Swagger;
+using Framework.Presentation.RestApi.Versioning;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Players.Config;
 using Players.Mapping.PlayerAggregate;
 using Players.RestApi.V1.PlayerAggregate.Validations.Register;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Players.ServiceHost.Extensions;
 
@@ -18,7 +22,10 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
 
+
         builder.Services.AddControllers();
+
+        builder.Services.AddApiVersioning(builder.Configuration);
 
         builder.Services.AddEndpointsApiExplorer();
 
@@ -26,36 +33,10 @@ internal static class HostingExtensions
         {
             options.AddPolicy("players_api_access", policy => policy.RequireClaim("scope", "players"));
         });
+        
+        
 
-        builder.Services.AddSwaggerGen(options =>
-        {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Players API", Version = "v1" });
-
-            var scheme = new OpenApiSecurityScheme
-            {
-                In = ParameterLocation.Header,
-                Name = "Authorization",
-                Flows = new OpenApiOAuthFlows
-                {
-                    AuthorizationCode = new OpenApiOAuthFlow
-                    {
-                        AuthorizationUrl = new Uri("https://localhost:5001/connect/authorize"),
-
-                        TokenUrl = new Uri("https://localhost:5001/connect/token"),
-
-                        Scopes = new Dictionary<string, string>{
-
-                            {"players","For access to players api"}
-                        }
-                    }
-                },
-                Type = SecuritySchemeType.OAuth2
-            };
-
-            options.AddSecurityDefinition("OAuth", scheme);
-
-            options.OperationFilter<AuthorizeCheckOperationFilter>();
-        });
+        builder.Services.AddSwagger(builder.Configuration);
 
         builder.Services.AddHttpContextServices();
 
@@ -98,7 +79,14 @@ internal static class HostingExtensions
 
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Players API V1");
+                var descriptions = app.DescribeApiVersions();
+
+                foreach (var description in descriptions)
+                {
+                    var url = $"/swagger/{description.GroupName}/swagger.json";
+                    var name = description.GroupName.ToUpperInvariant();
+                    options.SwaggerEndpoint(url, name);
+                }
 
                 options.OAuthAppName("Players Swagger API");
 

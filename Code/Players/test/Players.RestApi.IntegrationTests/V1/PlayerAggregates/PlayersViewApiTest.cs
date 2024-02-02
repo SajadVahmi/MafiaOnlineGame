@@ -19,7 +19,7 @@ public class PlayersViewApiTest(FrameworkWebApplicationFactory<Program> factory)
 
         Factory.InitialDatabase(registeredPlayer);
 
-        var viewPlayerUrl = Endpoints.View.Replace("{playerId}", registeredPlayer.Id.Value.ToString());
+        var viewPlayerUrl = Endpoints.Version1.View.Replace("{playerId}", registeredPlayer.Id.Value.ToString());
 
 
         //Act
@@ -48,7 +48,7 @@ public class PlayersViewApiTest(FrameworkWebApplicationFactory<Program> factory)
         //Arrange
         var playerIdThatDidNotRegister = 213413214567;
 
-        var viewPlayerUrl = Endpoints.View.Replace("{playerId}", playerIdThatDidNotRegister.ToString());
+        var viewPlayerUrl = Endpoints.Version1.View.Replace("{playerId}", playerIdThatDidNotRegister.ToString());
 
         //Act
         var response = await Client.GetAsync(viewPlayerUrl);

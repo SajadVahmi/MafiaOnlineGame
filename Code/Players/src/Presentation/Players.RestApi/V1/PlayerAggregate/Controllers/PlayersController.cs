@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Asp.Versioning;
+using FluentValidation;
 using Framework.Core.Contracts;
 using Framework.Presentation.RestApi;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +16,8 @@ using Players.RestApi.V1.Shared;
 namespace Players.RestApi.V1.PlayerAggregate.Controllers;
 
 [ApiController]
-[Route("[Controller]")]
+[ApiVersion(1.0)]
+[Route("v{version:apiVersion}/[Controller]")]
 [Authorize]
 public class PlayersController(
     IPlayerApplicationService playerApplicationService,
@@ -94,4 +96,3 @@ public class PlayersController(
     }
 
 }
-

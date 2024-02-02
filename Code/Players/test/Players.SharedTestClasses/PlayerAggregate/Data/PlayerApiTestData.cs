@@ -6,9 +6,12 @@ public static class PlayerApiTestData
 
     public static class Endpoints
     {
-        public static string Registration = "/players";
-        public static string ChangeProfile = "/players/{playerId}";
-        public static string View = "/players/{playerId}";
+        public static class Version1
+        {
+            public static string Registration = "/v1/players";
+            public static string ChangeProfile = "/v1/players/{playerId}";
+            public static string View = "/v1/players/{playerId}";
+        }
     }
 
 

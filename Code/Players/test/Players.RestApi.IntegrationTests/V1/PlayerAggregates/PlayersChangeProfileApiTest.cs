@@ -24,7 +24,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
         var changeProfileRequestBody =
            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest();
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", registeredPlayer.Id.Value.ToString());
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", registeredPlayer.Id.Value.ToString());
 
         //Act
         var response = await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
@@ -49,7 +49,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
                    .WithBirthDate(registredPlayer.BirthDate.AddMonths(1))
                    .WithGender(Gender.Male));
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", registredPlayer.Id.Value.ToString());
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", registredPlayer.Id.Value.ToString());
 
         //Act
         await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
@@ -77,7 +77,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
         var changeProfileRequestBody =
            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest();
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", notExistPlayerId.ToString());
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", notExistPlayerId.ToString());
 
         //Act
         var response = await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
@@ -101,7 +101,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
         var changeProfileRequestBody =
            PlayerApiRequestFactory.CreatePlayerChangeProfileRequest();
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", notExistPlayerId.ToString());
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", notExistPlayerId.ToString());
 
         //Act
         var response = await Client.PutAsync(changeProfileUrl, changeProfileRequestBody);
@@ -120,7 +120,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
               player.WithFirstName(null)
            );
 
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", "1");
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", "1");
 
 
         //Act
@@ -135,7 +135,7 @@ public class PlayersChangeProfileApiTest(FrameworkWebApplicationFactory<Program>
     public async Task ShouldReturnApiValidationErrorWithSpecifiedPropertyNmaeAndMessage_WhenChangeProfileRequestHasInvalidData(StringContent request, Action<ApiError> assertion)
     {
         //Arrange
-        var changeProfileUrl = Endpoints.ChangeProfile.Replace("{playerId}", "1");
+        var changeProfileUrl = Endpoints.Version1.ChangeProfile.Replace("{playerId}", "1");
 
         //Act
         var response = await Client.PutAsync(changeProfileUrl, request);
