@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.Domian.Data;
+﻿namespace Framework.Core.Domain.Data;
 
 public interface IUnitOfWork
 {

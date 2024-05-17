@@ -1,8 +1,8 @@
 ﻿namespace Framework.Core.Domain.Events;
 
-public abstract class DomainEvent(string id, DateTimeOffset whenItHappened) : IDomainEvent
+public abstract record DomainEvent(Guid EventId, DateTimeOffset WhenItHappened) : IDomainEvent
 {
-    public string EventId { get; private set; } = id;
+    public Guid EventId { get; private set; } = EventId;
 
-    public DateTimeOffset TimeOfOccurrence { get; private set; } = whenItHappened;
+    public DateTimeOffset TimeOfOccurrence { get; private set; } = WhenItHappened;
 }

@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domian.Data;
+﻿using Framework.Core.Domain.Data;
 
 namespace Framework.Core.Application.Commands
 {

@@ -2,6 +2,6 @@
 
 public interface IEvent
 {
-    string EventId { get; }
+    Guid EventId { get; }
     DateTimeOffset TimeOfOccurrence { get; }
 }

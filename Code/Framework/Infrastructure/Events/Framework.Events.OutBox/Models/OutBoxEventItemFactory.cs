@@ -16,7 +16,7 @@ public static class OutBoxEventItemFactory
     {
         return new OutBoxEventItem()
         {
-            EventId = domainEvent.EventId,
+            EventId = domainEvent.EventId.ToString(),
             OccurredByUserId = authenticatedUser.GetSub(),
             OccurredOn = domainEvent.TimeOfOccurrence,
             AggregateName = aggregateRoot.GetType().Name,
