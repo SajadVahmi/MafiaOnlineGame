@@ -1,3 +1,3 @@
-﻿namespace Framework.Core.ApplicationServices.Exceptions;
+﻿namespace Framework.Core.Application.Exceptions;
 public class NotFoundException(string message, string code, string name)
     : ApplicationServicesException(message, code, name);

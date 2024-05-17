@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ApplicationServices.Commands;
+﻿namespace Framework.Core.Application.Commands;
 
 public class CommandBus(ICommandHandlerResolver resolver) : ICommandBus
 {

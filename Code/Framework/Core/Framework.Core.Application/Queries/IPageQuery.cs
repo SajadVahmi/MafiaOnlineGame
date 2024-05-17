@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ApplicationServices.Queries;
+﻿namespace Framework.Core.Application.Queries;
 
 public interface IPageQuery<TResponse> : IQuery<TResponse>
 {

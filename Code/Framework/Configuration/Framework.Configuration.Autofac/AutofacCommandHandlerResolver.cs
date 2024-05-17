@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using Framework.Core.ApplicationServices.Commands;
+using Framework.Core.Application.Commands;
+
 
 namespace Framework.Configuration.Autofac;
 

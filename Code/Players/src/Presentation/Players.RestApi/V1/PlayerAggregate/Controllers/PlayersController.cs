@@ -5,8 +5,7 @@ using Framework.Presentation.RestApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Players.ApplicationServices.PlayerAggregate.Dto;
-using Players.ApplicationServices.PlayerAggregate.Services;
+
 using Players.Contracts.Resources;
 using Players.RestApi.V1.PlayerAggregate.Requests.ChangeProfile;
 using Players.RestApi.V1.PlayerAggregate.Requests.Register;

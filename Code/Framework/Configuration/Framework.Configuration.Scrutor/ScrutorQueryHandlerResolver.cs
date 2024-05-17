@@ -1,4 +1,4 @@
-﻿using Framework.Core.ApplicationServices.Queries;
+﻿using Framework.Core.Application.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Framework.Configuration.Scrutor;

@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Resources;
 
-namespace Framework.Core.ApplicationServices.Exceptions;
+namespace Framework.Core.Application.Exceptions;
 
 public class ApplicationServicesException(string message, string code, string name) : Exception(message)
 {

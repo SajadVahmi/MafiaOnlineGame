@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ApplicationServices.Queries;
+﻿namespace Framework.Core.Application.Queries;
 
 public abstract class QueryHandler<TQuery, TResponse> : IQueryHandler<TQuery, TResponse>
     where TQuery : class, IQuery<TResponse>

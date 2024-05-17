@@ -1,8 +1,8 @@
-﻿using Framework.Core.ApplicationServices.Exceptions;
-using Framework.Core.Contracts;
+﻿using Framework.Core.Contracts;
 using Framework.Core.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using Framework.Core.Application.Exceptions;
 
 namespace Framework.Presentation.RestApi;
 

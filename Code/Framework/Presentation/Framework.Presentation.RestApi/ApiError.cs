@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Framework.Core.ApplicationServices.Exceptions;
+using Framework.Core.Application.Exceptions;
 using Framework.Core.Domain.Exceptions;
 
 namespace Framework.Presentation.RestApi;

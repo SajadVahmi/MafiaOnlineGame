@@ -1,6 +1,7 @@
 ﻿using Autofac;
-using Framework.Core.ApplicationServices.Commands;
-using Framework.Core.ApplicationServices.Queries;
+using Framework.Core.Application.Commands;
+using Framework.Core.Application.Queries;
+
 
 namespace Framework.Configuration.Autofac;
 

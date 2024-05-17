@@ -1,6 +1,6 @@
 ﻿using Framework.Core.Domian.Data;
 
-namespace Framework.Core.ApplicationServices.Commands
+namespace Framework.Core.Application.Commands
 {
     public class TransactionalCommandHandlerDecorator<TCommand>(
         ICommandHandler<TCommand> commandHandler,

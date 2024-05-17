@@ -1,4 +1,4 @@
-﻿using Framework.Core.ApplicationServices.Exceptions;
+﻿using Framework.Core.Application.Exceptions;
 using Framework.Core.Contracts;
 using Players.ApplicationServices.PlayerAggregate.Dto;
 using Players.ApplicationServices.PlayerAggregate.Factories;

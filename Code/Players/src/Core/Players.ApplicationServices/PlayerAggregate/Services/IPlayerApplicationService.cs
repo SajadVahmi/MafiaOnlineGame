@@ -1,4 +1,4 @@
-﻿using Framework.Core.ApplicationServices.ApplicationServices;
+﻿using Framework.Core.Application.ApplicationServices;
 using Players.ApplicationServices.PlayerAggregate.Dto;
 
 namespace Players.ApplicationServices.PlayerAggregate.Services;

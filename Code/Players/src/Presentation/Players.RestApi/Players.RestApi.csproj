@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Framework\Presentation\Framework.Presentation.AspNetCore\Framework.Presentation.AspNetCore.csproj" />
     <ProjectReference Include="..\..\..\..\Framework\Presentation\Framework.Presentation.RestApi\Framework.Presentation.RestApi.csproj" />
-    <ProjectReference Include="..\..\Core\Players.ApplicationServices\Players.ApplicationServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ApplicationServices.Queries;
+﻿namespace Framework.Core.Application.Queries;
 
 public class PageQuery<TData> : IPageQuery<TData>
 {

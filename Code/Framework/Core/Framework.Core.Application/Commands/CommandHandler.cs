@@ -1,4 +1,4 @@
-﻿namespace Framework.Core.ApplicationServices.Commands;
+﻿namespace Framework.Core.Application.Commands;
 
 public abstract class AsyncCommandHandler<TCommand> : ICommandHandler<TCommand>
 where TCommand : ICommand

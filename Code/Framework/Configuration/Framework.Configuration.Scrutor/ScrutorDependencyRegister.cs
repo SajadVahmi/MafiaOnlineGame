@@ -1,8 +1,8 @@
-﻿using Framework.Core.ApplicationServices.ApplicationServices;
-using Framework.Core.ApplicationServices.Commands;
-using Framework.Core.ApplicationServices.Queries;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Framework.Core.Application.ApplicationServices;
+using Framework.Core.Application.Commands;
+using Framework.Core.Application.Queries;
 using Framework.Core.Domain.Data;
 using Framework.Core.Domain.DomainServices;
 
