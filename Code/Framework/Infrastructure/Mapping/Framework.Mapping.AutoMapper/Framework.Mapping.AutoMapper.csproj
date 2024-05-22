@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Configuration\Framework.Configuration\Framework.Configuration.csproj" />
     <ProjectReference Include="..\..\..\Core\Framework.Core\Framework.Core.csproj" />
   </ItemGroup>
 
