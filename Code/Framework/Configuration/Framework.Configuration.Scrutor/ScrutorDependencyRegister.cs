@@ -45,7 +45,7 @@ public class ScrutorDependencyRegister(IServiceCollection services) : IDependenc
     public void RegisterRepositories(Assembly assembly)
     {
         services.Scan(s => s.FromAssemblies(assembly)
-            .AddClasses(c => c.AssignableToAny(typeof(IRepository<,>)))
+            .AddClasses(c => c.AssignableToAny(typeof(IRepository)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
     }

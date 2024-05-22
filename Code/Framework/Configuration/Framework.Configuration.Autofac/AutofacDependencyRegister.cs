@@ -47,7 +47,7 @@ public class AutofacDependencyRegister(ContainerBuilder container) : IDependency
     {
         container.RegisterAssemblyTypes(assembly)
             .As(type => type.GetInterfaces()
-                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IRepository<,>))))
+                .Where(interfaceType => interfaceType.IsClosedTypeOf(typeof(IRepository))))
             .InstancePerLifetimeScope();
     }
 

@@ -5,7 +5,7 @@ namespace Framework.Core.Domain.Events;
 
 public interface IEventStore
 {
-    Task<List<IDomainEvent>> GetEventsOfStream<T, TKey>(TKey id,IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>;
-    Task<List<IDomainEvent>> GetEventsOfStream<T, TKey>(TKey id, int fromIndex, IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>;
-    Task AppendEvents<T,TKey>(T aggregateRoot,IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>;
+    Task<List<IDomainEvent>> GetEventsOfStreamAsync<T, TKey>(TKey id,IJsonSerializerAdapter jsonSerializer,CancellationToken cancellationToken=default) where T : AggregateRoot<TKey> where TKey : notnull;
+    Task<List<IDomainEvent>> GetEventsOfStreamAsync<T, TKey>(TKey id, int fromIndex, IJsonSerializerAdapter jsonSerializer,CancellationToken cancellationToken=default) where T : AggregateRoot<TKey> where TKey : notnull;
+    Task AppendEventsAsync<T,TKey>(T aggregateRoot,IJsonSerializerAdapter jsonSerializer,CancellationToken cancellationToken=default) where T : AggregateRoot<TKey> where TKey : notnull;
 }

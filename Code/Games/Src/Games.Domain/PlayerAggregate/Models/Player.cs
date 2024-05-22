@@ -1,13 +1,12 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Framework.Core.Domain.Aggregates;
+﻿using Framework.Core.Domain.Aggregates;
 using Games.Domain.Contracts.DomainEvents.PlayerAggregate;
 using Games.Domain.Contracts.Enums;
 using Games.Domain.PlayerAggregate.Arguments;
-using Guard= Games.Domain.PlayerAggregate.Models.PlayerGuards;
+using Guard = Games.Domain.PlayerAggregate.Models.PlayerGuards;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
-public class Player:AggregateRoot<PlayerFamily>
+public class Player:AggregateRoot<PlayerId>
 {
     public static async Task<Player> RegisterAsync(PlayerRegistrationArgs args,CancellationToken cancellationToken=default)
     {

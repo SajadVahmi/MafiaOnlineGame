@@ -14,19 +14,20 @@ namespace Framework.Persistence.EventStore
             _connection = connection;
             _typeResolver = typeResolver;
         }
-        public async Task<List<IDomainEvent>> GetEventsOfStream<T, TKey>(TKey id,IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>
+        public async Task<List<IDomainEvent>> GetEventsOfStreamAsync<T, TKey>(TKey id,IJsonSerializerAdapter jsonSerializer, CancellationToken cancellationToken = default) where T : AggregateRoot<TKey> where TKey : notnull
         {
-            return await GetEventsOfStream<T, TKey>(id, StreamPosition.Start, jsonSerializer);
-
+            if (id == null) throw new ArgumentNullException(nameof(id));
+            return await GetEventsOfStreamAsync<T, TKey>(id, StreamPosition.Start, jsonSerializer, cancellationToken);
         }
-        public async Task<List<IDomainEvent>> GetEventsOfStream<T, TKey>(TKey id, int fromIndex,IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>
+        public async Task<List<IDomainEvent>> GetEventsOfStreamAsync<T, TKey>(TKey id, int fromIndex,IJsonSerializerAdapter jsonSerializer,CancellationToken cancellationToken=default) where T : AggregateRoot<TKey> where TKey : notnull
         {
+            if (id == null) throw new ArgumentNullException(nameof(id));
             var streamId = StreamNames.GetStreamName<T, TKey>(id);
-            var streamEvents = await EventStreamReader.Read(_connection, streamId, fromIndex, 200); //TODO:remove this hard-coded '200' and real all events
+            var streamEvents = await EventStreamReader.Read(_connection, streamId, fromIndex,200); //TODO:remove this hard-coded '200' and real all events
             return DomainEventFactory.Create(streamEvents, _typeResolver, jsonSerializer);
         }
 
-        public async Task AppendEvents<T, TKey>(T aggregateRoot, IJsonSerializerAdapter jsonSerializer) where T : AggregateRoot<TKey>
+        public async Task AppendEventsAsync<T, TKey>(T aggregateRoot, IJsonSerializerAdapter jsonSerializer, CancellationToken cancellationToken = default) where T : AggregateRoot<TKey> where TKey : notnull
         {
             var events = aggregateRoot.GetEvents();
             var streamId = StreamNames.GetStreamName<T, TKey>(aggregateRoot.Id);

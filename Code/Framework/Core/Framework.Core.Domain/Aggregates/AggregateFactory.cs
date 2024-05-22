@@ -5,7 +5,7 @@ namespace Framework.Core.Domain.Aggregates;
 
 public class AggregateFactory : IAggregateFactory
 {
-    public T Create<T>(List<DomainEvent> events, ISnapshot snapshot) where T : IAggregateRoot
+    public T Create<T>(List<IDomainEvent> events, ISnapshot snapshot) where T : IAggregateRoot
     {
         var aggregate = (T)Activator.CreateInstance(typeof(T),true)!;
 
