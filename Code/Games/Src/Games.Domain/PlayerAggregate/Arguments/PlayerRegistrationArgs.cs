@@ -12,7 +12,4 @@ public class PlayerRegistrationArgs
     public required string UserId { get; set; }
     public required IIdGenerator IdGenerator { get; set; }
     public required IClock Clock { get; set; }
-    public required IDuplicateRegistrationCheckService DuplicateRegistrationCheckService { get; set; }
-
-
 }

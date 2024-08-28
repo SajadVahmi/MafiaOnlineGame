@@ -8,11 +8,9 @@ namespace Games.Domain.PlayerAggregate.Models;
 
 public class Player:AggregateRoot<PlayerId>
 {
-    public static async Task<Player> RegisterAsync(PlayerRegistrationArgs args,CancellationToken cancellationToken=default)
+    public static Player Register(PlayerRegistrationArgs args)
     {
         var player = new Player(args);
-
-        await Guard.AvoidDoubleRegistrationAsync(player, args.DuplicateRegistrationCheckService, cancellationToken);
 
         return player;
     }

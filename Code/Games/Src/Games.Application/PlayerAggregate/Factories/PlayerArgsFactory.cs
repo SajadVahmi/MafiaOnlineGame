@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Contracts;
-using Games.Application.Contracts.PlayerAggregate.Commands;
+using Games.Application.PlayerAggregate.Commands;
 using Games.Domain.PlayerAggregate.Arguments;
 using Games.Domain.PlayerAggregate.Services;
 
@@ -8,7 +8,7 @@ namespace Games.Application.PlayerAggregate.Factories;
 public static class PlayerArgsFactory
 {
     public static PlayerRegistrationArgs CreateRegistrationArgs(RegisterPlayerCommand command, IIdGenerator idGenerator,
-        IAuthenticatedUser authenticatedUser,IClock clock, IDuplicateRegistrationCheckService duplicateRegistrationCheckService)
+        IAuthenticatedUser authenticatedUser,IClock clock)
     {
         return new PlayerRegistrationArgs()
         {
@@ -17,7 +17,7 @@ public static class PlayerArgsFactory
             UserId = authenticatedUser.GetSub()!,
             Clock = clock,
             IdGenerator = idGenerator,
-            DuplicateRegistrationCheckService = duplicateRegistrationCheckService
+            
         };
     }
 }

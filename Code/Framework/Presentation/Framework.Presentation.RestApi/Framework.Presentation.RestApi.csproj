@@ -7,17 +7,18 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Asp.Versioning.Mvc" Version="8.0.0" />
-		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Scrutor" Version="4.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
 	</ItemGroup>
-	
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Framework.Core.Application\Framework.Core.Application.csproj" />
-    <ProjectReference Include="..\..\Core\Framework.Core.Domain\Framework.Core.Domain.csproj" />
-    <ProjectReference Include="..\Framework.Presentation.AspNetCore\Framework.Presentation.AspNetCore.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Core\Framework.Core.Application\Framework.Core.Application.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\JsonSerializers\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\Persistence\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Framework.Core.Application.Commands;
 using Framework.Core.Contracts;
-using Games.Application.Contracts.PlayerAggregate.Commands;
+using Games.Application.PlayerAggregate.Commands;
 using Games.Application.PlayerAggregate.Factories;
 using Games.Domain.PlayerAggregate.Data;
 using Games.Domain.PlayerAggregate.Models;
@@ -8,33 +8,24 @@ using Games.Domain.PlayerAggregate.Services;
 
 namespace Games.Application.PlayerAggregate.CommandHandlers;
 
-public class PlayerCommandHandler:ICommandHandler<RegisterPlayerCommand>
+public class PlayerCommandHandler(
+    IPlayerRepository playerRepository,
+    IIdGenerator idGenerator,
+    IClock clock,
+    IAuthenticatedUser authenticatedUser)
+    : ICommandHandler<RegisterPlayerCommand>
 {
-    private readonly IPlayerRepository _playerRepository;
-    private readonly IIdGenerator _idGenerator;
-    private readonly IClock _clock;
-    private readonly IDuplicateRegistrationCheckService _duplicateRegistrationCheckService;
-    private readonly IAuthenticatedUser _authenticatedUser;
 
-    public PlayerCommandHandler(IPlayerRepository playerRepository,IIdGenerator idGenerator,IClock clock,IDuplicateRegistrationCheckService duplicateRegistrationCheckService,IAuthenticatedUser authenticatedUser)
-    {
-        _playerRepository = playerRepository;
-        _idGenerator = idGenerator;
-        _clock = clock;
-        _duplicateRegistrationCheckService = duplicateRegistrationCheckService;
-        _authenticatedUser = authenticatedUser;
-    }
     public async Task HandleAsync(RegisterPlayerCommand command, CancellationToken cancellationToken = default)
     {
         var registrationArgs = PlayerArgsFactory.CreateRegistrationArgs(
             command: command,
-            idGenerator: _idGenerator,
-            clock: _clock,
-            duplicateRegistrationCheckService: _duplicateRegistrationCheckService,
-            authenticatedUser: _authenticatedUser);
+            idGenerator: idGenerator,
+            clock: clock,
+            authenticatedUser: authenticatedUser);
 
-        var player = await Player.RegisterAsync(registrationArgs, cancellationToken);
+        var player = Player.Register(registrationArgs);
 
-        await _playerRepository.AddAsync(player, cancellationToken);
+        await playerRepository.AddAsync(player, cancellationToken);
     }
 }

@@ -7,7 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Games.Domain.Contracts\Games.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Core\Framework.Core.Domain\Framework.Core.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Contracts\Resources\ExceptionCodes.Designer.cs">
+      <DependentUpon>ExceptionCodes.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Contracts\Resources\ExceptionMessages.Designer.cs">
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Contracts\Resources\ExceptionCodes.resx">
+      <LastGenOutput>ExceptionCodes.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Contracts\Resources\ExceptionMessages.resx">
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

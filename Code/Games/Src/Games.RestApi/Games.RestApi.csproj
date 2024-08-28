@@ -6,9 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  
+
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Core\Framework.Core.Application\Framework.Core.Application.csproj" />
-    <ProjectReference Include="..\Games.Domain\Games.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Presentation\Framework.Presentation.RestApi\Framework.Presentation.RestApi.csproj" />
+    <ProjectReference Include="..\Games.Application\Games.Application.csproj" />
   </ItemGroup>
 
 </Project>
