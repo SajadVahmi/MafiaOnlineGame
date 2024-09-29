@@ -1,22 +1,22 @@
-﻿using System.Reflection;
-using EventStore.ClientAPI;
-using Framework.Core.Application.Commands;
+﻿using Framework.Core.Application.Commands;
 using Framework.Core.Contracts;
+using Framework.Core.Domain.Aggregates;
 using Framework.Core.Domain.Data;
 using Framework.Core.Domain.DomainServices;
+using Framework.Core.Domain.Events;
+using Framework.Core.Domain.Snapshots;
 using Framework.Core.Services;
 using Framework.JsonSerializer.NewtonSoft;
 using Framework.Persistence.EventStore;
+using Framework.Persistence.EventStore.Repositories;
 using Framework.Presentation.RestApi.Resolvers;
 using Framework.Presentation.RestApi.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using Framework.Core.Domain.Aggregates;
-using Framework.Core.Domain.Snapshots;
-using Framework.Core.Domain.Events;
-using Framework.Persistence.EventStore.Repositories;
+using Newtonsoft.Json.Serialization;
+using System.Reflection;
+using EventStore.Client;
 
 namespace Framework.Presentation.RestApi.Extensions;
 
@@ -90,7 +90,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IAggregateFactory>(_ => new AggregateFactory());
         services.AddSingleton(_ => CreateEventTypeResolver(assemblies));
-        services.AddSingleton(_ => CreateEventStoreConnection(connectionString));
+        services.AddSingleton(_ => CreateEventStoreClient(connectionString));
         services.AddSingleton<IEventStore, EventStoreDb>();
         services.AddSingleton<ISnapshotStore, SqlSnapshotStore>();
 
@@ -107,11 +107,11 @@ public static class ServiceCollectionExtensions
             typeResolver.AddTypesFromAssembly(assembly);
         return typeResolver;
     }
-    private static IEventStoreConnection CreateEventStoreConnection(string connectionString)
+    private static EventStoreClient CreateEventStoreClient(string connectionString)
     {
-        var conn = EventStoreConnection.Create(new Uri(connectionString));
-        conn.ConnectAsync().Wait();
-        return conn;
+        var settings = EventStoreClientSettings.Create(connectionString);
+
+        return new EventStoreClient(settings);
     }
 
 }

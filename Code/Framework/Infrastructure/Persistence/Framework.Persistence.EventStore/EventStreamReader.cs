@@ -1,20 +1,18 @@
-﻿using EventStore.ClientAPI;
+﻿using EventStore.Client;
 
 namespace Framework.Persistence.EventStore;
 
 internal static class EventStreamReader
 {
-    public static async Task<List<ResolvedEvent>> Read(IEventStoreConnection connection, string streamId, int start, int end)
+    public static ValueTask<List<ResolvedEvent>> Read(EventStoreClient client, string streamId, long start, long end=int.MaxValue)
     {
-        var streamEvents = new List<ResolvedEvent>();
-        StreamEventsSlice currentSlice;
-        long nextSliceStart = start;
-        do
-        {
-            currentSlice = await connection.ReadStreamEventsForwardAsync(streamId, nextSliceStart, 200, false);
-            nextSliceStart = currentSlice.NextEventNumber;
-            streamEvents.AddRange(currentSlice.Events);
-        } while (!currentSlice.IsEndOfStream);
-        return streamEvents;
+        var streamEvents = client.ReadStreamAsync(
+            Direction.Forwards,
+            streamId,
+            StreamPosition.Start
+
+        );
+        return streamEvents.ToListAsync();
+
     }
 }

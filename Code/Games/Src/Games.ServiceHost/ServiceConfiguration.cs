@@ -24,7 +24,7 @@ public static class ServiceConfiguration
             .AddEndpointsApiExplorer()
             .AddDomainServices()
             .AddCommandHandlers(typeof(PlayerCommandHandler).Assembly)
-            .AddEventSourceRepositories("tcp://admin:changeit@localhost:2113?tls=false", typeof(PlayerRegistered).Assembly);
+            .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false", typeof(PlayerRegistered).Assembly);
 
         builder.Services.AddScoped<IPlayerRepository,PlayerRepository>();
         builder.Services.AddSwaggerGen(options =>

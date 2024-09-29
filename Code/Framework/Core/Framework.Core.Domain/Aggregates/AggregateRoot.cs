@@ -22,7 +22,7 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId
 
     }
 
-    public int Version { get; protected set; }
+    public long Version { get; protected set; }
 
     protected void Causes(IDomainEvent @event)
     {
@@ -43,6 +43,8 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId
         var whenMethod = this.GetType().GetMethod("When", BindingFlags.Instance | BindingFlags.NonPublic, new Type[] { @event.GetType() });
 
         whenMethod?.Invoke(this, [@event]);
+
+        Version++;
     }
 
     public virtual void Apply(ISnapshot snapshot) { }

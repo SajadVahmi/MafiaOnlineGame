@@ -5,7 +5,7 @@ namespace Framework.Core.Domain.Aggregates;
 
 public interface IAggregateRoot
 {
-    int Version { get; }
+    long Version { get; }
     void ClearEvents();
     IEnumerable<IDomainEvent> GetEvents();
     void Apply(IDomainEvent @event);

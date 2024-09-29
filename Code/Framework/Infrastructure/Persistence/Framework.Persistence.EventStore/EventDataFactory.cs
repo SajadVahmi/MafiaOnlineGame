@@ -1,4 +1,4 @@
-﻿using EventStore.ClientAPI;
+﻿using EventStore.Client;
 using Framework.Core.Contracts;
 using Framework.Core.Domain.Events;
 using System.Text;
@@ -11,9 +11,8 @@ namespace Framework.Persistence.EventStore
         {
             var data = jsonSerializerAdapter.Serialize(domainEvent);
             return new EventData(
-                eventId: domainEvent.EventId, 
+                eventId: Uuid.FromGuid(domainEvent.EventId), 
                 type: domainEvent.GetType().Name,
-                isJson: true,
                 data: Encoding.UTF8.GetBytes(data ?? throw new InvalidOperationException()),
                 metadata: new byte[] {}
             );

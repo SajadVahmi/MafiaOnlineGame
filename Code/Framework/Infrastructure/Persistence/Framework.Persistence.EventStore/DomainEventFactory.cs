@@ -1,26 +1,30 @@
-﻿using System.Text;
-using EventStore.ClientAPI;
+﻿using System.Reflection.Metadata.Ecma335;
+using EventStore.Client;
 using Framework.Core.Contracts;
 using Framework.Core.Domain.Events;
 using Framework.Persistence.EventStore.Mappings;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace Framework.Persistence.EventStore
 {
     internal static class DomainEventFactory
     {
-        public static List<IDomainEvent> Create(List<ResolvedEvent> events, IEventTypeResolver typeResolver,IJsonSerializerAdapter jsonSerializer)
+        public static List<IDomainEvent> Create(List<ResolvedEvent> events, IEventTypeResolver typeResolver, IJsonSerializerAdapter jsonSerializer)
         {
-            return events.Select(a=> Create(a, typeResolver, jsonSerializer)).ToList();
+            if (!events.Any())
+                return new();
+
+            return events.Select(a => Create(a, typeResolver, jsonSerializer)).ToList();
+
         }
 
-        public static IDomainEvent Create(ResolvedEvent @event, IEventTypeResolver typeResolver,IJsonSerializerAdapter jsonSerializer)
+        public static IDomainEvent Create(ResolvedEvent @event, IEventTypeResolver typeResolver, IJsonSerializerAdapter jsonSerializer)
         {
             var type = typeResolver.GetType(@event.Event.EventType);
-            var body = Encoding.UTF8.GetString(@event.Event.Data);
+            var body = Encoding.UTF8.GetString(@event.Event.Data.ToArray());
             body = ApplyMappings(body, type);
-            return (IDomainEvent)jsonSerializer.Deserialize(body, type);
+            return ((IDomainEvent)jsonSerializer.Deserialize(body, type)!);
         }
 
         private static string ApplyMappings(string body, Type type)
