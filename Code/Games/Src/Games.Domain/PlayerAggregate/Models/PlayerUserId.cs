@@ -1,5 +1,6 @@
-﻿using Framework.Core.Domain.ValueObjects;
-using Games.Domain.PlayerAggregate.Exceptions;
+﻿using Framework.Core.Domain.Exceptions;
+using Framework.Core.Domain.ValueObjects;
+using Games.Domain.Contracts.Resources;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
@@ -11,16 +12,19 @@ public class PlayerUserId : ValueObject<PlayerUserId>
 
     protected PlayerUserId(string value)
     {
-        if (string.IsNullOrEmpty(value))
-            throw new PlayerUserIdHasInvalidValueException();
-
         Value = value;
+        Validate();
     }
-
-    public string Value { get; set; }
+    public string Value { get; set; } = null!;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
+    }
+
+    public sealed override void Validate()
+    {
+        //if (string.IsNullOrEmpty(Value))
+           //// throw new BusinessException(Exceptions.PlayerHasInvalidUserId);
     }
 }

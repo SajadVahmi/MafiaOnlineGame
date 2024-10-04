@@ -1,2 +1,2 @@
-﻿add-migration init -Context IdpDbContext -o Migrations
+﻿add-migration Init -Context IdpDbContext -o Migrations
 update-database -Context IdpDbContext

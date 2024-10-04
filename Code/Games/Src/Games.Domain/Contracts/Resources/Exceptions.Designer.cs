@@ -22,24 +22,24 @@ namespace Games.Domain.Contracts.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ExceptionMessages {
+    internal class Exceptions {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ExceptionMessages() {
+        internal Exceptions() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Games.Domain.Contracts.Resources.ExceptionMessages", typeof(ExceptionMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Games.Domain.Contracts.Resources.Exceptions", typeof(Exceptions).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Games.Domain.Contracts.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,45 +61,27 @@ namespace Games.Domain.Contracts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player has been registred for this user id.
+        ///   Looks up a localized string similar to Player has invalid EntityId..
         /// </summary>
-        public static string PlayerHasBeenRegisteredForThisUserId {
-            get {
-                return ResourceManager.GetString("PlayerHasBeenRegisteredForThisUserId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Player has invalid family.
-        /// </summary>
-        public static string PlayerHasInvalidFamily {
-            get {
-                return ResourceManager.GetString("PlayerHasInvalidFamily", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Player has invalid id.
-        /// </summary>
-        public static string PlayerHasInvalidId {
+        internal static string PlayerHasInvalidId {
             get {
                 return ResourceManager.GetString("PlayerHasInvalidId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player has invalid name.
+        ///   Looks up a localized string similar to Player has invalid first name or last name..
         /// </summary>
-        public static string PlayerHasInvalidName {
+        internal static string PlayerHasInvalidName {
             get {
                 return ResourceManager.GetString("PlayerHasInvalidName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player has invalid user id.
+        ///   Looks up a localized string similar to Player has invalid user id..
         /// </summary>
-        public static string PlayerHasInvalidUserId {
+        internal static string PlayerHasInvalidUserId {
             get {
                 return ResourceManager.GetString("PlayerHasInvalidUserId", resourceCulture);
             }

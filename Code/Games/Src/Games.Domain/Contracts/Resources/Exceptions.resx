@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PlayerHasBeenRegisteredForThisUserId" xml:space="preserve">
-    <value>Player has been registred for this user id</value>
-  </data>
-  <data name="PlayerHasInvalidFamily" xml:space="preserve">
-    <value>Player has invalid family</value>
+  <data name="PlayerHasInvalidName" xml:space="preserve">
+    <value>Player has invalid first name or last name.</value>
   </data>
   <data name="PlayerHasInvalidId" xml:space="preserve">
-    <value>Player has invalid id</value>
-  </data>
-  <data name="PlayerHasInvalidName" xml:space="preserve">
-    <value>Player has invalid name</value>
+    <value>Player has invalid EntityId.</value>
   </data>
   <data name="PlayerHasInvalidUserId" xml:space="preserve">
-    <value>Player has invalid user id</value>
+    <value>Player has invalid user id.</value>
   </data>
 </root>

@@ -1,10 +1,11 @@
 ﻿using Framework.Presentation.RestApi.Extensions;
 using Framework.Presentation.RestApi.Filters;
-using Games.Application.PlayerAggregate.CommandHandlers;
 using Games.Application.PlayerAggregate.Commands;
-using Games.Domain.Contracts.DomainEvents.PlayerAggregate;
-using Games.Domain.PlayerAggregate.Data;
+using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
+using Games.Domain.PlayerAggregate.Contracts;
+using Games.Domain.PlayerAggregate.DomainEvents;
 using Games.Persistence.EventStore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Games.ServiceHost;
@@ -23,7 +24,7 @@ public static class ServiceConfiguration
             .AddRouting(options => options.LowercaseUrls = true)
             .AddEndpointsApiExplorer()
             .AddDomainServices()
-            .AddCommandHandlers(typeof(PlayerCommandHandler).Assembly)
+            .AddCommandHandlers(typeof(RegisterPlayerCommandHandler).Assembly)
             .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false", typeof(PlayerRegistered).Assembly);
 
         builder.Services.AddScoped<IPlayerRepository,PlayerRepository>();
@@ -57,6 +58,25 @@ public static class ServiceConfiguration
             options.OperationFilter<AuthorizeCheckOperationFilter>();
         });
 
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("players_api_access", policy => policy.RequireClaim("scope", "players"));
+        });
+        
+        builder.Services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "https://localhost:5001";
+
+                options.MapInboundClaims = false;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
+
+
+            });
         return builder.Build();
 
 
@@ -66,6 +86,20 @@ public static class ServiceConfiguration
     {
 
         app.UseSwagger();
+
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Players API V1");
+
+            options.OAuthAppName("Players Swagger API");
+
+            options.OAuthClientId("players-api-swagger");
+
+            options.OAuthScopes("profile", "openid", "players");
+
+            options.OAuthUsePkce();
+
+        });
 
         app.UseSwaggerUI();
 

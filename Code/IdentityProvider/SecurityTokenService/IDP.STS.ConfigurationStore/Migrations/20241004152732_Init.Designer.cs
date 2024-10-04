@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IDP.STS.ConfigurationStore.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20230824180019_Init")]
+    [Migration("20241004152732_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace IDP.STS.ConfigurationStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -436,6 +436,9 @@ namespace IDP.STS.ConfigurationStore.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("PushedAuthorizationLifetime")
+                        .HasColumnType("int");
+
                     b.Property<int>("RefreshTokenExpiration")
                         .HasColumnType("int");
 
@@ -452,6 +455,9 @@ namespace IDP.STS.ConfigurationStore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("RequirePkce")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RequirePushedAuthorization")
                         .HasColumnType("bit");
 
                     b.Property<bool>("RequireRequestObject")

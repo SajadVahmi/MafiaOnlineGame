@@ -2,6 +2,6 @@
 
 public interface IIdGenerator
 {
-    public string GetNewString();
-    public Guid GetNewGuid();
+    public string GetNewId();
+
 }

@@ -28,9 +28,9 @@ public static class Config
                 ClientId = "players-api-swagger",
                 RequireClientSecret = false,
                 AllowedGrantTypes = GrantTypes.Code,
-                RequirePkce = true,
-                RedirectUris = { "http://localhost:5171/swagger/oauth2-redirect.html" },
-                AllowedCorsOrigins = { "http://localhost:5171" },
+                RequirePkce = false,
+                RedirectUris = { "https://localhost:7002/swagger/oauth2-redirect.html" },
+                AllowedCorsOrigins = { "https://localhost:7002" },
                 AllowOfflineAccess = true,
                 AllowedScopes = {
                     IdentityServerConstants.StandardScopes.OpenId,

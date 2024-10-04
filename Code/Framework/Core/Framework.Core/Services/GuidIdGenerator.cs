@@ -3,12 +3,7 @@ namespace Framework.Core.Services;
 
 public class GuidIdGenerator : IIdGenerator
 {
-    public Guid GetNewGuid()
-    {
-        return Guid.NewGuid();
-    }
-
-    public string GetNewString()
+    public string GetNewId()
     {
         return Guid.NewGuid().ToString();
     }

@@ -22,20 +22,14 @@ namespace Framework.Persistence.EventStore
 
         public async Task AppendEventsAsync<T, TKey>(T aggregateRoot, IJsonSerializerAdapter jsonSerializer, CancellationToken cancellationToken = default) where T : AggregateRoot<TKey> where TKey : notnull
         {
-            try
-            {
+            
                 var events = aggregateRoot.GetEvents();
                 var streamId = StreamNames.GetStreamName<T, TKey>(aggregateRoot.Id);
                 var expectedVersion = ExpectedVersionCalculator.GetExpectedVersionOfAggregate(aggregateRoot);
                 var eventData = EventDataFactory.CreateFromDomainEvents(events, jsonSerializer);
                 await client.AppendToStreamAsync(streamId, expectedVersion, eventData,
                     cancellationToken: cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+           
         }
 
     }

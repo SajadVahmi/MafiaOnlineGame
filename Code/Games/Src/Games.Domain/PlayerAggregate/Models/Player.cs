@@ -1,12 +1,12 @@
 ﻿using Framework.Core.Domain.Aggregates;
-using Games.Domain.Contracts.DomainEvents.PlayerAggregate;
+using Framework.Core.Domain.ValueObjects;
 using Games.Domain.Contracts.Enums;
 using Games.Domain.PlayerAggregate.Arguments;
-using Guard = Games.Domain.PlayerAggregate.Models.PlayerGuards;
+using Games.Domain.PlayerAggregate.DomainEvents;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
-public class Player:AggregateRoot<PlayerId>
+public partial class Player:AggregateRoot<EntityId>
 {
     public static Player Register(PlayerRegistrationArgs args)
     {
@@ -20,17 +20,35 @@ public class Player:AggregateRoot<PlayerId>
     protected Player(PlayerRegistrationArgs args)
     {
         Causes(new PlayerRegistered(
-            Id:args.IdGenerator.GetNewString(),
-            EventId:args.IdGenerator.GetNewGuid(),
-            WhenItHappened:args.Clock.Now(),
-            Name:args.Name,
-            Family:args.Family,
+            EventId: args.IdGenerator.GetNewId(),
+            Id:args.IdGenerator.GetNewId(),
+            FirstName: args.FirstName,
+            LastName: args.LastName,
             Gender:args.Gender,
-            UserId:args.UserId));
+            UserId:args.UserId,
+            WhenItHappened: args.Clock.Now()));
     }
-    
-    public PlayerName Name { get;private set; }
-    public PlayerName Family { get;private set; }
+
+    public PlayerName Name { get; private set; } = null!;
     public Gender Gender { get;private set; }
-    public PlayerUserId UserId { get;private set; }
+    public PlayerUserId UserId { get;private set; } = null!;
+
+    public void Rename(PlayerRenameArgs args)
+    {
+        Causes(new PlayerRenamed(
+            EventId: args.IdGenerator.GetNewId(),
+            Id: args.IdGenerator.GetNewId(),
+            FirstName: args.FirstName,
+            LastName: args.LastName,
+            WhenItHappened: args.Clock.Now()));
+    }
+
+    public void ChangeGender(PlayerChangeGenderArgs args)
+    {
+        Causes(new PlayerGenderChanged(
+            EventId: args.IdGenerator.GetNewId(),
+            Id: args.IdGenerator.GetNewId(),
+            Gender: args.Gender,
+            WhenItHappened: args.Clock.Now()));
+    }
 }

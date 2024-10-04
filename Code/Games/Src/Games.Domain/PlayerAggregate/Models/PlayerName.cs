@@ -1,28 +1,35 @@
-﻿using Framework.Core.Domain.ValueObjects;
-using Games.Domain.Contracts.Constants;
-using Games.Domain.PlayerAggregate.Exceptions;
+﻿using Framework.Core.Domain.Exceptions;
+using Framework.Core.Domain.ValueObjects;
+using Games.Domain.Contracts.Resources;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
 public class PlayerName : ValueObject<PlayerName>
 {
-    public static PlayerName Instantiate(string value) => new(value);
+    public static PlayerName Instantiate(string firstName, string lastName) 
+        => new(firstName, lastName);
 
     protected PlayerName() { }
 
-    protected PlayerName(string value)
+    protected PlayerName(string firstName, string lastName)
     {
-        if (string.IsNullOrEmpty(value)||
-            value.Length>PlayerConstants.PlayerNameValidLength)
-            throw new PlayerNameHasInvalidValueException();
-
-        Value = value;
+        FirstName = firstName;
+        LastName = lastName;
+        Validate();
     }
 
-    public string Value { get; set; }
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Value;
+        yield return FirstName;
+        yield return LastName;
+    }
+
+    public sealed override void Validate()
+    {
+        if (string.IsNullOrEmpty(FirstName.Trim()) || string.IsNullOrEmpty(LastName.Trim()))
+            throw new BusinessException(Exceptions.PlayerHasInvalidName);
     }
 }

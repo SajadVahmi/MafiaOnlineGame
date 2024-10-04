@@ -11,7 +11,7 @@ namespace Framework.Persistence.EventStore
         {
             var data = jsonSerializerAdapter.Serialize(domainEvent);
             return new EventData(
-                eventId: Uuid.FromGuid(domainEvent.EventId), 
+                eventId: Uuid.FromGuid(Guid.Parse(domainEvent.EventId)), 
                 type: domainEvent.GetType().Name,
                 data: Encoding.UTF8.GetBytes(data ?? throw new InvalidOperationException()),
                 metadata: new byte[] {}

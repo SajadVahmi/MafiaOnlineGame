@@ -30,5 +30,5 @@ public abstract class ValueObject<TValueObject> : IEquatable<TValueObject>
     }
     public static bool operator !=(ValueObject<TValueObject> right, ValueObject<TValueObject> left) => !(right == left);
 
-
+    public abstract void Validate();
 }

@@ -1,14 +1,13 @@
 ﻿using Framework.Core.Application.Commands;
 using Framework.Core.Contracts;
-using Games.Application.PlayerAggregate.Commands;
 using Games.Application.PlayerAggregate.Factories;
-using Games.Domain.PlayerAggregate.Data;
+using Games.Domain.PlayerAggregate.Contracts;
 using Games.Domain.PlayerAggregate.Models;
 using Games.Domain.PlayerAggregate.Services;
 
-namespace Games.Application.PlayerAggregate.CommandHandlers;
+namespace Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 
-public class PlayerCommandHandler(
+public class RegisterPlayerCommandHandler(
     IPlayerRepository playerRepository,
     IIdGenerator idGenerator,
     IClock clock,

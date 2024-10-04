@@ -1,17 +1,18 @@
-﻿using Framework.Persistence.EventStore.Repositories;
-using Games.Domain.PlayerAggregate.Data;
+﻿using Framework.Core.Domain.ValueObjects;
+using Framework.Persistence.EventStore.Repositories;
+using Games.Domain.PlayerAggregate.Contracts;
 using Games.Domain.PlayerAggregate.Models;
 
 namespace Games.Persistence.EventStore;
 
-public class PlayerRepository(IEventSourceRepository<Player, PlayerId> repository) : IPlayerRepository
+public class PlayerRepository(IEventSourceRepository<Player, EntityId> repository) : IPlayerRepository
 {
     public Task AddAsync(Player player, CancellationToken cancellationToken = default)
     {
         return repository.AppendEventsAsync(player,cancellationToken);
     }
 
-    public Task<Player> GetAsync(PlayerId id, CancellationToken cancellationToken = default)
+    public Task<Player> GetAsync(EntityId id, CancellationToken cancellationToken = default)
     {
         return repository.GetByIdAsync(id, cancellationToken);
     }
