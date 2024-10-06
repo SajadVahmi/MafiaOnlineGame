@@ -1,10 +1,10 @@
 ﻿using Framework.Presentation.RestApi.Extensions;
 using Framework.Presentation.RestApi.Filters;
-using Games.Application.PlayerAggregate.Commands;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Domain.PlayerAggregate.Contracts;
 using Games.Domain.PlayerAggregate.DomainEvents;
 using Games.Persistence.EventStore;
+using Games.Query._Shared;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -25,7 +25,9 @@ public static class ServiceConfiguration
             .AddEndpointsApiExplorer()
             .AddDomainServices()
             .AddCommandHandlers(typeof(RegisterPlayerCommandHandler).Assembly)
-            .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false", typeof(PlayerRegistered).Assembly);
+            .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false",
+                typeof(PlayerRegistered).Assembly)
+            .AddQueryDbContext("Data Source=.;Initial Catalog=Games;User ID=sa;Password=1qaz!QAZ;TrustServerCertificate=True");
 
         builder.Services.AddScoped<IPlayerRepository,PlayerRepository>();
         builder.Services.AddSwaggerGen(options =>

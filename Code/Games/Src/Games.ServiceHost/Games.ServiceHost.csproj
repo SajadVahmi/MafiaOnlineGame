@@ -5,12 +5,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Games.Application\Games.Application.csproj" />
     <ProjectReference Include="..\Games.Domain\Games.Domain.csproj" />
     <ProjectReference Include="..\Games.Persistence.EventStore\Games.Persistence.EventStore.csproj" />
+    <ProjectReference Include="..\Games.Query\Games.Query.csproj" />
     <ProjectReference Include="..\Games.RestApi\Games.RestApi.csproj" />
   </ItemGroup>
 
