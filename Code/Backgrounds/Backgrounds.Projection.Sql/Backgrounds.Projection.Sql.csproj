@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Backgrounds.Projection.Sql-a2bcd25f-98fb-43c3-b171-b3e3414634c1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Core\Framework.Core.Domain\Framework.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\Framework\Infrastructure\Persistence\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
+    <ProjectReference Include="..\..\Games\Src\Games.Domain\Games.Domain.csproj" />
+  </ItemGroup>
+</Project>

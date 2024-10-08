@@ -65,9 +65,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.ServiceHost", "Games\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Presentation.RestApi", "Framework\Presentation\Framework.Presentation.RestApi\Framework.Presentation.RestApi.csproj", "{6A9AF9FF-90FE-4EBE-91FF-5A45B665AA26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Games.Projection.SqlServer", "Games\Src\Games.Projection.SqlServer\Games.Projection.SqlServer.csproj", "{E73B742F-B391-4D14-8EE0-73F2AD2AF201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Projection.SqlServer", "Games\Src\Games.Projection.SqlServer\Games.Projection.SqlServer.csproj", "{E73B742F-B391-4D14-8EE0-73F2AD2AF201}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Games.Query", "Games\Src\Games.Query\Games.Query.csproj", "{34DB6D45-E031-42D8-8179-2AA6D415F565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Query", "Games\Src\Games.Query\Games.Query.csproj", "{34DB6D45-E031-42D8-8179-2AA6D415F565}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backgrounds", "Backgrounds", "{A4EED4DD-D0E0-446B-B5F2-3A6733EDB8AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgrounds.Projection.Sql", "Backgrounds\Backgrounds.Projection.Sql\Backgrounds.Projection.Sql.csproj", "{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +159,10 @@ Global
 		{34DB6D45-E031-42D8-8179-2AA6D415F565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34DB6D45-E031-42D8-8179-2AA6D415F565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34DB6D45-E031-42D8-8179-2AA6D415F565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +198,7 @@ Global
 		{6A9AF9FF-90FE-4EBE-91FF-5A45B665AA26} = {171F15D3-9801-48EC-A0DB-22F1D596C25C}
 		{E73B742F-B391-4D14-8EE0-73F2AD2AF201} = {13F81099-9E24-4429-8F37-C32F25C39D1B}
 		{34DB6D45-E031-42D8-8179-2AA6D415F565} = {13F81099-9E24-4429-8F37-C32F25C39D1B}
+		{B55D5E4A-6215-4C8E-8C34-54F94AB3F890} = {A4EED4DD-D0E0-446B-B5F2-3A6733EDB8AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {897DF787-74FF-43C5-8CA4-5913E18ABCBF}
