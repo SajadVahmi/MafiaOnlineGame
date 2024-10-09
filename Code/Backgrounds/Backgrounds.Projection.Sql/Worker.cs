@@ -5,6 +5,7 @@ using Framework.Core.Domain.Events;
 using Framework.Persistence.EventStore;
 using Games.Domain.PlayerAggregate.DomainEvents;
 using Newtonsoft.Json;
+using static EventStore.Client.StreamMessage;
 
 namespace Backgrounds.Projection.Sql
 {
@@ -25,6 +26,7 @@ namespace Backgrounds.Projection.Sql
 
             await foreach (var message in subscription.Messages.WithCancellation(cancellationToken))
             {
+
                 switch (message)
                 {
                     case StreamMessage.Event(var @event):
@@ -40,23 +42,28 @@ namespace Backgrounds.Projection.Sql
         {
             try
             {
-                if (!@event.OriginalEvent.EventType.StartsWith("$"))
+                
+                if (@event.OriginalEvent.EventType.StartsWith("$"))
+                    return;
+
+                Console.WriteLine($"Event Appeared : {@event.OriginalEvent.EventType}");
+
+                //TODO: consider using domain event factory
+                var type = typeResolver.GetType(@event.OriginalEvent.EventType);
+
+                if (type == null)
                 {
-                    Console.WriteLine($"Event Appeared : {@event.OriginalEvent.EventType}");
-
-                    //TODO: consider using domain event factory
-                    var type = typeResolver.GetType(@event.OriginalEvent.EventType);
-                    if (type== null)
-                    {
-                        Console.WriteLine($"Type is null");
-                        return;
-                    }
-                    var body = Encoding.UTF8.GetString(@event.OriginalEvent.Data.ToArray());
-                    var domainEvent = JsonConvert.DeserializeObject(body, type);
-                    if (domainEvent is not null)
-                        await eventBus.Publish((dynamic)domainEvent);      //In-Memory
-
+                    Console.WriteLine($"Type is null");
+                    return;
                 }
+                var body = Encoding.UTF8.GetString(@event.OriginalEvent.Data.ToArray());
+                var domainEvent = JsonConvert.DeserializeObject(body, type);
+                if (domainEvent is not null)
+                    await eventBus.Publish((dynamic)domainEvent);      //In-Memory
+                
+                cursor.MoveTo(@event.OriginalPosition!.Value);
+                
+
             }
             catch (Exception ex)
             {
