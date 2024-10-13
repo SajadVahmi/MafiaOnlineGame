@@ -4,10 +4,10 @@ namespace Backgrounds.Projection.Sql._Shared;
 
 public class EventBus(IServiceProvider serviceProvider) : IEventBus
 {
-    public async Task Publish<T>(T eventToPublish) where T : IEvent
+    public async Task PublishAsync<T>(T eventToPublish,CancellationToken cancellationToken=default) where T : IEvent
     {
         var handler = serviceProvider.GetService<IEventHandler<T>>();
         if (handler is not null)
-            await handler.Handle(eventToPublish);
+            await handler.HandleAsync(eventToPublish,cancellationToken);
     }
 }

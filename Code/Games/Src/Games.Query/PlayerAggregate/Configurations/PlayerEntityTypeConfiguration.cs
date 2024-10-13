@@ -11,9 +11,5 @@ public class PlayerEntityTypeConfiguration : IEntityTypeConfiguration<PlayerQuer
     {
         builder.ToTable(TableNames.Player);
 
-        builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.Id).ValueGeneratedNever();
-
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IEventBus
 {
-    Task Publish<T>(T eventToPublish) where T : IEvent;
+    Task PublishAsync<T>(T eventToPublish,CancellationToken cancellationToken=default) where T : IEvent;
 }

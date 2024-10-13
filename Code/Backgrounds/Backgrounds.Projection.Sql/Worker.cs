@@ -46,6 +46,8 @@ namespace Backgrounds.Projection.Sql
                 if (@event.OriginalEvent.EventType.StartsWith("$"))
                     return;
 
+                cursor.MoveTo(@event.OriginalPosition!.Value);
+
                 Console.WriteLine($"Event Appeared : {@event.OriginalEvent.EventType}");
 
                 //TODO: consider using domain event factory
@@ -59,10 +61,7 @@ namespace Backgrounds.Projection.Sql
                 var body = Encoding.UTF8.GetString(@event.OriginalEvent.Data.ToArray());
                 var domainEvent = JsonConvert.DeserializeObject(body, type);
                 if (domainEvent is not null)
-                    await eventBus.Publish((dynamic)domainEvent);      //In-Memory
-                
-                cursor.MoveTo(@event.OriginalPosition!.Value);
-                
+                    await eventBus.PublishAsync((dynamic)domainEvent);      //In-Memory
 
             }
             catch (Exception ex)

@@ -8,17 +8,15 @@ using Framework.Persistence.EventStore;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddHostedService<Worker>();
-builder.Services.AddSingleton<ICursor>(_=>new Cursor(9592));
+
 builder.Services.AddSingleton<IEventTypeResolver, EventTypeResolver>();
 builder.Services.AddSingleton<IEventBus,EventBus>();
-
 builder.Services.Scan(s => s.FromAssemblies(typeof(PlayerRegisteredHandler).Assembly)
     .AddClasses(c => c.AssignableToAny(typeof(IEventHandler<>)))
     .AsImplementedInterfaces()
     .WithSingletonLifetime());
 
-builder.Services.Decorate(typeof(IEventHandler<>), typeof(CursorAwareHandler<>));
-
+builder.Services.ConfigureSqlServerCursor(builder.Configuration);
 
 var settings = EventStoreClientSettings.Create("esdb://localhost:2113?tls=false&tlsVerifyCert=false");
 builder.Services.AddSingleton(_=> new EventStoreClient(settings));

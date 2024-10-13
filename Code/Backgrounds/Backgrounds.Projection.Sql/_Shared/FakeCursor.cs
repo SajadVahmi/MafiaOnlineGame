@@ -14,21 +14,3 @@ public class FakeCursor : ICursor
         throw new System.NotImplementedException();
     }
 }
-
-
-public class Cursor : ICursor
-{
-    private Position _position;
-    public Cursor() => _position = Position.Start;
-    public Cursor(ulong position) => _position =new Position(position,position);
-
-    public Position CurrentPosition()
-    {
-        return _position;
-    }
-
-    public void MoveTo(Position position)
-    {
-        _position=position;
-    }
-}

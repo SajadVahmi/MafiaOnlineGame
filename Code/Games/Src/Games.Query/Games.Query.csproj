@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="_Shared\Migrations\" />
+  </ItemGroup>
+
 </Project>
