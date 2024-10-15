@@ -4,5 +4,5 @@ public abstract class QueryHandler<TQuery, TResponse> : IQueryHandler<TQuery, TR
     where TQuery : class, IQuery<TResponse>
 {
 
-    public abstract Task<QueryResult<TResponse>> HandleAsync(TQuery query, CancellationToken cancellationToken = default);
+    public abstract Task<TResponse> HandleAsync(TQuery query, CancellationToken cancellationToken = default);
 }

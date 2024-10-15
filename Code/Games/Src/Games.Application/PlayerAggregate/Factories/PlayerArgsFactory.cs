@@ -16,6 +16,7 @@ public static class PlayerArgsFactory
         {
             FirstName = command.FirstName,
             LastName = command.LastName,
+            Gender = command.Gender,
             UserId = authenticatedUser.GetSub()!,
             Clock = clock,
             IdGenerator = idGenerator,

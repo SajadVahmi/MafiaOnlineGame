@@ -37,7 +37,7 @@ public partial class Player:AggregateRoot<EntityId>
     {
         Causes(new PlayerRenamed(
             EventId: args.IdGenerator.GetNewId(),
-            Id: args.IdGenerator.GetNewId(),
+            Id: Id.Value,
             FirstName: args.FirstName,
             LastName: args.LastName,
             WhenItHappened: args.Clock.Now()));
@@ -47,7 +47,7 @@ public partial class Player:AggregateRoot<EntityId>
     {
         Causes(new PlayerGenderChanged(
             EventId: args.IdGenerator.GetNewId(),
-            Id: args.IdGenerator.GetNewId(),
+            Id:Id.Value,
             Gender: args.Gender,
             WhenItHappened: args.Clock.Now()));
     }

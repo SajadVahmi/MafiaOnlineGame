@@ -5,6 +5,7 @@ using Games.Domain.PlayerAggregate.Contracts;
 using Games.Domain.PlayerAggregate.DomainEvents;
 using Games.Persistence.EventStore;
 using Games.Query._Shared;
+using Games.Query.PlayerAggregate.Queries.ViewProfile;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -25,11 +26,12 @@ public static class ServiceConfiguration
             .AddEndpointsApiExplorer()
             .AddDomainServices()
             .AddCommandHandlers(typeof(RegisterPlayerCommandHandler).Assembly)
+            .AddQueryHandlers(typeof(ViewProfileQueryHandler).Assembly)
+            .AddRepositories(typeof(PlayerRepository).Assembly)
             .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false",
                 typeof(PlayerRegistered).Assembly)
             .AddQueryDbContext("Data Source=.;Initial Catalog=Games;User ID=sa;Password=1qaz!QAZ;TrustServerCertificate=True");
 
-        builder.Services.AddScoped<IPlayerRepository,PlayerRepository>();
         builder.Services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Players API", Version = "v1" });

@@ -11,7 +11,7 @@ public class PageQuery<TData> : IPageQuery<TData>
 
     public bool NeedTotalCount { get; set; }
 
-    public string SortBy { get; set; } = "EntityId";
+    public string SortBy { get; set; } = "Id";
 
     public bool SortDescending { get; set; }
 }

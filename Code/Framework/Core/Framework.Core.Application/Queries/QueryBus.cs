@@ -2,10 +2,10 @@
 
 public class QueryBus(IQueryHandlerResolver handlerResolver) : IQueryBus
 {
-    public Task<QueryResult<TResponse>> ExecuteAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken) where TQuery : class, IQuery<TResponse>
+    public Task<TResult> ExecuteAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken) where TQuery : class, IQuery<TResult>
     {
 
-        var handler = handlerResolver.ResolveHandlers<TQuery, TResponse>(query);
+        var handler = handlerResolver.ResolveHandlers<TQuery, TResult>(query);
 
         return handler.HandleAsync(query, cancellationToken);
     }

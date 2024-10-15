@@ -1,7 +1,7 @@
 ﻿namespace Framework.Core.Application.Queries;
 
-public interface IQueryHandler<in TQuery, TResponse>
-    where TQuery : class, IQuery<TResponse>
+public interface IQueryHandler<in TQuery, TResult>
+    where TQuery : class, IQuery<TResult>
 {
-    Task<QueryResult<TResponse>> HandleAsync(TQuery request, CancellationToken cancellationToken = default);
+    Task<TResult> HandleAsync(TQuery request, CancellationToken cancellationToken = default);
 }

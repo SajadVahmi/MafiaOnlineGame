@@ -71,7 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Query", "Games\Src\Ga
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backgrounds", "Backgrounds", "{A4EED4DD-D0E0-446B-B5F2-3A6733EDB8AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backgrounds.Projection.Sql", "Backgrounds\Backgrounds.Projection.Sql\Backgrounds.Projection.Sql.csproj", "{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backgrounds.Projection.Sql", "Backgrounds\Backgrounds.Projection.Sql\Backgrounds.Projection.Sql.csproj", "{B55D5E4A-6215-4C8E-8C34-54F94AB3F890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

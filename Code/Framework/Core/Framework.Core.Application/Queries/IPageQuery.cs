@@ -1,6 +1,6 @@
 ﻿namespace Framework.Core.Application.Queries;
 
-public interface IPageQuery<TResponse> : IQuery<TResponse>
+public interface IPageQuery<TResult> : IQuery<TResult>
 {
     public int PageNumber { get; set; }
 

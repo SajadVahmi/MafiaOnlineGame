@@ -25,4 +25,10 @@ public partial class Player
             lastName: @event.LastName);
 
     }
+
+    void When(PlayerGenderChanged @event)
+    {
+        Gender = @event.Gender;
+
+    }
 }

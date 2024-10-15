@@ -2,7 +2,7 @@
 {
     public interface IQueryBus
     {
-        Task<QueryResult<TResponse>> ExecuteAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default) where TQuery : class, IQuery<TResponse>;
+        Task<TResult> ExecuteAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default) where TQuery : class, IQuery<TResult>;
     }
 
 

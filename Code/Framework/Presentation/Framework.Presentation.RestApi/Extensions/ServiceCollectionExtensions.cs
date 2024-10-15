@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 using EventStore.Client;
+using Framework.Core.Application.Queries;
 
 namespace Framework.Presentation.RestApi.Extensions;
 
@@ -34,10 +35,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCoreServices(this IServiceCollection services)
     {
         services.AddScoped<ICommandHandlerResolver, CommandHandlerResolver>();
+       
+        services.AddScoped<IQueryHandlerResolver, QueryHandlerResolver>();
 
         services.AddSingleton<IClock, UtcClock>();
 
         services.AddTransient<ICommandBus, CommandBus>();
+        
+        services.AddTransient<IQueryBus, QueryBus>();
 
         services.AddSingleton<IIdGenerator, GuidIdGenerator>();
 
@@ -58,6 +63,16 @@ public static class ServiceCollectionExtensions
     {
         services.Scan(s => s.FromAssemblies(assemblies)
             .AddClasses(c => c.AssignableToAny(typeof(ICommandHandler<>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+
+        return services;
+    }
+
+    public static IServiceCollection AddQueryHandlers(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        services.Scan(s => s.FromAssemblies(assemblies)
+            .AddClasses(c => c.AssignableToAny(typeof(IQueryHandler<,>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
