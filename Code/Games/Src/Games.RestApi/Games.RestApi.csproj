@@ -9,8 +9,7 @@
   
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Infrastructure\ObjectMappers\Framework.ObjectMapper.AutoMapper\Framework.ObjectMapper.AutoMapper.csproj" />
-    <ProjectReference Include="..\..\..\Framework\Presentation\Framework.Presentation.RestApi\Framework.Presentation.RestApi.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Framework.Presentation.RestApi\Framework.Presentation.RestApi.csproj" />
     <ProjectReference Include="..\Games.Application\Games.Application.csproj" />
     <ProjectReference Include="..\Games.Query\Games.Query.csproj" />
   </ItemGroup>

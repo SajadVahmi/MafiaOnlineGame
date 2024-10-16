@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Framework.Core.Domain\Framework.Core.Domain.csproj" />
-    <ProjectReference Include="..\..\JsonSerializers\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
+    <ProjectReference Include="..\Framework.Core.Domain\Framework.Core.Domain.csproj" />
+    <ProjectReference Include="..\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Core\Framework.Core.Domain\Framework.Core.Domain.csproj" />
-    <ProjectReference Include="..\..\Framework\Infrastructure\Persistence\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Core.Domain\Framework.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
     <ProjectReference Include="..\..\Games\Src\Games.Domain\Games.Domain.csproj" />
   </ItemGroup>
 </Project>

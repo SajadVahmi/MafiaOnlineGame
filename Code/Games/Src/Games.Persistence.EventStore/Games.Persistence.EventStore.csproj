@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Infrastructure\Persistence\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
+    <ProjectReference Include="..\..\..\Framework\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
     <ProjectReference Include="..\Games.Domain\Games.Domain.csproj" />
   </ItemGroup>
 

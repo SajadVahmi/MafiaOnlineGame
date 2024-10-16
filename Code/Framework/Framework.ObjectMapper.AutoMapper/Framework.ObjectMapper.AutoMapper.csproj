@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\JsonSerializers\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
-    <ProjectReference Include="..\Framework.Test\Framework.Test.csproj" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Core\Framework.Core.csproj" />
   </ItemGroup>
 
 </Project>
