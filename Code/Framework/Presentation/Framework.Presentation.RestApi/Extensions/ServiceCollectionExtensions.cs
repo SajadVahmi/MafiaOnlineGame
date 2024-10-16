@@ -18,6 +18,7 @@ using Newtonsoft.Json.Serialization;
 using System.Reflection;
 using EventStore.Client;
 using Framework.Core.Application.Queries;
+using Framework.ObjectMapper.AutoMapper;
 
 namespace Framework.Presentation.RestApi.Extensions;
 
@@ -46,7 +47,12 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IIdGenerator, GuidIdGenerator>();
 
-        var jsonSerializerSettings = new JsonSerializerSettings()
+        return services;
+    }
+
+    public static IServiceCollection AddNewtonSoft(this IServiceCollection services,JsonSerializerSettings? jsonSerializerSettings=null)
+    {
+        jsonSerializerSettings??= new JsonSerializerSettings()
         {
             NullValueHandling = NullValueHandling.Ignore,
 
@@ -58,11 +64,15 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-
     public static IServiceCollection AddCommandHandlers(this IServiceCollection services, params Assembly[] assemblies)
     {
         services.Scan(s => s.FromAssemblies(assemblies)
             .AddClasses(c => c.AssignableToAny(typeof(ICommandHandler<>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+
+        services.Scan(s => s.FromAssemblies(assemblies)
+            .AddClasses(c => c.AssignableToAny(typeof(ICommandHandler<,>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
@@ -99,8 +109,16 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddAutoMapperConfigs(this IServiceCollection services, Assembly[] assemblies)
+    {
+        services.AddAutoMapper(assemblies);
 
-    public static IServiceCollection AddEventSourceRepositories(this IServiceCollection services
+        services.AddSingleton<IMapperAdapter, AutoMapperAdapter>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddEventSourceDatabase(this IServiceCollection services
         , string connectionString, params Assembly[] assemblies)
     {
         services.AddSingleton<IAggregateFactory>(_ => new AggregateFactory());
@@ -114,6 +132,8 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    
 
     private static IEventTypeResolver CreateEventTypeResolver(Assembly[] assemblies)
     {

@@ -5,6 +5,7 @@ namespace Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 
 public class ChangePlayerGenderCommand : ICommand
 {
-    public required string PlayerId { get; set; }
+    public string PlayerId { get; set; } = null!;
     public Gender Gender { get; set; }
 }
+

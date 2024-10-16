@@ -18,8 +18,8 @@ public class PlayerName : ValueObject<PlayerName>
         Validate();
     }
 
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
+    public string FirstName { get; } = null!;
+    public string LastName { get; } = null!;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

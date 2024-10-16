@@ -9,4 +9,9 @@ public class CommandHandlerResolver(IServiceProvider serviceProvider) : ICommand
     {
         return serviceProvider.GetRequiredService<ICommandHandler<TCommand>>();
     }
+
+    public ICommandHandler<TCommand, TResult> ResolveHandlers<TCommand, TResult>(TCommand command) where TCommand : ICommand<TResult>
+    {
+        return serviceProvider.GetRequiredService<ICommandHandler<TCommand,TResult>>();
+    }
 }

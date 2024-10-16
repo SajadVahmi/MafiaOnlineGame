@@ -15,7 +15,7 @@ public class PlayerUserId : ValueObject<PlayerUserId>
         Value = value;
         Validate();
     }
-    public string Value { get; set; } = null!;
+    public string Value { get;} = null!;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

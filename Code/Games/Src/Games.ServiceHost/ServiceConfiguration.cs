@@ -1,11 +1,11 @@
 ﻿using Framework.Presentation.RestApi.Extensions;
 using Framework.Presentation.RestApi.Filters;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
-using Games.Domain.PlayerAggregate.Contracts;
 using Games.Domain.PlayerAggregate.DomainEvents;
 using Games.Persistence.EventStore;
 using Games.Query._Shared;
 using Games.Query.PlayerAggregate.Queries.ViewProfile;
+using Games.RestApi.PlayerAggregate.Mappers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -15,6 +15,11 @@ public static class ServiceConfiguration
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        var commandHandlersAssemblies = new[] { typeof(RegisterPlayerCommandHandler).Assembly };
+        var queryHandlersAssemblies = new[] { typeof(ViewProfileQueryHandler).Assembly };
+        var repositoriesAssemblies = new[] { typeof(PlayerRepository).Assembly };
+        var domainEventsAssemblies = new[] { typeof(PlayerRegistered).Assembly };
+        var autoMappersConfigsAssemblies = new[] { typeof(PlayerMappingProfile).Assembly };
 
 
         builder.Services.AddControllers();
@@ -25,11 +30,13 @@ public static class ServiceConfiguration
             .AddRouting(options => options.LowercaseUrls = true)
             .AddEndpointsApiExplorer()
             .AddDomainServices()
-            .AddCommandHandlers(typeof(RegisterPlayerCommandHandler).Assembly)
-            .AddQueryHandlers(typeof(ViewProfileQueryHandler).Assembly)
-            .AddRepositories(typeof(PlayerRepository).Assembly)
-            .AddEventSourceRepositories("esdb://localhost:2113?tls=false&tlsVerifyCert=false",
-                typeof(PlayerRegistered).Assembly)
+            .AddCommandHandlers(commandHandlersAssemblies)
+            .AddQueryHandlers(queryHandlersAssemblies)
+            .AddRepositories(repositoriesAssemblies)
+            .AddNewtonSoft()
+            .AddAutoMapperConfigs(autoMappersConfigsAssemblies)
+            .AddEventSourceDatabase("esdb://localhost:2113?tls=false&tlsVerifyCert=false",
+                domainEventsAssemblies)
             .AddQueryDbContext("Data Source=.;Initial Catalog=Games;User ID=sa;Password=1qaz!QAZ;TrustServerCertificate=True");
 
         builder.Services.AddSwaggerGen(options =>
