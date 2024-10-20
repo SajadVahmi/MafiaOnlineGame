@@ -1,2 +1,0 @@
-﻿add-migration Init -Context PersistedGrantDbContext -o Migrations
-update-database -Context PersistedGrantDbContext

@@ -1,0 +1,8 @@
+﻿add-migration Init -Context IdpDbContext -o Migrations/IdentityStore
+update-database -Context IdpDbContext
+
+add-migration Init -Context PersistedGrantDbContext -o Migrations/OperationalStore
+update-database -Context PersistedGrantDbContext
+
+add-migration Init -Context ConfigurationDbContext -o Migrations/ConfigurationStore
+update-database -Context ConfigurationDbContext
