@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Application.Commands;
-using Framework.Core.Contracts;
+using Framework.Core.ServiceContracts;
 using Games.Application.PlayerAggregate.Dto;
 using Games.Application.PlayerAggregate.Factories;
 using Games.Domain.PlayerAggregate.Contracts;

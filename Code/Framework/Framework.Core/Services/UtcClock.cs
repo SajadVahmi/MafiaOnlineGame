@@ -1,4 +1,4 @@
-﻿using Framework.Core.Contracts;
+﻿using Framework.Core.ServiceContracts;
 
 namespace Framework.Core.Services;
 

@@ -1,4 +1,4 @@
-﻿using Framework.Core.Domain.Data;
+﻿using Framework.Core.Domain.Repository;
 using Framework.Core.Domain.ValueObjects;
 using Games.Domain.PlayerAggregate.Models;
 

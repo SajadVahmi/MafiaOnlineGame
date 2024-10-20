@@ -18,9 +18,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Framework.Core.Application\Framework.Core.Application.csproj" />
 	  <ProjectReference Include="..\Framework.Core\Framework.Core.csproj" />
-	  <ProjectReference Include="..\Framework.JsonSerializer.NewtonSoft\Framework.JsonSerializer.NewtonSoft.csproj" />
-	  <ProjectReference Include="..\Framework.ObjectMapper.AutoMapper\Framework.ObjectMapper.AutoMapper.csproj" />
-	  <ProjectReference Include="..\Framework.Persistence.EventStore\Framework.Persistence.EventStore.csproj" />
 	</ItemGroup>
 
 </Project>

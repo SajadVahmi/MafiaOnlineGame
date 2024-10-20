@@ -1,4 +1,4 @@
-﻿using Framework.Core.Application.Queries;
+﻿using Framework.Core.Domain.Queries;
 using Games.Domain.Contracts.Enums;
 
 namespace Games.Query.PlayerAggregate.Queries.ViewProfile;

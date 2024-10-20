@@ -1,11 +1,10 @@
 ﻿using Framework.Core.Application.Commands;
-using Framework.Core.Application.Queries;
-using Framework.Core.Contracts;
+using Framework.Core.Domain.Queries;
+using Framework.Core.ServiceContracts;
 using Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Application.PlayerAggregate.Commands.RenamePlayer;
 using Games.Application.PlayerAggregate.Dto;
-using Games.Domain.PlayerAggregate.Models;
 using Games.Query.PlayerAggregate.Queries.ViewProfile;
 using Games.RestApi.PlayerAggregate.Requests;
 using Games.RestApi.PlayerAggregate.Responses;

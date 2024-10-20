@@ -1,4 +1,4 @@
-﻿using Framework.Core.Contracts;
+﻿using Framework.Core.ServiceContracts;
 using Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Application.PlayerAggregate.Commands.RenamePlayer;

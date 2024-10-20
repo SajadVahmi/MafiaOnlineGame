@@ -1,4 +1,4 @@
-﻿using Framework.Core.Contracts;
+﻿using Framework.Core.ServiceContracts;
 using Games.Domain.Contracts.Enums;
 using Games.Domain.PlayerAggregate.Services;
 

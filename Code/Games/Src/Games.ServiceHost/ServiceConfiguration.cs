@@ -1,4 +1,4 @@
-﻿using Framework.Presentation.RestApi.Extensions;
+﻿using Framework.Presentation.AspNet.Extensions;
 using Framework.Presentation.RestApi.Filters;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Domain.PlayerAggregate.DomainEvents;

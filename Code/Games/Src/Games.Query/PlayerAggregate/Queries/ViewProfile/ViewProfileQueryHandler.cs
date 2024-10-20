@@ -1,5 +1,5 @@
-﻿using Framework.Core.Application.Queries;
-using Framework.Core.Contracts;
+﻿using Framework.Core.Domain.Queries;
+using Framework.Core.ServiceContracts;
 using Games.Query._Shared.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
