@@ -5,7 +5,7 @@ namespace Framework.Persistence.EventStore;
 
 public class SqlSnapshotStore : ISnapshotStore
 {
-    public Task<ISnapshot> GetLatestSnapshotOf<T, TKey>(TKey id) where T : AggregateRoot<TKey>
+    public Task<ISnapshot> GetLatestSnapshotOf<T, TKey>(TKey id) where T : AggregateRoot<TKey> where TKey : notnull
     {
         //var streamId = "........";
         //.... Excute query return
@@ -13,7 +13,7 @@ public class SqlSnapshotStore : ISnapshotStore
         return Task.FromResult<ISnapshot>(EmptySnapshot.Instance);
     }
 
-    public Task<TSnapshot> GetLatestSnapshotOf<T, TKey, TSnapshot>(TKey id) where T : AggregateRoot<TKey> where TSnapshot : ISnapshot
+    public Task<TSnapshot> GetLatestSnapshotOf<T, TKey, TSnapshot>(TKey id) where T : AggregateRoot<TKey> where TSnapshot : ISnapshot where TKey : notnull
     {
         throw new NotImplementedException();
     }

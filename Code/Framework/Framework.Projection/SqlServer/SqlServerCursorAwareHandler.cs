@@ -24,10 +24,6 @@ public abstract class SqlServerCursorAwareHandler<T>(ICursor cursor,SqlServerCur
 
             scope.Complete();
         }
-        catch (Exception e)
-        {
-            throw;
-        }
         finally
         {
 

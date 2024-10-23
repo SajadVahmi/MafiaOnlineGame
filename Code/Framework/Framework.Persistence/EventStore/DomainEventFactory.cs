@@ -21,6 +21,8 @@ namespace Framework.Persistence.EventStore
         public static IDomainEvent Create(ResolvedEvent @event, IEventTypeResolver typeResolver, IJsonSerializerAdapter jsonSerializer)
         {
             var type = typeResolver.GetType(@event.Event.EventType);
+            if (type == null)
+                throw new Exception("Cannot resolve type of event");
             var body = Encoding.UTF8.GetString(@event.Event.Data.ToArray());
             body = ApplyMappings(body, type);
             return ((IDomainEvent)jsonSerializer.Deserialize(body, type)!);

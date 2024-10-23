@@ -8,5 +8,5 @@ public class RegisteredPlayerDto
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public Gender Gender { get; set; }
-    public string UserId { get; set; }
+    public string UserId { get; set; } = null!;
 }

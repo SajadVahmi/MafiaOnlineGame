@@ -15,10 +15,12 @@ public class EventTypeResolver : IEventTypeResolver
         });
     }
 
-    public Type GetType(string typeName)
+    public Type? GetType(string typeName)
     {
+
         if (_types.ContainsKey(typeName))
             return _types[typeName];
+
         return null;
     }
 }

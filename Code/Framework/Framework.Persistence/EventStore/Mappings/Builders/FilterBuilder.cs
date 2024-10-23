@@ -6,8 +6,8 @@ namespace Framework.Persistence.EventStore.Mappings.Builders;
 
 public class FilterBuilder : IFilterBuilder, IOperationFilterBuilder
 {
-    private readonly List<IFilter> _filters = new List<IFilter>();
-    private ICondition _currentCondition;
+    private readonly List<IFilter> _filters = new();
+    private ICondition _currentCondition = null!;
     public IOperationFilterBuilder WhenAbsent(string propertyName)
     {
         _currentCondition = new AbsentCondition(propertyName);

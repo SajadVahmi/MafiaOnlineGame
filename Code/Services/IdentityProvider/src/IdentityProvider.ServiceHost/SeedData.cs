@@ -66,9 +66,10 @@ public class SeedData
     {
         using IServiceScope scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-        var dbContext = scope.ServiceProvider.GetService<ConfigurationDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
 
         dbContext.Database.Migrate();
+
         ArgumentNullException.ThrowIfNull(dbContext);
 
         if (dbContext.ApiScopes.Any() || dbContext.ApiScopes.Any() || dbContext.Clients.Any())

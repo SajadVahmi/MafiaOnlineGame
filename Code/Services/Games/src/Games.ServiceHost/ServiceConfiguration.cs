@@ -22,12 +22,18 @@ public static class ServiceConfiguration
         var commandHandlersAssemblies = new[] { typeof(RegisterPlayerCommandHandler).Assembly };
         var queryHandlersAssemblies = new[] { typeof(ViewProfileQueryHandler).Assembly };
         var repositoriesAssemblies = new[] { typeof(PlayerRepository).Assembly };
-       
         var autoMappersConfigsAssemblies = new[] { typeof(PlayerMappingProfile).Assembly };
 
+        var eventStoreConnectionString = builder.Configuration.GetSection("Persistence:Command").Get<string?>();
+        ArgumentException.ThrowIfNullOrEmpty(eventStoreConnectionString);
+
+        var sqlServerConnectionString = builder.Configuration.GetSection("Persistence:Query").Get<string?>();
+        ArgumentException.ThrowIfNullOrEmpty(sqlServerConnectionString);
 
         builder.Services.AddControllers();
 
+        
+        
         builder.Services
             .AddHttpContextServices()
             .AddCoreServices()
@@ -39,9 +45,10 @@ public static class ServiceConfiguration
             .AddRepositories(repositoriesAssemblies)
             .AddNewtonSoft()
             .AddAutoMapperConfigs(autoMappersConfigsAssemblies)
-            .AddEventSourceDatabase("esdb://localhost:2113?tls=false&tlsVerifyCert=false",
-                domainEventsAssemblies)
-            .AddQueryDbContext("Data Source=.;Initial Catalog=Games;User ID=sa;Password=1qaz!QAZ;TrustServerCertificate=True");
+            .AddEventSourceDatabase(eventStoreConnectionString,domainEventsAssemblies)
+            .AddQueryDbContext(sqlServerConnectionString);
+
+
 
         builder.Services.AddSwaggerGen(options =>
         {

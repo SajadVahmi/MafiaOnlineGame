@@ -4,25 +4,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace Framework.Presentation.AspNet.Services;
 
-public class AspNetCoreAuthenticatedUser : IAuthenticatedUser
+public class AspNetCoreAuthenticatedUser(IHttpContextAccessor httpContextAccessor) : IAuthenticatedUser
 {
-    private IHttpContextAccessor _httpContextAccessor;
+    protected HttpContext? HttpContext => httpContextAccessor.HttpContext;
 
-    private HttpContext _httpContext => _httpContextAccessor.HttpContext;
+    public string? GetUserAgent() => HttpContext?.Request.Headers["User-Agent"];
 
-    public AspNetCoreAuthenticatedUser(IHttpContextAccessor httpContextAccessor)
-    {
+    public string? GetUserIp() => HttpContext?.Connection.RemoteIpAddress?.ToString();
 
-        _httpContextAccessor = httpContextAccessor;
-    }
+    public string? GetUsername() => HttpContext?.User.GetClaim("username");
 
-    public string? GetUserAgent() => _httpContext?.Request.Headers["User-Agent"];
+    public bool IsCurrentUser(string userId) => string.Equals(GetSub(), userId, StringComparison.OrdinalIgnoreCase);
 
-    public string? GetUserIp() => _httpContext?.Connection?.RemoteIpAddress?.ToString();
-
-    public string? GetUsername() => _httpContext?.User?.GetClaim("username");
-
-    public bool IsCurrentUser(string userId) => string.Equals(GetSub()?.ToString(), userId, StringComparison.OrdinalIgnoreCase);
-
-    public string? GetSub() => _httpContext?.User?.GetClaim("sub");
+    public string? GetSub() => HttpContext?.User.GetClaim("sub");
 }
