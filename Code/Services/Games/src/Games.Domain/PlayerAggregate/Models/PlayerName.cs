@@ -1,6 +1,6 @@
 ﻿using Framework.Core.Domain.Exceptions;
 using Framework.Core.Domain.ValueObjects;
-using Games.Contract.Resources;
+using Games.Contract._Shared.Resources;
 
 namespace Games.Domain.PlayerAggregate.Models;
 

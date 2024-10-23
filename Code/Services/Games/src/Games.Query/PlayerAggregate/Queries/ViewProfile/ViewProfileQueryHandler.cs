@@ -12,7 +12,7 @@ public class ViewProfileQueryHandler(IAuthenticatedUser authenticatedUser, Games
         var userId = authenticatedUser.GetSub();
 
         return dbContext.Players
-            .Where(player => player.UserId == userId && player.UserId == userId)
+            .Where(player => player.UserId == userId)
             .Select(player => new ViewProfileQueryResult()
             {
                 Id = player.Id,

@@ -1,4 +1,4 @@
-﻿using Games.Contract.Enums;
+﻿using Games.Contract._Shared.Enums;
 
 namespace Games.RestApi.PlayerAggregate.Responses;
 

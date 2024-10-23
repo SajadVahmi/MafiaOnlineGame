@@ -3,14 +3,18 @@ using Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Application.PlayerAggregate.Commands.RenamePlayer;
 using Games.Domain.PlayerAggregate.Arguments;
-using Games.Domain.PlayerAggregate.Services;
+using Games.Domain.PlayerAggregate.Contracts;
 
 namespace Games.Application.PlayerAggregate.Factories;
 
 public static class PlayerArgsFactory
 {
-    public static PlayerRegistrationArgs CreateRegistrationArgs(RegisterPlayerCommand command, IIdGenerator idGenerator,
-        IAuthenticatedUser authenticatedUser,IClock clock)
+    public static PlayerRegistrationArgs CreateRegistrationArgs(
+        RegisterPlayerCommand command,
+        IIdGenerator idGenerator,
+        IPlayerDuplicationRegistrationDetector duplicationRegistrationDetector,
+        IAuthenticatedUser authenticatedUser,
+        IClock clock)
     {
         return new PlayerRegistrationArgs()
         {
@@ -19,6 +23,7 @@ public static class PlayerArgsFactory
             Gender = command.Gender,
             UserId = authenticatedUser.GetSub()!,
             Clock = clock,
+            DuplicationRegistrationDetector = duplicationRegistrationDetector,
             IdGenerator = idGenerator,
             
         };

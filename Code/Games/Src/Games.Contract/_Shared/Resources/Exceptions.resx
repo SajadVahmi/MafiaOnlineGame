@@ -126,4 +126,7 @@
   <data name="PlayerHasInvalidUserId" xml:space="preserve">
     <value>Player has invalid user id.</value>
   </data>
+  <data name="PlayerIsAlreadyRegistered" xml:space="preserve">
+    <value>This player is already registered</value>
+  </data>
 </root>

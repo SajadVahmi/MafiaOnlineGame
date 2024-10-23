@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Application.Commands;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
 
 namespace Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 

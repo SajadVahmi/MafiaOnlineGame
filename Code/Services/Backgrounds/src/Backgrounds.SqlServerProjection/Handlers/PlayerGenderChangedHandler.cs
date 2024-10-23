@@ -2,7 +2,7 @@
 using Dapper;
 using Framework.Projection;
 using Framework.Projection.SqlServer;
-using Games.Contract.DomainEvents;
+using Games.Contract.PlayerAggregate.DomainEvents;
 
 namespace Backgrounds.SqlServerProjection.Handlers;
 

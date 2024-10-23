@@ -1,37 +1,39 @@
 ﻿using Framework.Core.Domain.Aggregates;
 using Framework.Core.Domain.ValueObjects;
-using Games.Contract.DomainEvents;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
+using Games.Contract.PlayerAggregate.DomainEvents;
 using Games.Domain.PlayerAggregate.Arguments;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
-public partial class Player:AggregateRoot<EntityId>
+public partial class Player : AggregateRoot<EntityId>
 {
-    public static Player Register(PlayerRegistrationArgs args)
+    public static async Task<Player> RegisterAsync(PlayerRegistrationArgs args, CancellationToken cancellationToken = default)
     {
+        await PlayerGuards.AvoidDuplicationRegistration(args, cancellationToken);
+
         var player = new Player(args);
 
         return player;
     }
 
-    private Player(){}
+    private Player() { }
 
     protected Player(PlayerRegistrationArgs args)
     {
         Causes(new PlayerRegistered(
             EventId: args.IdGenerator.GetNewId(),
-            Id:args.IdGenerator.GetNewId(),
+            Id: args.IdGenerator.GetNewId(),
             FirstName: args.FirstName,
             LastName: args.LastName,
-            Gender:args.Gender,
-            UserId:args.UserId,
+            Gender: args.Gender,
+            UserId: args.UserId,
             WhenItHappened: args.Clock.Now()));
     }
 
     public PlayerName Name { get; private set; } = null!;
-    public Gender Gender { get;private set; }
-    public PlayerUserId UserId { get;private set; } = null!;
+    public Gender Gender { get; private set; }
+    public PlayerUserId UserId { get; private set; } = null!;
 
     public void Rename(PlayerRenameArgs args)
     {
@@ -47,7 +49,7 @@ public partial class Player:AggregateRoot<EntityId>
     {
         Causes(new PlayerGenderChanged(
             EventId: args.IdGenerator.GetNewId(),
-            Id:Id.Value,
+            Id: Id.Value,
             Gender: args.Gender,
             WhenItHappened: args.Clock.Now()));
     }

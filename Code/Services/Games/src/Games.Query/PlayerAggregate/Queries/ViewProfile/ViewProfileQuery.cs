@@ -1,11 +1,10 @@
 ﻿using Framework.Core.Domain.Queries;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
 
 namespace Games.Query.PlayerAggregate.Queries.ViewProfile;
 
 public class ViewProfileQuery:IQuery<ViewProfileQueryResult?>
 {
-    public string PlayerId { get; set; } = null!;
 }
 
 public class ViewProfileQueryResult

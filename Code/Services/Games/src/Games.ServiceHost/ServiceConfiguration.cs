@@ -1,10 +1,12 @@
 ﻿using Framework.Presentation.AspNet.Extensions;
 using Framework.Presentation.RestApi.Filters;
+using Framework.Presentation.RestApi.Middlewares;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
-using Games.Contract.DomainEvents;
+using Games.Contract.PlayerAggregate.DomainEvents;
 using Games.Persistence.EventStore;
 using Games.Query._Shared;
 using Games.Query.PlayerAggregate.Queries.ViewProfile;
+using Games.Query.PlayerAggregate.Services;
 using Games.RestApi.PlayerAggregate.Mappers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -15,10 +17,12 @@ public static class ServiceConfiguration
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        var domainEventsAssemblies = new[] { typeof(PlayerRegistered).Assembly };
+        var domainServicesAssemblies= new[] { typeof(PlayerDuplicationRegistrationDetector).Assembly };
         var commandHandlersAssemblies = new[] { typeof(RegisterPlayerCommandHandler).Assembly };
         var queryHandlersAssemblies = new[] { typeof(ViewProfileQueryHandler).Assembly };
         var repositoriesAssemblies = new[] { typeof(PlayerRepository).Assembly };
-        var domainEventsAssemblies = new[] { typeof(PlayerRegistered).Assembly };
+       
         var autoMappersConfigsAssemblies = new[] { typeof(PlayerMappingProfile).Assembly };
 
 
@@ -29,7 +33,7 @@ public static class ServiceConfiguration
             .AddCoreServices()
             .AddRouting(options => options.LowercaseUrls = true)
             .AddEndpointsApiExplorer()
-            .AddDomainServices()
+            .AddDomainServices(domainServicesAssemblies)
             .AddCommandHandlers(commandHandlersAssemblies)
             .AddQueryHandlers(queryHandlersAssemblies)
             .AddRepositories(repositoriesAssemblies)
@@ -95,6 +99,7 @@ public static class ServiceConfiguration
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        app.UseFrameworkGlobalExceptionHandlerMiddleware();
 
         app.UseSwagger();
 

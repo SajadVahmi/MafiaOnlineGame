@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Exceptions.Designer.cs">
+    <Compile Update="_Shared\Resources\Exceptions.Designer.cs">
       <DependentUpon>Exceptions.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Exceptions.resx">
+    <EmbeddedResource Update="_Shared\Resources\Exceptions.resx">
       <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>

@@ -1,10 +1,11 @@
 ﻿using Framework.Core.Application.Commands;
 using Framework.Core.Domain.Queries;
 using Framework.Core.ServiceContracts;
+using Framework.Presentation.RestApi.Responses;
 using Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Application.PlayerAggregate.Commands.RenamePlayer;
-using Games.Application.PlayerAggregate.Dto;
+using Games.Contract.PlayerAggregate.Dto;
 using Games.Query.PlayerAggregate.Queries.ViewProfile;
 using Games.RestApi.PlayerAggregate.Requests;
 using Games.RestApi.PlayerAggregate.Responses;
@@ -16,18 +17,18 @@ namespace Games.RestApi.PlayerAggregate.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/players-profile")]
+[Route("api/player-profiles")]
 public class PlayersProfileController(
     ICommandBus commandBus,
     IQueryBus queryBus,
     IMapperAdapter mapper) : ControllerBase
 {
 
-    [HttpGet("{playerId}")]
+    [HttpGet("me")]
     [ProducesResponseType(type: typeof(ViewProfileResponse), statusCode: StatusCodes.Status200OK)]
-    public async Task<IActionResult> ViewProfileAsync([FromRoute] string playerId, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> ViewProfileAsync(CancellationToken cancellationToken = default)
     {
-        var profile = await queryBus.ExecuteAsync<ViewProfileQuery, ViewProfileQueryResult?>(new ViewProfileQuery(){PlayerId = playerId}, cancellationToken);
+        var profile = await queryBus.ExecuteAsync<ViewProfileQuery, ViewProfileQueryResult?>(new ViewProfileQuery(), cancellationToken);
         if (profile == null)
             return NotFound();
         var viewProfileResponse = mapper.Map<ViewProfileResponse>(profile);
@@ -37,6 +38,7 @@ public class PlayersProfileController(
 
     [HttpPost]
     [ProducesResponseType(type: typeof(RegisteredPlayerResponse), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(type: typeof(ApiError), statusCode: StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterAsync([FromBody] RegisterPlayerRequest request, CancellationToken cancellationToken = default)
     {
         var command = mapper.Map<RegisterPlayerCommand>(request);

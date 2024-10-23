@@ -1,5 +1,5 @@
 ﻿using Framework.Core.ServiceContracts;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
 
 namespace Games.Domain.PlayerAggregate.Arguments;
 

@@ -1,6 +1,6 @@
-﻿using Games.Contract.Enums;
+﻿using Games.Contract._Shared.Enums;
 
-namespace Games.Application.PlayerAggregate.Dto;
+namespace Games.Contract.PlayerAggregate.Dto;
 
 public class RegisteredPlayerDto
 {

@@ -1,11 +1,11 @@
 ﻿using Framework.Core.Domain.Events;
-using Games.Contract.Enums;
 
-namespace Games.Contract.DomainEvents;
+namespace Games.Contract.PlayerAggregate.DomainEvents;
 
-public record PlayerGenderChanged(
+public record PlayerRenamed(
     string EventId,
     string Id,
-    Gender Gender,
+    string FirstName,
+    string LastName,
     DateTimeOffset WhenItHappened)
     : DomainEvent(EventId, WhenItHappened);

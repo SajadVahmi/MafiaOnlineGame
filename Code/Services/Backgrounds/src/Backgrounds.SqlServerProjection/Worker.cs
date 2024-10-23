@@ -3,7 +3,7 @@ using EventStore.Client;
 using Framework.Core.Domain.Events;
 using Framework.Persistence.EventStore;
 using Framework.Projection;
-using Games.Contract.DomainEvents;
+using Games.Contract.PlayerAggregate.DomainEvents;
 using Newtonsoft.Json;
 
 namespace Backgrounds.SqlServerProjection

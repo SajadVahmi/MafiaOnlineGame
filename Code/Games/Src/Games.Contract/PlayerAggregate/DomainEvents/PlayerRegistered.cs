@@ -1,7 +1,7 @@
 ﻿using Framework.Core.Domain.Events;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
 
-namespace Games.Contract.DomainEvents;
+namespace Games.Contract.PlayerAggregate.DomainEvents;
 
 public record PlayerRegistered(
     string EventId,

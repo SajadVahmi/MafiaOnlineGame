@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Games.Contract.Resources {
+namespace Games.Contract._Shared.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Games.Contract.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Games.Contract.Resources.Exceptions", typeof(Exceptions).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Games.Contract._Shared.Resources.Exceptions", typeof(Exceptions).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -84,6 +84,15 @@ namespace Games.Contract.Resources {
         public static string PlayerHasInvalidUserId {
             get {
                 return ResourceManager.GetString("PlayerHasInvalidUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This player is already registered.
+        /// </summary>
+        public static string PlayerIsAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("PlayerIsAlreadyRegistered", resourceCulture);
             }
         }
     }

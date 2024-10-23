@@ -1,4 +1,4 @@
-﻿namespace Games.Contract.Enums;
+﻿namespace Games.Contract._Shared.Enums;
 
 public enum Gender
 {

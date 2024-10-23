@@ -2,7 +2,7 @@
 using Games.Application.PlayerAggregate.Commands.ChangePlayerGender;
 using Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 using Games.Application.PlayerAggregate.Commands.RenamePlayer;
-using Games.Application.PlayerAggregate.Dto;
+using Games.Contract.PlayerAggregate.Dto;
 using Games.Domain.PlayerAggregate.Models;
 using Games.Query.PlayerAggregate.Queries.ViewProfile;
 using Games.RestApi.PlayerAggregate.Requests;
@@ -22,6 +22,8 @@ public class PlayerMappingProfile:Profile
             .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id.ToString()));
 
         CreateMap<RegisterPlayerRequest, RegisterPlayerCommand>();
+        CreateMap<RegisteredPlayerDto, RegisteredPlayerResponse>();
+
         CreateMap<RenamePlayerRequest, RenamePlayerCommand>();
         CreateMap<ChangePlayerGenderRequest, ChangePlayerGenderCommand>();
 

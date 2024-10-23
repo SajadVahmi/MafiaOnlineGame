@@ -1,6 +1,6 @@
 ﻿using Framework.Core.Application.Commands;
-using Games.Application.PlayerAggregate.Dto;
-using Games.Contract.Enums;
+using Games.Contract._Shared.Enums;
+using Games.Contract.PlayerAggregate.Dto;
 
 namespace Games.Application.PlayerAggregate.Commands.RegisterPlayer;
 

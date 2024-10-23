@@ -1,5 +1,5 @@
 ﻿using Framework.Core.Domain.ValueObjects;
-using Games.Contract.DomainEvents;
+using Games.Contract.PlayerAggregate.DomainEvents;
 
 namespace Games.Domain.PlayerAggregate.Models;
 
